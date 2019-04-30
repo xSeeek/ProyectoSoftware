@@ -12,7 +12,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       descripcion: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'No especificada'
       },
       fechaInicio: {
         type: Sequelize.DATE
@@ -34,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Beneficios');
+    return queryInterface.dropTable('Beneficio');
   }
 };

@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Notificacions');
+    return queryInterface.dropTable('Notificacion');
   }
 };

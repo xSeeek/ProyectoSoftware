@@ -1,30 +1,19 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('NotificacionLiquidacion', {
-      idLiquidación: {
+    return queryInterface.createTable('Area', {
+      idArea: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      titulo: {
+      nombre: {
         type: Sequelize.STRING
       },
       descripcion: {
-        type: Sequelize.STRING
-      },
-      estado: {
-        type: Sequelize.BOOLEAN
-      },
-      idUsuario: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        onDelete: 'SET NULL',
-        references: {
-          model: 'Usuario',
-          key: 'idUsuario'
-        }
+        type: Sequelize.STRING,
+        defaultValue: 'No especificada'
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +26,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('NotificacionLiquidacion');
+    return queryInterface.dropTable('Area');
   }
 };

@@ -33,7 +33,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       rolUsuario: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        onDelete: 'SET NULL',
+        references: {
+          model: 'Rol',
+          key: 'idRol'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +52,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Usuarios');
+    return queryInterface.dropTable('Usuario');
   }
 };
