@@ -30,7 +30,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       codigoColaborador: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        autoIncrement: true
       },
       rolUsuario: {
         allowNull: false,

@@ -1,11 +1,29 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Rol = sequelize.define('Rol', {
-    tipo: DataTypes.STRING,
-    descripcion: DataTypes.STRING
-  }, {});
+    idRol: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    tipo: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      defaultValue: 'No Especificada'
+    }
+  }, {
+    tableName: 'Rol',
+    primaryKey: 'idRol'
+  });
   Rol.associate = function(models) {
-    // associations can be defined here
+    Rol.hasMany(models.Usuario, {
+      foreignKey: 'rolUsuario',
+      as: 'Rol',
+      onDelete: 'SET NULL'
+    })
   };
   return Rol;
 };

@@ -1,14 +1,40 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Beneficio = sequelize.define('Beneficio', {
-    titulo: DataTypes.STRING,
-    descripcion: DataTypes.STRING,
-    fechaInicio: DataTypes.DATE,
+    idBeneficio: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    titulo: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    fechaInicio: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     fechaFin: DataTypes.DATE,
-    duracion: DataTypes.FLOAT
-  }, {});
-  Beneficio.associate = function(models) {
-    // associations can be defined here
+    duracion: 
+    {
+      type: DataTypes.FLOAT,
+      defaultValue: 60
+    }
+  }, {
+    tableName: 'Beneficio',
+    primaryKey: 'idBeneficio'
+  });
+  Beneficio.associate = models => {
+    Beneficio.belongsToMany(models.Area, {
+      through: 'Entidad',
+      as: 'Áreas Beneficios',
+      foreignKey: 'idBeneficio',
+      sourceKey: 'idBeneficio'
+    })
   };
   return Beneficio;
 };
