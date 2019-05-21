@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cargosRouter = require('./routes/cargos');
 var rolesRouter = require('./routes/roles');
+var areasRouter = require('./routes/areas');
+var beneficiosRouter = require('./routes/beneficios');
+var noticiasRouter = require('./routes/noticias');
 
 var app = express();
 
@@ -27,6 +30,9 @@ app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/cargos', cargosRouter);
 app.use('/api/roles', rolesRouter);
+app.use('/api/areas', areasRouter);
+app.use('/api/beneficios', beneficiosRouter);
+app.use('/api/noticias', noticiasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
