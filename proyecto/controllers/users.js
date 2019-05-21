@@ -48,7 +48,10 @@ module.exports = {
     retrieve(req, res)
     {
         return User
-            .findByPk(req.body.idUsuario, {
+            .findAll({
+                where: {
+                    email: req.body.emailUsuario
+                },
                 attributes: {
                     exclude: ['password']
                 },
@@ -68,8 +71,14 @@ module.exports = {
                 ]
             })
             .then(usuario => {
-                if(!usuario)
-                {
+                console.log(usuario)
+                if((function () {
+                    for(var key in usuario) {
+                        if(usuario.hasOwnProperty(key))
+                            return false;
+                    }
+                    return true;
+                })()){
                     return res.status(404).send({
                         message: 'Usuario no encontrado'
                     })

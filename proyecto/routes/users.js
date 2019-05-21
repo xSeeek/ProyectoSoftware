@@ -29,5 +29,8 @@ router.all('/getUser', (req, res) => res.status(405).send({
 }));
 
 router.delete('/removeUser', usersController.destroy);
+router.all('/removeUser', (req, res) => res.status(405).send({
+  message: 'Metodo no permitido'
+}));
 
 module.exports = router;

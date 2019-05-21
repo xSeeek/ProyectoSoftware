@@ -30,7 +30,7 @@
 								},
 								{
 									"key": "password",
-									"value": "gaguito2564",
+									"value": "password",
 									"type": "text"
 								},
 								{
@@ -142,7 +142,7 @@
 								},
 								{
 									"key": "password",
-									"value": "gaguito2564",
+									"value": "password",
 									"type": "text"
 								}
 							]
@@ -165,7 +165,7 @@
 					"response": []
 				},
 				{
-					"name": "Get USER by ID",
+					"name": "Get USER by Email",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -183,8 +183,8 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "idUsuario",
-									"value": "1",
+									"key": "emailUsuario",
+									"value": "francisco.riquelme@outlook.com",
 									"type": "text"
 								}
 							]
@@ -202,7 +202,46 @@
 								"getUser"
 							]
 						},
-						"description": "Envia mediante el BodyRequest el ID del usuario y retorna todos los datos asociados a el (menos la password)."
+						"description": "Envia mediante el BodyRequest el Email del usuario y retorna todos los datos asociados a el (menos la password)."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove USER",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/removeUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"removeUser"
+							]
+						},
+						"description": "Envia el idUsuario en el Body y lo borra del sistema"
 					},
 					"response": []
 				}
