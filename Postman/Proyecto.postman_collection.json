@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "92173b77-2d03-458e-a32b-52ba902c73b4",
+		"name": "Proyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Create Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "francisco.riquelme@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "Francisco Andres",
+									"type": "text"
+								},
+								{
+									"key": "a_paterno",
+									"value": "Riquelme",
+									"type": "text"
+								},
+								{
+									"key": "a_materno",
+									"value": "Cavagnola",
+									"type": "text"
+								},
+								{
+									"key": "rut",
+									"value": "19.619.104-6",
+									"type": "text"
+								},
+								{
+									"key": "telefono",
+									"value": "965547219",
+									"type": "text"
+								},
+								{
+									"key": "codigoColaborador",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "rolUsuario",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						},
+						"description": "Crea un nuevo usuario, segun los datos especificados en el ERD"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos los usuarios registrados en el sistema, sin detalles de sus relaciones"
+					},
+					"response": []
+				},
+				{
+					"name": "Validar datos de sesion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "francisco.riquelme@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/validateData",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"validateData"
+							]
+						},
+						"description": "Se debe enviar un email y password.\n\nResponde true cuando los datos ingresados corresponden a los de la base de datos y false cuando no."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

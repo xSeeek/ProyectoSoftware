@@ -18,5 +18,9 @@ router.post('/create', usersController.create);
 router.all('/create', (req, res) => res.status(405).send({
   message: 'Metodo no permitido',
 }));
+router.post('/validateData', usersController.validate);
+router.all('/validateData', (req, res) => res.status(405).send({
+  message: 'Metodo no permitido'
+}));
 
 module.exports = router;
