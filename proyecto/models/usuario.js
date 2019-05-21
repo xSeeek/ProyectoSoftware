@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
@@ -28,15 +29,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     rut: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     telefono: {
       type: DataTypes.STRING,
       allowNull: false
     },
     codigoColaborador: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'Usuario',

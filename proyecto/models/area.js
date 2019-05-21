@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'idArea',
       sourceKey: 'idArea'
     }),
-    Area.belongsToMany(models.User, {
+    Area.belongsToMany(models.Usuario, {
       through: 'AreasUsuario',
       as: 'Áreas Usuario',
       foreignKey: 'idArea',
