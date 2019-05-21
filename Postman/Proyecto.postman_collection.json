@@ -30,7 +30,7 @@
 								},
 								{
 									"key": "password",
-									"value": "password",
+									"value": "gaguito2564",
 									"type": "text"
 								},
 								{
@@ -50,7 +50,7 @@
 								},
 								{
 									"key": "rut",
-									"value": "19.619.104-6",
+									"value": "196191046",
 									"type": "text"
 								},
 								{
@@ -89,13 +89,20 @@
 				},
 				{
 					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/users/getAll",
 							"protocol": "http",
@@ -135,7 +142,7 @@
 								},
 								{
 									"key": "password",
-									"value": "password",
+									"value": "gaguito2564",
 									"type": "text"
 								}
 							]
@@ -154,6 +161,48 @@
 							]
 						},
 						"description": "Se debe enviar un email y password.\n\nResponde true cuando los datos ingresados corresponden a los de la base de datos y false cuando no."
+					},
+					"response": []
+				},
+				{
+					"name": "Get USER by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getUser"
+							]
+						},
+						"description": "Envia mediante el BodyRequest el ID del usuario y retorna todos los datos asociados a el (menos la password)."
 					},
 					"response": []
 				}
