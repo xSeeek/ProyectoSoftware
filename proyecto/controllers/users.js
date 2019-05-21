@@ -78,6 +78,19 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+    destroy(req, res)
+    {
+        return User
+            .findByPk(req.body.idUsuario)
+            .then(usuario => {
+                if(!usuario)
+                    return res.status(404).send({message: 'Usuario no encontrado'});
+                return usuario
+                    .destroy()
+                    .then(() => res.status(200).send({message: 'Usuario eliminado del sistema'}))
+            })
+            .catch(error => res.status(400).send(error));
+    },
     validate(req, res)
     {
         var email, password;

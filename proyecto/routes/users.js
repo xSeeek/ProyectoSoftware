@@ -24,5 +24,10 @@ router.all('/validateData', (req, res) => res.status(405).send({
 }));
 
 router.get('/getUser', usersController.retrieve);
+router.all('/getUser', (req, res) => res.status(405).send({
+  message: 'Metodo no permitido'
+}));
+
+router.delete('/removeUser', usersController.destroy);
 
 module.exports = router;
