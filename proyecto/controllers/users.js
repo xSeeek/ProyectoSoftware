@@ -1,4 +1,7 @@
 const User = require('../models').Usuario;
+const Rol = require('../models').Rol;
+const Area = require('../models').Area;
+const Cargo = require('../models').Cargo;
 
 const { validate, clean, format } = require('rut.js')
 const bcrypt = require('bcrypt');
@@ -8,7 +11,11 @@ module.exports = {
     list(req, res)
     {
         return User
-            .findAll()
+            .findAll({
+                attributes: {
+                    exclude: ['password']
+                }
+            })
             .then(user => res.status(200).send(user))
             .catch(error => res.status(400).send({message:'No hay usuarios en el sistema'}));
     },
@@ -26,7 +33,7 @@ module.exports = {
                     var rut = req.body.rut;
                     if(validate(rut))
                     {
-                        rut = format(rut)
+                        rut = format(rut);
                         return rut;
                     }
                     return null;
@@ -40,7 +47,36 @@ module.exports = {
     },
     retrieve(req, res)
     {
-
+        return User
+            .findByPk(req.body.idUsuario, {
+                attributes: {
+                    exclude: ['password']
+                },
+                include: [
+                    {
+                        model: Rol,
+                        as: 'Rol',
+                    },
+                    {
+                        model: Area,
+                        as: 'Areas Usuario'
+                    },
+                    {
+                        model: Cargo,
+                        as: 'Cargos Usuario'
+                    }
+                ]
+            })
+            .then(usuario => {
+                if(!usuario)
+                {
+                    return res.status(404).send({
+                        message: 'Usuario no encontrado'
+                    })
+                };
+                return res.status(200).send(usuario);
+            })
+            .catch(error => res.status(400).send(error));
     },
     validate(req, res)
     {
@@ -57,13 +93,10 @@ module.exports = {
             })
             .then(function(usuario){
                 console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario[0].password);
-                if(password == null)
-                    throw('Password no definida');
                 if(bcrypt.compareSync(password, usuario[0].password))
-                    return true;
-                return false;
+                    return res.status(200).send(true);
+                return res.status(400).send(false);
             })
-            .then(status => res.status(200).send(status))
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
     }
 };
