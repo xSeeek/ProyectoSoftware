@@ -36,13 +36,13 @@ module.exports = {
                         rut = format(rut);
                         return rut;
                     }
-                    return null;
+                    return res.status(400).send({message:'RUT ingresado no es válido'});
                   })(),
                 telefono: req.body.telefono,
                 codigoColaborador: req.body.codigoColaborador,
                 rolUsuario: req.body.rolUsuario
             })
-            .then(user => res.status(200).send(user))
+            .then(user => res.status(200).send(true))
             .catch(error => res.status(400).send({message:'Error al agregar al usuario', error}));
     },
     retrieve(req, res)
@@ -68,10 +68,11 @@ module.exports = {
                         model: Cargo,
                         as: 'Cargos Usuario'
                     }
-                ]
+                ],
+                plain : true
             })
             .then(usuario => {
-                console.log(usuario)
+                console.log(usuario.rut)
                 if((function () {
                     for(var key in usuario) {
                         if(usuario.hasOwnProperty(key))
@@ -111,14 +112,42 @@ module.exports = {
             where: {
                 email: email
                 },
-                raw: true,
+                plain: true
             })
             .then(function(usuario){
-                console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario[0].password);
-                if(bcrypt.compareSync(password, usuario[0].password))
+                console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario.password);
+                if(bcrypt.compareSync(password, usuario.password))
                     return res.status(200).send(true);
                 return res.status(400).send(false);
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
+    },
+    update(req, res)
+    {
+
+    },
+    assignate(req, res)
+    {
+        Cargo.findByPk(req.body.idCargo, {
+                plain: true
+            })
+            .then(function(cargo){
+                if(!cargo)
+                    return res.status(400).send({message: 'Cargo no encontrado'});
+                return cargo;
+            })
+            .catch(error => res.status(400).send({message:'Error al buscar el cargo'}));
+
+        User.findByPk(req.body.idUsuario,{
+                    plain: true
+            })
+            .then(function(usuario){
+                if(!usuario)
+                    return res.status(400).send({message: 'Usuario no encontrado'});
+
+                usuario.setCargos([Cargo, req.body.idCargo]);
+                return res.status(200);
+            })
+            .catch(error => res.status(400).send({message:'Error al buscar el Usuario'}, error));
     }
 };
