@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -13,6 +15,11 @@ var beneficiosRouter = require('./routes/beneficios');
 var noticiasRouter = require('./routes/noticias');
 
 var app = express();
+
+/**
+ * Cors
+ */
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +32,15 @@ app.use(express.json({
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Headers Accept
+ */
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 app.disable('x-powered-by');
 

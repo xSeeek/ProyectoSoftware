@@ -26,9 +26,9 @@ module.exports = {
             .create({
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, salt),
-                nombre: req.body.nombre,
-                a_paterno: req.body.a_paterno,
-                a_materno: req.body.a_materno,
+                nombre: req.body.name,
+                a_paterno: req.body.lastname_father,
+                a_materno: req.body.lastname_mother,
                 rut: (function () {
                     var rut = req.body.rut;
                     if(validate(rut))
@@ -36,14 +36,16 @@ module.exports = {
                         rut = format(rut);
                         return rut;
                     }
-                    return res.status(400).send({message:'RUT ingresado no es válido'});
+                    return res.status(500).send({message:'RUT ingresado no es válido'});
                   })(),
-                telefono: req.body.telefono,
-                codigoColaborador: req.body.codigoColaborador,
-                rolUsuario: req.body.rolUsuario
+                telefono: req.body.phone,
+                codigoColaborador: req.body.contributerId,
+                rolUsuario: req.body.rol
             })
-            .then(user => res.status(200).send(true))
-            .catch(error => res.status(400).send({message:'Error al agregar al usuario', error}));
+            .then(user => res.status(200).send({
+                message: "Usuario creado correctamente"
+            }))
+            .catch(error => res.status(500).send({message:'Error al agregar al usuario', error}));
     },
     retrieve(req, res)
     {
@@ -118,7 +120,7 @@ module.exports = {
                 console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario.password);
                 if(bcrypt.compareSync(password, usuario.password))
                     return res.status(200).send(true);
-                return res.status(400).send(false);
+                return res.status(500).send(false);
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
     },
