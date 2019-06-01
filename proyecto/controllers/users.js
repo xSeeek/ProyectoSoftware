@@ -130,27 +130,13 @@ module.exports = {
     },
     assignate(req, res)
     {
-        Cargo.findByPk(req.body.idCargo, {
-                plain: true
+        User.findByPk(req.body.idUsuario)
+            .then(usuario=>{
+                usuario.setCargos(req.body.idCargo).then(fn=>{
+                    return res.status(200).send({message: 'Usuario asignado correctamente'});
+                });
             })
-            .then(function(cargo){
-                if(!cargo)
-                    return res.status(400).send({message: 'Cargo no encontrado'});
-                return cargo;
-            })
-            .catch(error => res.status(400).send({message:'Error al buscar el cargo'}));
-
-        User.findByPk(req.body.idUsuario,{
-                    plain: true
-            })
-            .then(function(usuario){
-                if(!usuario)
-                    return res.status(400).send({message: 'Usuario no encontrado'});
-
-                usuario.setCargos([Cargo, req.body.idCargo]);
-                return res.status(200);
-            })
-            .catch(error => res.status(400).send({message:'Error al buscar el Usuario'}, error));
+            .catch(res.status(400).send({message:'Usuario no encontrado'}));
     }
 
 /*FUNCION PARA TESTEAR JSON

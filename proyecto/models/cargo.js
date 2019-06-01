@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   Cargo.associate = models => {
     Cargo.belongsToMany(models.Usuario, {
       through: 'CargosUsuario',
-      as: 'Usuarios Cargo',
+      as: 'Usuarios',
       foreignKey: 'idCargo',
       sourceKey: 'idCargo'
     })
