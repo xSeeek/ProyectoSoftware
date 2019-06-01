@@ -13,5 +13,6 @@ router.post('/validateData', usersController.validate);
 router.get('/getUser', usersController.retrieve);
 router.delete('/removeUser', usersController.destroy);
 router.post('/assignCargo', usersController.assignate);
+router.post('/unassignCargo', usersController.unassignate);
 
 module.exports = router;

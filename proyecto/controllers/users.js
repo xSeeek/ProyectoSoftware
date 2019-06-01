@@ -64,11 +64,11 @@ module.exports = {
                     },
                     {
                         model: Area,
-                        as: 'Areas Usuario'
+                        as: 'Areas'
                     },
                     {
                         model: Cargo,
-                        as: 'Cargos Usuario'
+                        as: 'Cargos'
                     }
                 ],
                 plain : true
@@ -133,10 +133,20 @@ module.exports = {
         User.findByPk(req.body.idUsuario)
             .then(usuario=>{
                 usuario.setCargos(req.body.idCargo).then(fn=>{
-                    return res.status(200).send({message: 'Usuario asignado correctamente'});
+                    return res.status(200).send({message: 'Cargo asignado con exito'});
                 });
             })
-            .catch(res.status(400).send({message:'Usuario no encontrado'}));
+            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+    },
+    unassignate(req, res)
+    {
+        User.findByPk(req.body.idUsuario)
+            .then(usuario=>{
+                usuario.removeCargos(req.body.idCargo).then(fn=>{
+                    return res.status(200).send({message: 'Cargo removido con exito'});
+                });
+            })
+            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
     }
 
 /*FUNCION PARA TESTEAR JSON

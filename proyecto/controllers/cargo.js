@@ -29,7 +29,7 @@ module.exports = {
                 include: [
                     {
                         model: Usuario,
-                        as: 'Usuarios Cargo',
+                        as: 'Usuarios',
                         attributes: {
                             exclude: ['password']
                         }
