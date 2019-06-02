@@ -244,6 +244,226 @@
 						"description": "Envia el idUsuario en el Body y lo borra del sistema"
 					},
 					"response": []
+				},
+				{
+					"name": "Assignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Rol a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idRol",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignRol"
+							]
+						},
+						"description": "Necesita idUsuario e idRol.\n\nAsigna el rol al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"unassignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nQuita el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"unassignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nQuita el area al usuario y viceversa"
+					},
+					"response": []
 				}
 			]
 		},
@@ -317,6 +537,317 @@
 							]
 						},
 						"description": "Obtiene todos los cargos registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Get CARGO by idCargo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/getCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"getCargo"
+							]
+						},
+						"description": "Debe enviar un idCargo.\n\nObtiene los detalles del cargo además de los usuarios que pertenecen a este."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Cargo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idCargo",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/removeCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"removeCargo"
+							]
+						},
+						"description": "Requiere idCargo.\nBusca y elimina el cargo con el idCargo especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"unassignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nQuita el cargo al usuario y viceversa"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rol",
+			"item": [
+				{
+					"name": "Assignate Rol a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idRol",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignRol"
+							]
+						},
+						"description": "Necesita idUsuario e idRol.\n\nAsigna el rol al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rol",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Desarrollador",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "Desarrollador de la aplicacion web",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"create"
+							]
+						},
+						"description": "A traves del Body envia:\nnombre -> Nombre del nuevo cargo\ndescripcion -> Descripcion del nuevo cargo\n\nSi se agrego exitosamente retorna con Status 200 y el nuevo rol"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Area",
+			"item": [
+				{
+					"name": "Assignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
 					},
 					"response": []
 				}
