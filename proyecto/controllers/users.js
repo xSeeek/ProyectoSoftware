@@ -128,25 +128,73 @@ module.exports = {
     {
 
     },
-    assignate(req, res)
+    assignateCargo(req, res)
     {
         User.findByPk(req.body.idUsuario)
             .then(usuario=>{
-                usuario.setCargos(req.body.idCargo).then(fn=>{
-                    return res.status(200).send({message: 'Cargo asignado con exito'});
+                Cargo.findByPk(req.body.idCargo)
+                    .then(cargo=>{
+                        if(!cargo) {
+                            return res.status(400).send({message: 'El cargo no existe'}); 
+                            }
+                        });
+                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
+                .then(cargos=>{
+                    if(cargos.length != 0)
+                        return res.status(400).send({message: 'Cargo ya asignado al usuario'});
+                    usuario.addCargos(req.body.idCargo).then(fn=>{
+                        return res.status(200).send({message: 'Cargo asignado con exito'});
+                    });
                 });
             })
             .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
     },
-    unassignate(req, res)
+    unassignateCargo(req, res)
     {
         User.findByPk(req.body.idUsuario)
             .then(usuario=>{
-                usuario.removeCargos(req.body.idCargo).then(fn=>{
-                    return res.status(200).send({message: 'Cargo removido con exito'});
+                Cargo.findByPk(req.body.idCargo)
+                    .then(cargo=>{
+                        if(!cargo) {
+                            return res.status(400).send({message: 'El cargo no existe'}); 
+                            }
+                        });
+                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
+                .then(cargos=>{
+                    if(cargos.length == 0)
+                        return res.status(400).send({message: 'El usuario no tiene asignado este cargo'});
+                    usuario.removeCargos(req.body.idCargo).then(fn=>{
+                        return res.status(200).send({message: 'Cargo removido con exito'});
+                    });
                 });
             })
             .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+    },
+    assignateArea(req, res)
+    {
+
+    },
+    unassignateArea(req, res)
+    {
+
+    },
+    assignateRol(req, res)
+    {
+        User.findByPk(req.body.idUsuario)
+            .then(usuario=>{
+                usuario.setRol(req.body.idRol).then(fn=>{
+                    return res.status(200).send({message: 'Rol actualizado con exito'});
+                });
+            })
+            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+    },
+    assignateNotification(req, res)
+    {
+
+    },
+    unassignateNotification(req, res)
+    {
+
     }
 
 /*FUNCION PARA TESTEAR JSON
