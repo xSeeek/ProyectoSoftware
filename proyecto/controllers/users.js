@@ -172,11 +172,45 @@ module.exports = {
     },
     assignateArea(req, res)
     {
-
+        User.findByPk(req.body.idUsuario)
+            .then(usuario=>{
+                Area.findByPk(req.body.idArea)
+                    .then(area=>{
+                        if(!area) {
+                            return res.status(400).send({message: 'El area no existe'}); 
+                            }
+                        });
+                usuario.getAreas({through: {where: {idArea: req.body.idArea}}})
+                .then(areas=>{
+                    if(areas.length != 0)
+                        return res.status(400).send({message: 'Area ya asignado al usuario'});
+                    usuario.addAreas(req.body.idArea).then(fn=>{
+                        return res.status(200).send({message: 'Area asignada con exito'});
+                    });
+                });
+            })
+            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
     },
     unassignateArea(req, res)
     {
-
+        User.findByPk(req.body.idUsuario)
+            .then(usuario=>{
+                Area.findByPk(req.body.idArea)
+                    .then(area=>{
+                        if(!area) {
+                            return res.status(400).send({message: 'El area no existe'}); 
+                            }
+                        });
+                usuario.getAreas({through: {where: {idArea: req.body.idArea}}})
+                .then(areas=>{
+                    if(areas.length == 0)
+                        return res.status(400).send({message: 'El usuario no tiene asignada esta area'});
+                    usuario.removeAreas(req.body.idArea).then(fn=>{
+                        return res.status(200).send({message: 'Area removida con exito'});
+                    });
+                });
+            })
+            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
     },
     assignateRol(req, res)
     {
