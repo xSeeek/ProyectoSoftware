@@ -766,24 +766,13 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "nombre",
-									"value": "Desarrollador",
-									"type": "text"
-								},
-								{
-									"key": "descripcion",
-									"value": "Desarrollador de la aplicacion web",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"tipo\" : \"Desarrollador\",\n\t\"descripcion\" : \"Desarrollador de la aplicacion web\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/create",
@@ -798,7 +787,102 @@
 								"create"
 							]
 						},
-						"description": "A traves del Body envia:\nnombre -> Nombre del nuevo cargo\ndescripcion -> Descripcion del nuevo cargo\n\nSi se agrego exitosamente retorna con Status 200 y el nuevo rol"
+						"description": "A traves del Body envia:\ntipo -> Nombre del nuevo rol\ndescripcion -> Descripcion del nuevo rol\n\nSi se agrego exitosamente retorna con Status 200 y el nuevo rol"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos los roles registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Rol",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/removeRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"removeRol"
+							]
+						},
+						"description": "Requiere idRol.\nBusca y elimina el rol con el idRol especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rol by idRol",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/getRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"getRol"
+							]
+						},
+						"description": "Debe enviar un idRol.\n\nObtiene los detalles del rol además de los usuarios que pertenecen a este."
 					},
 					"response": []
 				}
