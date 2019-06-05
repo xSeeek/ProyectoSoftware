@@ -39,6 +39,8 @@ module.exports = {
             })
             .then(rol => {
                 console.log(rol);
+                if(!rol)
+                    return res.status(400).send({message:'Rol no encontrado o no existe'});
                 return res.status(200).send(rol);
             })
             .catch(error => res.status(400).send(error));

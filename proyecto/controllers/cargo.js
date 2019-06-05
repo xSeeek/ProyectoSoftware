@@ -39,6 +39,8 @@ module.exports = {
             })
             .then(cargo => {
                 console.log(cargo);
+                if(!cargo)
+                    return res.status(400).send({message:'Cargo no encontrado o no existe'});
                 return res.status(200).send(cargo);
             })
             .catch(error => res.status(400).send(error));
