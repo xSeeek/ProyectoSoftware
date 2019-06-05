@@ -934,6 +934,134 @@
 						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
 					},
 					"response": []
+				},
+				{
+					"name": "Get All Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos las areas registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Area",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"create"
+							]
+						},
+						"description": "A traves del Body envia:\nnombre -> Nombre de la nueva area\ndescripcion -> Descripcion de la nueva area\n\nSi se agrego exitosamente retorna con Status 200 y la nueva area"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Area",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/removeArea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"removeArea"
+							]
+						},
+						"description": "Requiere idArea.\nBusca y elimina el area con el idArea especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Area by idArea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/getArea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"getArea"
+							]
+						},
+						"description": "Debe enviar un idArea.\n\nObtiene los detalles de la area además de los usuarios que pertenecen a esta."
+					},
+					"response": []
 				}
 			]
 		}
