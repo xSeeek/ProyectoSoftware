@@ -33,13 +33,11 @@ module.exports = {
                         token: services.createToken(usuario),
                         user: usuario.name,
                         message: "Las contraseñas coinciden"
-                    })
+                    });
                     }else{
-                        return res.status(400).send("Bycrpt catch")
-                    ;
+                        return res.status(400).send("Bycrpt catch");
                 }
             })
-            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'},));;
-    },
-  
+            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
+    }
 };

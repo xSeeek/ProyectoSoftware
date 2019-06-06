@@ -41,12 +41,6 @@ app.use(function(req, res, next) {
 app.disable('x-powered-by');
 
 app.use('/api', indexRouter);
-app.use('/api/users', indexRouter);
-app.use('/api/cargos', indexRouter);
-app.use('/api/roles', indexRouter);
-app.use('/api/areas', indexRouter);
-app.use('/api/beneficios', indexRouter);
-app.use('/api/noticias', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
