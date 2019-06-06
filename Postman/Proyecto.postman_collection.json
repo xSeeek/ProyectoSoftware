@@ -1064,6 +1064,42 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Notificaciones",
+			"item": []
+		},
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"gaguito2564\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				},
+				"description": "Create JWT token"
+			},
+			"response": []
 		}
 	]
 }
