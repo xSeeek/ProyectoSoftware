@@ -7,12 +7,7 @@ var cors = require('cors');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var cargosRouter = require('./routes/cargos');
-var rolesRouter = require('./routes/roles');
-var areasRouter = require('./routes/areas');
-var beneficiosRouter = require('./routes/beneficios');
-var noticiasRouter = require('./routes/noticias');
+
 
 var app = express();
 
@@ -38,19 +33,20 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
 
 app.disable('x-powered-by');
 
 app.use('/api', indexRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/cargos', cargosRouter);
-app.use('/api/roles', rolesRouter);
-app.use('/api/areas', areasRouter);
-app.use('/api/beneficios', beneficiosRouter);
-app.use('/api/noticias', noticiasRouter);
+app.use('/api/users', indexRouter);
+app.use('/api/cargos', indexRouter);
+app.use('/api/roles', indexRouter);
+app.use('/api/areas', indexRouter);
+app.use('/api/beneficios', indexRouter);
+app.use('/api/noticias', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
