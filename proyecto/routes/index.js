@@ -52,6 +52,7 @@ router.post('/unassignNotification', auth,  fnUsersController.unassignateNotific
  */
 router.get('/areas/getAll', auth, areasController.list);
 router.post('/areas/create', auth, areasController.create);
+router.put('/areas/edit', areasController.edit);
 router.get('/areas/getArea', auth, areasController.retrieve);
 router.delete('/areas/removeArea', auth, areasController.destroy);
 

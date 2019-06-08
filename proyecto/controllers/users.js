@@ -49,7 +49,6 @@ module.exports = {
     },
     edit(req, res)
     {
-        console.log(req.body.idUsuario);
         return User
             .findByPk(req.body.idUsuario)
             .then(user => {
