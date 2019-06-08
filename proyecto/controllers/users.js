@@ -47,6 +47,43 @@ module.exports = {
             }))
             .catch(error => res.status(500).send({message:'Error al agregar al usuario', error}));
     },
+    edit(req, res)
+    {
+        console.log(req.body.idUsuario);
+        return User
+            .findByPk(req.body.idUsuario)
+            .then(user => {
+                if(!user)
+                    return res.status(400).send({message:'Usuario no existe en el sistema'});
+                if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
+                    return res.status(400).send({message:'No se puede actualizar este dato mediante esta via'});
+                
+                User.findAll({
+                    where:{
+                        email: req.body.email
+                    },
+                    attributes: {
+                        exclude: ['password']
+                    }
+                })
+                .then(find => {
+                    if(find.length != 0)
+                        return res.status(400).send({message:'El correo ingresado ya esta registrado en el sistema'});
+                })
+
+                return user
+                    .update({
+                        email: req.body.email || user.email,
+                        nombre: req.body.nombre || user.nombre,
+                        a_paterno: req.body.a_paterno || user.a_paterno,
+                        a_materno: req.body.a_materno || user.a_materno,
+                        telefono: req.body.telefono || user.telefono
+                    })
+                    .then(updatedUser => res.status(200).send(updatedUser))
+                    .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
+    },
     retrieve(req, res)
     {
         return User
