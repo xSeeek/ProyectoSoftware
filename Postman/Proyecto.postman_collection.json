@@ -88,6 +88,85 @@
 					"response": []
 				},
 				{
+					"name": "Edit Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "francisco.riquelme@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "Francisco Andres",
+									"type": "text"
+								},
+								{
+									"key": "a_paterno",
+									"value": "Riquelme",
+									"type": "text"
+								},
+								{
+									"key": "a_materno",
+									"value": "Cavagnola",
+									"type": "text"
+								},
+								{
+									"key": "rut",
+									"value": "196191046",
+									"type": "text"
+								},
+								{
+									"key": "telefono",
+									"value": "965547219",
+									"type": "text"
+								},
+								{
+									"key": "codigoColaborador",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "rolUsuario",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						},
+						"description": "Edita los datos de un usuarios usuario, segun los datos especificados en el ERD.\n\nSe busca segun idUsuario."
+					},
+					"response": []
+				},
+				{
 					"name": "Get all users",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -273,7 +352,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignCargo",
+							"raw": "http://localhost:3000/api/assignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -281,7 +360,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignCargo"
 							]
 						},
@@ -317,7 +395,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignCargo",
+							"raw": "http://localhost:3000/api/assignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -325,7 +403,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignCargo"
 							]
 						},
@@ -361,7 +438,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignRol",
+							"raw": "http://localhost:3000/api/assignRol",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -369,7 +446,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignRol"
 							]
 						},
@@ -405,7 +481,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"raw": "http://localhost:3000/api/unassignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -413,7 +489,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"unassignCargo"
 							]
 						},
@@ -442,14 +517,14 @@
 									"type": "text"
 								},
 								{
-									"key": "idCargo",
-									"value": "3",
+									"key": "idArea",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"raw": "http://localhost:3000/api/unassignArea",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -457,8 +532,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
-								"unassignCargo"
+								"unassignArea"
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nQuita el area al usuario y viceversa"
@@ -649,7 +723,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignCargo",
+							"raw": "http://localhost:3000/api/assignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -657,7 +731,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignCargo"
 							]
 						},
@@ -693,7 +766,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/unassignCargo",
+							"raw": "http://localhost:3000/api/unassignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -701,7 +774,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"unassignCargo"
 							]
 						},
@@ -742,7 +814,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignRol",
+							"raw": "http://localhost:3000/api/assignRol",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -750,7 +822,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignRol"
 							]
 						},
@@ -772,7 +843,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"tipo\" : \"Desarrollador\",\n\t\"descripcion\" : \"Desarrollador de la aplicacion web\"\n}"
+							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/create",
@@ -919,7 +990,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/assignCargo",
+							"raw": "http://localhost:3000/api/assignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -927,7 +998,6 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
 								"assignCargo"
 							]
 						},
