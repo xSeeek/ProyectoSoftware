@@ -19,14 +19,6 @@ router.get('/', auth);
 router.post('/authenticate', authController.authenticate);
 
 /**
- * Cargos
- */
-router.get('/cargos/getAll', auth, cargosController.list);
-router.post('/cargos/create', auth,  cargosController.create);
-router.get('/cargos/getCargo', auth,  cargosController.retrieve);
-router.delete('/cargos/removeCargo', auth, cargosController.destroy);
-
- /**
   * Users
  */
 router.get('/users/getAll', auth,  usersController.list);
@@ -46,6 +38,15 @@ router.post('/unassignArea', auth,  fnUsersController.unassignateArea);
 router.post('/assignRol', auth, fnUsersController.assignateRol);
 router.post('/assignNotification', auth,  fnUsersController.assignateNotification);
 router.post('/unassignNotification', auth,  fnUsersController.unassignateNotification);
+
+/**
+ * Cargos
+ */
+router.get('/cargos/getAll', cargosController.list);
+router.post('/cargos/create', auth,  cargosController.create);
+router.put('/cargos/edit', cargosController.edit);
+router.get('/cargos/getCargo', auth,  cargosController.retrieve);
+router.delete('/cargos/removeCargo', auth, cargosController.destroy);
 
 /**
  * Areas

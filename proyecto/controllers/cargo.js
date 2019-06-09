@@ -19,6 +19,23 @@ module.exports = {
             .then(cargo => res.status(200).send(cargo))
             .catch(error => res.status(400).send({message:'Error al agregar el area', error}));
     },
+    edit(req, res)
+    {
+        return Cargo
+            .findByPk(req.body.idCargo)
+            .then(cargo => {
+                if(!cargo)
+                    return res.status(400).send({message:'Cargo no existe en el sistema'});
+
+                return cargo
+                .update({
+                    nombre: req.body.nombre || area.nombre,
+                    descripcion: req.body.descripcion || area.descripcion,
+                })
+                .then(updatedCargo => res.status(200).send(updatedCargo))
+                .catch(error => res.status(400).send(error));
+            })
+    },
     retrieve(req, res)
     {
         return Cargo
