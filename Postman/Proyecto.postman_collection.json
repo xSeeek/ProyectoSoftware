@@ -734,6 +734,39 @@
 						"description": "Necesita idUsuario e idCargo.\n\nQuita el cargo al usuario y viceversa"
 					},
 					"response": []
+				},
+				{
+					"name": "Edit Cargo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idCargo\" : 3,\n\t\"nombre\" : \"TMRE DEFINITIVO FINAL V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"edit"
+							]
+						},
+						"description": "A traves del Body envia:\nidCargo -> id del cargo a editar\nnombre -> Nuevo nombre del cargo\ndescripcion -> Nueva descripcion del cargo\n\nSi se edito exitosamente retorna con Status 200 y el cargo con los cambios realizados"
+					},
+					"response": []
 				}
 			]
 		},
@@ -908,6 +941,39 @@
 							]
 						},
 						"description": "Debe enviar un idRol.\n\nObtiene los detalles del rol además de los usuarios que pertenecen a este."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Rol",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\" : 3,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"edit"
+							]
+						},
+						"description": "A traves del Body envia:\nidArea -> id del rol a editar\ntipo -> Nuevo nombre del rol\ndescripcion -> Nueva descripcion del rol\n\nSi se edito exitosamente retorna con Status 200 y el rol con los cambios realizados"
 					},
 					"response": []
 				}
