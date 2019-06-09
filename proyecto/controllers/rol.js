@@ -19,6 +19,23 @@ module.exports = {
             .then(rol => res.status(200).send(rol))
             .catch(error => res.status(400).send({message:'Error al agregar el rol', error}));
     },
+    edit(req, res)
+    {
+        return Rol
+            .findByPk(req.body.idRol)
+            .then(rol => {
+                if(!rol)
+                    return res.status(400).send({message:'Rol no existe en el sistema'});
+
+                return rol
+                .update({
+                    tipo: req.body.tipo || rol.tipo,
+                    descripcion: req.body.descripcion || rol.descripcion,
+                })
+                .then(updatedRol => res.status(200).send(updatedRol))
+                .catch(error => res.status(400).send(error));
+            })
+    },
     retrieve(req, res)
     {
         return Rol

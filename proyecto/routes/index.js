@@ -61,6 +61,7 @@ router.delete('/areas/removeArea', auth, areasController.destroy);
  */
 router.get('/roles/getAll', auth,rolesController.list);
 router.post('/roles/create', auth, rolesController.create);
+router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol', auth, rolesController.retrieve);
 router.delete('/roles/removeRol', auth, rolesController.destroy);
 
