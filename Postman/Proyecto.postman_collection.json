@@ -958,7 +958,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idRol\" : 3,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+							"raw": "{\n\t\"idRol\" : 4,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/edit",
