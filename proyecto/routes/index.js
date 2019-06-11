@@ -24,7 +24,7 @@ router.post('/authenticate', authController.authenticate);
 router.get('/users/getAll', auth,  usersController.list);
 router.post('/users/create', auth,  usersController.create);
 router.put('/users/edit', usersController.edit);
-router.post('/users/validateData', auth,  usersController.validate);
+router.post('/users/validateData',  usersController.validate);
 router.get('/users/getUser', auth, usersController.retrieve);
 router.delete('/users/removeUser', auth,  usersController.destroy);
 
@@ -65,5 +65,13 @@ router.post('/roles/create', auth, rolesController.create);
 router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol', auth, rolesController.retrieve);
 router.delete('/roles/removeRol', auth, rolesController.destroy);
+
+/**
+ * Auth
+ * Password
+ */
+router.post('/forgot_password', authController.forgot_password);
+router.post('/reset_password', authController.reset_password);
+//router.post('/checkToken', authController.checkToken);
 
 module.exports = router;

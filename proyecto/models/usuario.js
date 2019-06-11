@@ -38,6 +38,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     codigoColaborador: {
       type: DataTypes.INTEGER
+    },
+    reset_password_token: {
+      type: DataTypes.STRING,
+    },
+    reset_password_expires: {
+      type: Date,
     }
   }, {
     tableName: 'Usuario',
