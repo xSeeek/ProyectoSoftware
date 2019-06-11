@@ -1193,36 +1193,105 @@
 			"item": []
 		},
 		{
-			"name": "Auth",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"mussdecaca\"\n}"
+			"name": "Server",
+			"item": [
+				{
+					"name": "Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"authenticate"
+							]
+						},
+						"description": "Create JWT token"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/api/authenticate",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"authenticate"
-					]
+				{
+					"name": "Require Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/forgot_password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"forgot_password"
+							]
+						},
+						"description": "Envia una solicitud para cambiar la password.\n\nResponde con un token unico para poder realizar el cambio de password."
+					},
+					"response": []
 				},
-				"description": "Create JWT token"
-			},
-			"response": []
+				{
+					"name": "Change password via Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"U2FsdGVkX1/LvO9ypRJrYFSyJX65ZuDeTRIEhexQ8XEYlX+2Dn/6ZWaC1j0uELQZ7DbDAiuevuIa7LOVEO7doxUUaVDTyEpKaJ4QPuIkvKbssVhqv0qjDNapgNekYHyb0Qb9hayEIx3sMC9kJ0P3kffM2YepSs3T+rIF4gTTeWc=\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/reset_password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reset_password"
+							]
+						},
+						"description": "Cambia la password a traves de un token solicitado.\n\nSe envia a traves del Body:\ntoken: Token generado por el sistema de un unico uso, dura 1 dia\npassword: La nueva password para la cuenta del usuario\n\nRetorna mensaje con el estado de la peticion."
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
