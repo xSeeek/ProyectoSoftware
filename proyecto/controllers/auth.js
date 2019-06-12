@@ -77,10 +77,8 @@ module.exports = {
                 if(usuario.length == 0)
                     return res.status(400).send({message: 'Usuario no encontrado'});
 
-                /*
                 if(usuario.reset_password_token != null && new Date() <= usuario.reset_password_expires)
                     return res.status(200).send({message: 'Ya ha solicitado un cambio de password recientemente'});
-                */
 
                 /**
                  * token : Token a enviar al usuario para validar su sesion (uso unico pendiente)
@@ -105,7 +103,7 @@ module.exports = {
                 });
 
                 var mailOptions = {
-                    to: 'a@a.a',//usuario.email
+                    to: usuario.email,
                     from: email,
                     subject: 'Solicitud de cambio de password',
                     template: 'forgot_password',
