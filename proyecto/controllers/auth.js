@@ -1,5 +1,3 @@
-'use strict'
-
 const User = require('../models').Usuario;
 const services = require('../services');
 const bcrypt = require('bcrypt');
@@ -9,28 +7,34 @@ const crypto = require('crypto-js');
 const path = require('path');
 const saltRounds = 10;
 
-var email = process.env.MAILER_EMAIL_ID || 'auth_email_address@gmail.com';
-var pass = process.env.MAILER_PASSWORD || 'auth_email_pass';
+var email = process.env.MAILER_EMAIL_ID;
+var pass = process.env.MAILER_PASSWORD;
 
 /** 
  * Variables relacionadas con el manejo de correos
 */
+
 var smtpTransport = nodemailer.createTransport({
-    service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+    service: process.env.MAILER_SERVICE_PROVIDER,
     auth: {
         user: email,
         pass: pass
     }
 });
 
-/*
-var handlebarsOptions = {
-    viewEngine: 'express-handlebars',
-    viewPath: path.resolve('./templates/'),
-    extName: '.html'
+var options = {
+    viewEngine: {
+        extname: '.hbs',
+        layoutsDir: path.resolve('./emails/'),
+        defaultLayout : 'template',
+        partialsDir : path.resolve('./emails/partials/')
+    },
+    viewPath: path.resolve('./emails/templates'),
+    extName: '.hbs'
 };
 
-smtpTransport.use('compile', hbs(handlebarsOptions));*/
+smtpTransport.use('compile', hbs(options));
+
 
 module.exports = {
 
@@ -73,8 +77,10 @@ module.exports = {
                 if(usuario.length == 0)
                     return res.status(400).send({message: 'Usuario no encontrado'});
 
+                /*
                 if(usuario.reset_password_token != null && new Date() <= usuario.reset_password_expires)
                     return res.status(200).send({message: 'Ya ha solicitado un cambio de password recientemente'});
+                */
 
                 /**
                  * token : Token a enviar al usuario para validar su sesion (uso unico pendiente)
@@ -98,27 +104,23 @@ module.exports = {
                         })
                 });
 
-                /*
-                var data = {
-                    to: usuario.email,
+                var mailOptions = {
+                    to: 'a@a.a',//usuario.email
                     from: email,
-                    template: './templates/forgot-password-email',
                     subject: 'Solicitud de cambio de password',
+                    template: 'forgot_password',
                     context: {
                         url: 'http://localhost:3000/api/reset_password?token=' + usuario.reset_password_token,
-                        name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno
-                    },
-                    html: "<body><div><h3>Sr(a) " + usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno +",</h3><p>Recientemente ha solicitado un cambio de password, si fue usted utilice el siguiente <a href=" + process.env.APP_URL + 'api/reset_password?token=' + token.toString() + ">enlace</a> para recuperar su password.<br><br>Si no ha solicitado un cambio de password, por favor ignore este mensaje.</p><br><p>Gracias!</p></div></body>" // html body
+                        name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
+                        token: usuario.reset_password_token
+                    }
                 };
             
-                smtpTransport.sendMail(data, function(err) {
-                    if (!err)
+                smtpTransport.sendMail(mailOptions, (error, info) => {
+                    if (!error)
                         return res.status(200).send({ message: 'Verifique su correo para continuar con el cambio de password' });
                     return res.status(400).send({message: 'Error al enviar el correo'});
                 });
-                */
-
-                return res.status(200).send(token.toString());
             })
             .catch(error => res.status(500).send(error));
     },

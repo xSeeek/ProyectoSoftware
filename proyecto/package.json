@@ -29,7 +29,7 @@
     "pg-hstore": "^2.3.3",
     "pug": "^2.0.3",
     "rut.js": "^1.0.1",
-    "sequelize": "^5.8.8"
+    "sequelize": "^5.8.9"
   },
   "devDependencies": {
     "jwt-simple": "^0.5.6",

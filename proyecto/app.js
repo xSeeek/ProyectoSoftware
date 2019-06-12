@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var hbs = require('nodemailer-express-handlebars');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -15,8 +16,13 @@ var app = express();
 app.use(cors());
 
 // view engine setup
+
+/*
+// Register `hbs.engine` with the Express app.
+app.engine('hbs', hbs.engine);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'hbs');
+*/
 
 app.use(logger('dev'));
 app.use(express.json({
