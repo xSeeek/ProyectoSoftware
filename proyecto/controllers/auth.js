@@ -21,7 +21,6 @@ module.exports = {
                 plain: true
             })
             .then(function(usuario){
-                console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario.password);
                 if(bcrypt.compareSync(password, usuario.password)){
                     return res.status(200).send({
                         success: true,
@@ -29,9 +28,8 @@ module.exports = {
                         user: usuario.name,
                         message: "Las contraseñas coinciden"
                     });
-                    }else{
-                        return res.status(400).send("Bycrpt catch");
                 }
+                return res.status(400).send({message: "La contraseña no es valida"});
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validación'}));;
     },
@@ -130,7 +128,7 @@ module.exports = {
                                 context: {
                                     name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
                                     date: (function(){
-                                        var date = moment().locale('es').format('LLLL');;
+                                        var date = moment().locale('es').format('LLLL');
                                         return date;
                                     })()
                                 }
@@ -156,28 +154,27 @@ module.exports = {
             .then(user => {
                 if(!user)
                     return res.status(400).send({message:'Usuario no existe en el sistema'});
+                
+                if(!bcrypt.compareSync(req.body.currentPassword, user.password))
+                    return res.status(400).send({message:'La contraseña actual no coincide con la que está registrada en el sistema.'});
 
                 if(bcrypt.compareSync(req.body.newPassword, user.password))
-                    return res.status(400).send({message:'La nueva contraseña no puede ser igual a la actual contraseña.'});
-
-                if(bcrypt.compareSync(req.body.currentPassword, user.password) == false)
-                    return res.status(400).send({message:'La contraseña actual no coincide con la que está registrada en el sistema.'});
+                    return res.status(400).send({message:'La nueva contraseña no puede ser igual a la contraseña actual.'});
 
                 var salt = bcrypt.genSaltSync(saltRounds);
                 return user
                     .update({
-                        password: bcrypt.hashSync(req.body.newPassword, salt) || user.password
+                        password: bcrypt.hashSync(req.body.newPassword, salt)
                     })
                     .then(sendMail => {
-                            
                         var mailOptions = {
-                            to: usuario.email,
+                            to: user.email,
                             subject: 'Confirmación cambio de contraseña',
                             template: 'change_password',
                             context: {
-                                name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
+                                name: user.nombre + ' ' + user.a_paterno + ' ' + user.a_materno,
                                 date: (function(){
-                                    var date = moment().format('LLLL');;
+                                    var date = moment().locale('es').format('LLLL');
                                     return date;
                                 })()
                             }
