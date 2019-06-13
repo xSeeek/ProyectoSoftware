@@ -72,6 +72,6 @@ router.delete('/roles/removeRol', auth, rolesController.destroy);
  */
 router.post('/forgot_password', authController.forgot_password);
 router.post('/reset_password', authController.reset_password);
-//router.post('/checkToken', authController.checkToken);
+router.post('/changePassword', authController.changePassword);
 
 module.exports = router;

@@ -1,40 +1,9 @@
 const User = require('../models').Usuario;
 const services = require('../services');
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
-const hbs = require('nodemailer-express-handlebars');
+const moment = require('moment');
 const crypto = require('crypto-js');
-const path = require('path');
 const saltRounds = 10;
-
-var email = process.env.MAILER_EMAIL_ID;
-var pass = process.env.MAILER_PASSWORD;
-
-/** 
- * Variables relacionadas con el manejo de correos
-*/
-
-var smtpTransport = nodemailer.createTransport({
-    service: process.env.MAILER_SERVICE_PROVIDER,
-    auth: {
-        user: email,
-        pass: pass
-    }
-});
-
-var options = {
-    viewEngine: {
-        extname: '.hbs',
-        layoutsDir: path.resolve('./emails/'),
-        defaultLayout : 'template',
-        partialsDir : path.resolve('./emails/partials/')
-    },
-    viewPath: path.resolve('./emails/templates'),
-    extName: '.hbs'
-};
-
-smtpTransport.use('compile', hbs(options));
-
 
 module.exports = {
 
@@ -64,7 +33,7 @@ module.exports = {
                         return res.status(400).send("Bycrpt catch");
                 }
             })
-            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
+            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validación'}));;
     },
     forgot_password(req, res)
     {
@@ -78,16 +47,16 @@ module.exports = {
                     return res.status(400).send({message: 'Usuario no encontrado'});
 
                 if(usuario.reset_password_token != null && new Date() <= usuario.reset_password_expires)
-                    return res.status(200).send({message: 'Ya ha solicitado un cambio de password recientemente'});
+                    return res.status(200).send({message: 'Ya ha solicitado un cambio de contraseña recientemente'});
 
                 /**
-                 * token : Token a enviar al usuario para validar su sesion (uso unico pendiente)
+                 * token : Token a enviar al usuario para validar su sesion
                  * bytes : Conversion a bytes del token encriptado
                  * plaintext : Conversion a texto plano de la variable bytes
                  */
-                var token = crypto.AES.encrypt((new Date()) + usuario.password, usuario.password);
-                var bytes  = crypto.AES.decrypt(token.toString(), usuario.password);
-                //var plaintext = bytes.toString(crypto.enc.Utf8);
+                var token = crypto.AES.encrypt(usuario.email + usuario.rut + (new Date()), process.env.JWT_SECRET);
+                var bytes  = crypto.AES.decrypt(token.toString(), process.env.JWT_SECRET);
+                var plaintext = bytes.toString(crypto.enc.Utf8);
 
                 User.findByPk(usuario.idUsuario)
                     .then(usuario => {
@@ -104,30 +73,27 @@ module.exports = {
 
                 var mailOptions = {
                     to: usuario.email,
-                    from: email,
-                    subject: 'Solicitud de cambio de password',
+                    subject: 'Solicitud de cambio de contraseña',
                     template: 'forgot_password',
                     context: {
-                        url: 'http://localhost:3000/api/reset_password?token=' + usuario.reset_password_token,
+                        url: process.env.FRONT_API + 'recuperar?token=' + token.toString(),
                         name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
-                        token: usuario.reset_password_token
+                        token: token.toString()
                     }
                 };
-            
-                smtpTransport.sendMail(mailOptions, (error, info) => {
-                    if (!error)
-                        return res.status(200).send({ message: 'Verifique su correo para continuar con el cambio de password' });
-                    return res.status(400).send({message: 'Error al enviar el correo'});
-                });
+
+                if(services.email.sendEmail(mailOptions) == true)
+                    return res.status(200).send({ message: 'Verifique su correo para continuar con el cambio de contraseña' });
+                return res.status(400).send({message: 'Error al enviar el correo'});
             })
             .catch(error => res.status(500).send(error));
     },
     reset_password(req, res)
     {
         if(req.body.token == null)
-            return res.status(400).send({message:'Token no es valido'});
+            return res.status(400).send({message:'Token no es válido'});
         if(req.body.password == null)
-            return res.status(400).send({message:'La nueva password no puede estar en blanco'});
+            return res.status(400).send({message:'La nueva contraseña no puede estar en blanco'});
 
         User.findAll({
             where: {
@@ -136,7 +102,7 @@ module.exports = {
                 plain: true
         }).then(usuario => {
             if(usuario == null)
-                return res.status(400).send({message:'Token no es valido'});
+                return res.status(400).send({message:'Token no es válido'});
 
             if(new Date() > usuario.reset_password_expires)
             {
@@ -145,7 +111,7 @@ module.exports = {
                             reset_password_token: null,
                             reset_password_expires: null
                         }).
-                        then(res.status(400).send({message:'El token para realizar el cambio de password expiro. Intente nuevamente.'}))
+                        then(res.status(400).send({message:'El token para realizar el cambio de contraseña expiró. Intente nuevamente.'}))
             }
 
             var salt = bcrypt.genSaltSync(saltRounds);
@@ -155,8 +121,74 @@ module.exports = {
                             reset_password_expires: null,
                             password: bcrypt.hashSync(req.body.password, salt),
                         }).
-                        then(res.status(200).send({message:'Password cambiada con exito'}))
+                        then(sendMail => {
+                            
+                            var mailOptions = {
+                                to: usuario.email,
+                                subject: 'Confirmación cambio de contraseña',
+                                template: 'change_password',
+                                context: {
+                                    name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
+                                    date: (function(){
+                                        var date = moment().locale('es').format('LLLL');;
+                                        return date;
+                                    })()
+                                }
+                            };
+                        
+                            if(services.email.sendEmail(mailOptions) == true)
+                                return res.status(200).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
+                            return res.status(400).send({message: 'Error al enviar el correo'});
+                        });
         })
         .catch(error => res.status(500).send(error));
+    },
+    changePassword(req, res)
+    {
+        if(req.body.newPassword == null || req.body.newPassword == "" || req.body.currentPassword == "" || req.body.currentPassword == null)
+            return res.status(400).send({message:'La contraseña no puede estar en blanco.'});
+
+        User
+            .findByPk(req.body.idUsuario,
+                {
+                    plain: true
+                })
+            .then(user => {
+                if(!user)
+                    return res.status(400).send({message:'Usuario no existe en el sistema'});
+
+                if(bcrypt.compareSync(req.body.newPassword, user.password))
+                    return res.status(400).send({message:'La nueva contraseña no puede ser igual a la actual contraseña.'});
+
+                if(bcrypt.compareSync(req.body.currentPassword, user.password) == false)
+                    return res.status(400).send({message:'La contraseña actual no coincide con la que está registrada en el sistema.'});
+
+                var salt = bcrypt.genSaltSync(saltRounds);
+                return user
+                    .update({
+                        password: bcrypt.hashSync(req.body.newPassword, salt) || user.password
+                    })
+                    .then(sendMail => {
+                            
+                        var mailOptions = {
+                            to: usuario.email,
+                            subject: 'Confirmación cambio de contraseña',
+                            template: 'change_password',
+                            context: {
+                                name: usuario.nombre + ' ' + usuario.a_paterno + ' ' + usuario.a_materno,
+                                date: (function(){
+                                    var date = moment().format('LLLL');;
+                                    return date;
+                                })()
+                            }
+                        };
+                    
+                        if(services.email.sendEmail(mailOptions) == true)
+                            return res.status(200).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
+                        return res.status(400).send({message: 'Error al enviar el correo'});
+                    })
+                    .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
     }
 };

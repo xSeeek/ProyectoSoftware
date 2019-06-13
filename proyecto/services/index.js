@@ -1,5 +1,7 @@
 'use strict'
 
+const email = require('./email');
+
 const jwt = require('jwt-simple');
 const moment = require('moment');
 const secret = "";
@@ -30,5 +32,6 @@ function decodeToken (token) {
 
 module.exports = {
   createToken,
-  decodeToken
+  decodeToken,
+  email
 }

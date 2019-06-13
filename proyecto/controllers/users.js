@@ -164,35 +164,4 @@ module.exports = {
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
     }
-/*FUNCION PARA TESTEAR JSON
-    create(req, res)
-    {
-        console.log("Email: "+ req.body.email);
-        console.log("Password: "+ req.body.password);
-        console.log("Nombre: "+ req.body.nombre);
-        console.log("Apellido Paterno: "+ req.body.a_paterno);
-
-        return User
-            .create({
-                email: req.body.email,
-                password: req.body.password,
-                nombre: req.body.nombre,
-                a_paterno: req.body.a_paterno,
-                a_materno: req.body.a_materno,
-                rut: (function () {
-                    var rut = req.body.rut;
-                    if(validate(rut))
-                    {
-                        rut = format(rut);
-                        return rut;
-                    }
-                    return res.status(400).send({message:'RUT ingresado no es válido'});
-                  })(),
-                telefono: req.body.telefono,
-                codigoColaborador: req.body.codigoColaborador,
-                rolUsuario: req.body.rolUsuario
-            })
-            .then(user => res.status(200).send(true))
-            .catch(error => res.status(400).send({message:'Error al agregar al usuario', error}));
-    },*/
 };
