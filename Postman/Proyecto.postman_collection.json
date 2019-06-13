@@ -1260,7 +1260,7 @@
 					"response": []
 				},
 				{
-					"name": "Change password via Token",
+					"name": "Change Password via Token",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1273,7 +1273,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"token\": \"U2FsdGVkX1/LvO9ypRJrYFSyJX65ZuDeTRIEhexQ8XEYlX+2Dn/6ZWaC1j0uELQZ7DbDAiuevuIa7LOVEO7doxUUaVDTyEpKaJ4QPuIkvKbssVhqv0qjDNapgNekYHyb0Qb9hayEIx3sMC9kJ0P3kffM2YepSs3T+rIF4gTTeWc=\",\n    \"password\": \"password123\"\n}"
+							"raw": "{\n    \"token\": \"U2FsdGVkX1/TVb+qTEPhbBfyJn/6DRxp7123sxdgH1babioajq1Kvxm7K3J4nTHm1WPzLVUUKP7xTcIRHSbZfV/wQ2PymNUyT4hoVu7qvuaTp5aIpG/6QRdf3cHHB/XtcGPkXAu7114szgSKWGQe4g==\",\n    \"password\": \"password\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/reset_password",
@@ -1288,6 +1288,50 @@
 							]
 						},
 						"description": "Cambia la password a traves de un token solicitado.\n\nSe envia a traves del Body:\ntoken: Token generado por el sistema de un unico uso, dura 1 dia\npassword: La nueva password para la cuenta del usuario\n\nRetorna mensaje con el estado de la peticion."
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password via idUsuario",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4532b847-d225-4825-9d5c-4061175f836a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"currentPassword\" : \"password\",\n\t\"newPassword\" : \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/changePassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"changePassword"
+							]
+						},
+						"description": "Cambia la contraseña del usuario.\n\nEnvía:\nidUsuario: id del usuario el cual va a cambiar la contraseña.\ncurrentPassword: Contraseña actual del usuario.\nnewPassword: Nueva contraseña del usuario\n\nResponde según corresponda:\n200 - OK Si el cambio de contraseña fue completado.\nCualquier otra respuesta con su respectivo mensaje."
 					},
 					"response": []
 				}
