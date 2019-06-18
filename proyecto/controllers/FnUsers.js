@@ -22,7 +22,7 @@ module.exports = {
                     });
                 });
             })
-            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+            .catch(error => res.status(411).send({message:'Error al realizar la operacion'}));
     },
     unassignateCargo(req, res)
     {
@@ -64,7 +64,7 @@ module.exports = {
                     });
                 });
             })
-            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+            .catch(error => res.status(412).send({message:'Error al realizar la operacion'}));
     },
     unassignateArea(req, res)
     {
@@ -95,7 +95,7 @@ module.exports = {
                     return res.status(200).send({message: 'Rol actualizado con exito'});
                 });
             })
-            .catch(error => res.status(400).send({message:'Error al realizar la operacion'}));
+            .catch(error => res.status(413).send({message:'Error al realizar la operacion'}));
     },
     assignateNotification(req, res)
     {
