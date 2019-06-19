@@ -13,7 +13,7 @@ module.exports = {
         return User
             .findAll({
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
             .then(user => res.status(200).send(user))
@@ -53,7 +53,7 @@ module.exports = {
         return User
             .findByPk(req.body.idUsuario, {
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
             .then(user => {
@@ -67,7 +67,7 @@ module.exports = {
                         email: req.body.email
                     },
                     attributes: {
-                        exclude: ['password']
+                        exclude: ['password', 'validate_token', 'validate_token_expires']
                     }
                 })
                 .then(find => {
@@ -91,12 +91,9 @@ module.exports = {
     retrieve(req, res)
     {
         return User
-            .findAll({
-                where: {
-                    email: req.body.emailUsuario
-                },
+            .findByPk(req.body.idUsuario, {
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 },
                 include: [
                     {

@@ -25,7 +25,7 @@ router.get('/users/getAll', auth,  usersController.list);
 router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
-router.get('/users/getUser', auth, usersController.retrieve);
+router.get('/users/getUser', usersController.retrieve);
 router.delete('/users/removeUser', auth,  usersController.destroy);
 
 /**
@@ -60,7 +60,7 @@ router.delete('/areas/removeArea', auth, areasController.destroy);
 /**
  * Roles
  */
-router.get('/roles/getAll', auth,rolesController.list);
+router.get('/roles/getAll',rolesController.list);
 router.post('/roles/create', auth, rolesController.create);
 router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol', auth, rolesController.retrieve);

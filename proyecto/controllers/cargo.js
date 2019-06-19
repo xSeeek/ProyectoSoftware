@@ -48,7 +48,7 @@ module.exports = {
                         model: Usuario,
                         as: 'Usuarios',
                         attributes: {
-                            exclude: ['password']
+                            exclude: ['password', 'validate_token', 'validate_token_expires']
                         }
                     }
                 ],
