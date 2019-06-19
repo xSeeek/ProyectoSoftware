@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\",\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"rut\" : \"196191046\",\n\t\"telefono\" : 965547219,\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1\n}"
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\",\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"rut\" : \"196191046\",\n\t\"telefono\" : 965547219,\n\t\"fechaNacimiento\" : \"10/01/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/create",
@@ -55,7 +55,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219\n}"
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
@@ -85,7 +85,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk3ODU3NiwiZXhwIjoxNTYxNTgzMzc2fQ.rJmOPX_dLEAVH9h2V30SecZZAEPDwjmvDHsNvqBq7IQ",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk4NTExNCwiZXhwIjoxNTYxNTg5OTE0fQ.06MOqBKaoHsemz1wdvkKs9y34bzcDsDnRcBn8x6gRX34",
 									"type": "string"
 								}
 							]
