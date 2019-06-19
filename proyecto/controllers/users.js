@@ -40,6 +40,7 @@ module.exports = {
                     return res.status(500).send({message:'RUT ingresado no es válido'});
                   })(),
                 telefono: req.body.telefono,
+                fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
                 rolUsuario: req.body.rolUsuario
             })
@@ -81,7 +82,8 @@ module.exports = {
                         nombre: req.body.nombre || user.nombre,
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
-                        telefono: req.body.telefono || user.telefono
+                        telefono: req.body.telefono || user.telefono,
+                        fechaNacimiento: req.body.fechaNacimiento || user.fechaNacimiento,
                     })
                     .then(updatedUser => res.status(200).send(updatedUser))
                     .catch(error => res.status(400).send(error));
@@ -112,7 +114,6 @@ module.exports = {
                 plain : true
             })
             .then(usuario => {
-                console.log(usuario.rut)
                 if((function () {
                     for(var key in usuario) {
                         if(usuario.hasOwnProperty(key))

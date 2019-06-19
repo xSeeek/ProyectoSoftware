@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    estado: {
+      type: DataTypes.INTEGER
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
@@ -35,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     telefono: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    fechaNacimiento:{
+      type: Date
     },
     codigoColaborador: {
       type: DataTypes.INTEGER

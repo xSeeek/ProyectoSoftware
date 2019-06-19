@@ -15,6 +15,10 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      estado: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
+      },
       nombre: {
         type: Sequelize.STRING
       },
@@ -30,6 +34,10 @@ module.exports = {
       },
       telefono: {
         type: Sequelize.STRING
+      },
+      fechaNacimiento: {
+        type: Sequelize.DATE,
+        defaultValue: new Date('01/01/1970 00:00:00')
       },
       codigoColaborador: {
         type: Sequelize.INTEGER,
