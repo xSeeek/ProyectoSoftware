@@ -9,13 +9,13 @@ function isAuth (req, res, next) {
   
   const token = req.headers.authorization.split(' ')[1].trim()
   console.log("EL TOKEN ES: "+ token);
-  services.decodeToken(token)
+  services.token.decodeToken(token)
     .then(response => {
       req.user = response
       next();
     })
     .catch(response => {
-      res.status(response.status)
+      return res.status(response.status).send({ message: response.message });
     })
 }
 

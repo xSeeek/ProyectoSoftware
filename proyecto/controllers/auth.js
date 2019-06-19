@@ -24,7 +24,7 @@ module.exports = {
                 if(bcrypt.compareSync(password, usuario.password)){
                     return res.status(200).send({
                         success: true,
-                        token: services.createToken(usuario),
+                        token: services.token.createToken(usuario),
                         user: usuario.name,
                         message: "Las contraseñas coinciden"
                     });
