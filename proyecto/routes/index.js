@@ -22,7 +22,7 @@ router.post('/authenticate', authController.authenticate);
   * Users
  */
 router.get('/users/getAll', auth,  usersController.list);
-router.post('/users/create', auth,  usersController.create);
+router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
 router.get('/users/getUser', auth, usersController.retrieve);

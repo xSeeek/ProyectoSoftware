@@ -44,11 +44,11 @@ module.exports = {
           key: 'idRol'
         }
       },
-      reset_password_token: {
-        type: DataTypes.STRING,
+      validate_token: {
+        type: Sequelize.STRING
       },
-      reset_password_expires: {
-        type: Sequelize.DATE,
+      validate_token_expires: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

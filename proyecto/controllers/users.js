@@ -25,22 +25,23 @@ module.exports = {
         return User
             .create({
                 email: req.body.email,
+                nombre: req.body.nombre,
                 password: bcrypt.hashSync(req.body.password, salt),
-                nombre: req.body.name,
-                a_paterno: req.body.lastname_father,
-                a_materno: req.body.lastname_mother,
+                a_paterno: req.body.a_paterno,
+                a_materno: req.body.a_materno,
                 rut: (function () {
                     var rut = req.body.rut;
                     if(validate(rut))
                     {
                         rut = format(rut);
+                        console.log(rut);
                         return rut;
                     }
                     return res.status(500).send({message:'RUT ingresado no es válido'});
                   })(),
-                telefono: req.body.phone,
-                codigoColaborador: req.body.contributerId,
-                rolUsuario: req.body.rol
+                telefono: req.body.telefono,
+                codigoColaborador: req.body.codigoColaborador,
+                rolUsuario: req.body.rolUsuario
             })
             .then(user => res.status(200).send({
                 message: "Usuario creado correctamente"
