@@ -27,6 +27,7 @@ router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
 router.get('/users/getUser', usersController.retrieve);
 router.delete('/users/removeUser', auth,  usersController.destroy);
+router.post('/users/validateEmail', usersController.confirmEmail);
 
 /**
  * Funciones relacionadas con Usuarios
