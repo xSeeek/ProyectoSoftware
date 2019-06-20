@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    estado: {
+      type: DataTypes.INTEGER
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
@@ -36,13 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    fechaNacimiento:{
+      type: Date
+    },
     codigoColaborador: {
       type: DataTypes.INTEGER
     },
-    reset_password_token: {
+    validate_token: {
       type: DataTypes.STRING,
     },
-    reset_password_expires: {
+    validate_token_expires: {
       type: Date,
     }
   }, {

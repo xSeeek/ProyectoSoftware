@@ -3,7 +3,11 @@ const Rol = require('../models').Rol;
 const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
 
-const { validate, clean, format } = require('rut.js')
+const services = require('../services');
+const crypto = require('crypto-js');
+const validator = require("email-validator");
+
+const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -13,7 +17,7 @@ module.exports = {
         return User
             .findAll({
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
             .then(user => res.status(200).send(user))
@@ -21,26 +25,31 @@ module.exports = {
     },
     create(req, res)
     {
+        if(validator.validate(req.body.email) == false)
+            return res.status(400).send({message:'El correo electrónico ingresado no es válido.'});
+
         var salt = bcrypt.genSaltSync(saltRounds);
         return User
             .create({
                 email: req.body.email,
+                nombre: req.body.nombre,
                 password: bcrypt.hashSync(req.body.password, salt),
-                nombre: req.body.name,
-                a_paterno: req.body.lastname_father,
-                a_materno: req.body.lastname_mother,
+                a_paterno: req.body.a_paterno,
+                a_materno: req.body.a_materno,
                 rut: (function () {
                     var rut = req.body.rut;
                     if(validate(rut))
                     {
                         rut = format(rut);
+                        console.log(rut);
                         return rut;
                     }
                     return res.status(500).send({message:'RUT ingresado no es válido'});
                   })(),
-                telefono: req.body.phone,
-                codigoColaborador: req.body.contributerId,
-                rolUsuario: req.body.rol
+                telefono: req.body.telefono,
+                fechaNacimiento: new Date(req.body.fechaNacimiento),
+                codigoColaborador: req.body.codigoColaborador,
+                rolUsuario: req.body.rolUsuario
             })
             .then(user => res.status(200).send({
                 message: "Usuario creado correctamente"
@@ -52,10 +61,13 @@ module.exports = {
         return User
             .findByPk(req.body.idUsuario, {
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
             .then(user => {
+                var estado = 1;
+                var validate_token = null;
+
                 if(!user)
                     return res.status(400).send({message:'Usuario no existe en el sistema'});
                 if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
@@ -66,21 +78,46 @@ module.exports = {
                         email: req.body.email
                     },
                     attributes: {
-                        exclude: ['password']
+                        exclude: ['password', 'validate_token', 'validate_token_expires']
                     }
                 })
                 .then(find => {
                     if(find.length != 0)
-                        return res.status(400).send({message:'El correo ingresado ya esta registrado en el sistema'});
-                })
+                        return res.status(400).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
+                });
+
+                var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+
+                if(req.body.email != null)
+                {
+                    if(validator.validate(req.body.email) == false)
+                        return res.status(400).send({message:'El correo electrónico ingresado no es válido.'});
+
+                    var estado = 2;
+                    validate_token = token.toString();
+
+                    var mailOptions = {
+                        to: req.body.email,
+                        subject: 'Validar nuevo correo electronico',
+                        template: 'change_email',
+                        context: {
+                            url: process.env.FRONT_API + 'validateEmail?token=' + token.toString(),
+                            name: user.nombre + ' ' + user.a_paterno + ' ' + user.a_materno,
+                            token: token.toString()
+                        }
+                    };
+                    services.email.sendEmail(mailOptions);
+                }
 
                 return user
                     .update({
-                        email: req.body.email || user.email,
                         nombre: req.body.nombre || user.nombre,
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
-                        telefono: req.body.telefono || user.telefono
+                        telefono: req.body.telefono || user.telefono,
+                        fechaNacimiento: new Date(req.body.fechaNacimiento) || user.fechaNacimiento,
+                        estado: estado,
+                        validate_token: validate_token
                     })
                     .then(updatedUser => res.status(200).send(updatedUser))
                     .catch(error => res.status(400).send(error));
@@ -90,12 +127,9 @@ module.exports = {
     retrieve(req, res)
     {
         return User
-            .findAll({
-                where: {
-                    email: req.body.emailUsuario
-                },
+            .findByPk(req.body.idUsuario, {
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
                 },
                 include: [
                     {
@@ -114,7 +148,6 @@ module.exports = {
                 plain : true
             })
             .then(usuario => {
-                console.log(usuario.rut)
                 if((function () {
                     for(var key in usuario) {
                         if(usuario.hasOwnProperty(key))
@@ -154,14 +187,54 @@ module.exports = {
             where: {
                 email: email
                 },
+                attributes: {
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
+                },
                 plain: true
             })
             .then(function(usuario){
-                console.log('Password envidada: ' + password + "\nPassword almacenada: " + usuario.password);
                 if(bcrypt.compareSync(password, usuario.password))
                     return res.status(200).send(true);
                 return res.status(500).send(false);
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
+    },
+    confirmEmail(req, res)
+    {
+        if(req.body.token == null)
+            return res.status(400).send({message:'Token no es válido'});
+
+        return User
+        .findAll({
+            where: {
+                validate_token: req.body.token
+                },
+                attributes: {
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
+                },
+                plain: true
+        })
+        .then(user => {
+            var estado = 1;
+
+            if(user == null)
+                return res.status(400).send({message:'Token no es válido'});
+
+            if(user.estado != 2)
+                return res.status(400).send({message:'No ha solicitado un cambio de email recientemente'});
+
+            var bytes  = crypto.AES.decrypt(req.body.token, process.env.JWT_SECRET);
+            var email = bytes.toString(crypto.enc.Utf8);
+
+            return user
+                .update({
+                    email: email,
+                    estado: estado,
+                    validate_token: null
+                })
+                .then(updatedUser => res.status(200).send(updatedUser))
+                .catch(error => res.status(400).send(error));
+        })
+        .catch(error => res.status(400).send(error));
     }
 };

@@ -16,11 +16,12 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
+<<<<<<< HEAD
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
@@ -69,6 +70,10 @@
 									"type": "text"
 								}
 							]
+=======
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\",\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"rut\" : \"196191046\",\n\t\"telefono\" : 965547219,\n\t\"fechaNacimiento\" : \"10/01/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1\n}"
+>>>>>>> 6f16cb7fcdda6a236e21bfcb2895c56a024e4c1f
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/create",
@@ -101,7 +106,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219\n}"
+							"raw": "{\n\t\"idUsuario\": 3,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
@@ -123,6 +128,16 @@
 				{
 					"name": "Get all users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk4NTExNCwiZXhwIjoxNTYxNTg5OTE0fQ.06MOqBKaoHsemz1wdvkKs9y34bzcDsDnRcBn8x6gRX34",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -132,6 +147,13 @@
 								"type": "text"
 							}
 						],
+<<<<<<< HEAD
+=======
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+>>>>>>> 6f16cb7fcdda6a236e21bfcb2895c56a024e4c1f
 						"url": {
 							"raw": "http://localhost:3000/api/users/getAll",
 							"protocol": "http",
@@ -194,7 +216,7 @@
 					"response": []
 				},
 				{
-					"name": "Get USER by Email",
+					"name": "Get USER by id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -204,19 +226,13 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "emailUsuario",
-									"value": "francisco.riquelme@outlook.com",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/getUser",
@@ -231,7 +247,7 @@
 								"getUser"
 							]
 						},
-						"description": "Envia mediante el BodyRequest el Email del usuario y retorna todos los datos asociados a el (menos la password)."
+						"description": "Envia mediante el BodyRequest el id del usuario y retorna todos los datos asociados a el (menos la password)."
 					},
 					"response": []
 				},
@@ -486,6 +502,39 @@
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nQuita el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\" : \"U2FsdGVkX1+USi73v/n3YRvtOJ+1kaETuet8yaVs3rL/LCusObvS6WiYUed2VuOh\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/validateEmail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"validateEmail"
+							]
+						},
+						"description": "Envia el token para validar el correo despues de haberlo cambiado"
 					},
 					"response": []
 				}
@@ -1257,7 +1306,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"token\": \"U2FsdGVkX1/TVb+qTEPhbBfyJn/6DRxp7123sxdgH1babioajq1Kvxm7K3J4nTHm1WPzLVUUKP7xTcIRHSbZfV/wQ2PymNUyT4hoVu7qvuaTp5aIpG/6QRdf3cHHB/XtcGPkXAu7114szgSKWGQe4g==\",\n    \"password\": \"password\"\n}"
+							"raw": "{\n    \"token\": \"U2FsdGVkX1+/ZsFcOPjRrFNBLU/9VcN1WW8WIzHIm0H9aNzCj22b+jyz3eLpY2vHPKuFfeYnaaJuxoAEW4i8G6u349Zy4jHX7izMnSdPpqxwryBgj07h7ROWn85IsVB6sidB/6S3WYRZ5j1zIj3tEg==\",\n    \"password\": \"password1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/reset_password",

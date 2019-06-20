@@ -24,7 +24,7 @@ module.exports = {
                 if(bcrypt.compareSync(password, usuario.password)){
                     return res.status(200).send({
                         success: true,
-                        token: services.createToken(usuario),
+                        token: services.token.createToken(usuario),
                         user: usuario.name,
                         message: "Las contraseñas coinciden"
                     });
@@ -44,7 +44,7 @@ module.exports = {
                 if(usuario.length == 0)
                     return res.status(400).send({message: 'Usuario no encontrado'});
 
-                if(usuario.reset_password_token != null && new Date() <= usuario.reset_password_expires)
+                if(usuario.validate_token != null && new Date() <= usuario.validate_token_expires)
                     return res.status(200).send({message: 'Ya ha solicitado un cambio de contraseña recientemente'});
 
                 /**
@@ -60,8 +60,8 @@ module.exports = {
                     .then(usuario => {
                         return usuario
                         .update({
-                            reset_password_token: token.toString(),
-                            reset_password_expires: (function() {
+                            validate_token: token.toString(),
+                            validate_token_expires: (function() {
                                 var date = new Date();
                                 date.setDate(date.getDate() + 1);
                                 return date;
@@ -95,19 +95,19 @@ module.exports = {
 
         User.findAll({
             where: {
-                    reset_password_token: req.body.token
+                validate_token: req.body.token
                 },
                 plain: true
         }).then(usuario => {
             if(usuario == null)
                 return res.status(400).send({message:'Token no es válido'});
 
-            if(new Date() > usuario.reset_password_expires)
+            if(new Date() > usuario.validate_token_expires)
             {
                 return usuario
                         .update({
-                            reset_password_token: null,
-                            reset_password_expires: null
+                            validate_token: null,
+                            validate_token_expires: null
                         }).
                         then(res.status(400).send({message:'El token para realizar el cambio de contraseña expiró. Intente nuevamente.'}))
             }
@@ -115,8 +115,8 @@ module.exports = {
             var salt = bcrypt.genSaltSync(saltRounds);
             return usuario
                         .update({
-                            reset_password_token: null,
-                            reset_password_expires: null,
+                            validate_token: null,
+                            validate_token_expires: null,
                             password: bcrypt.hashSync(req.body.password, salt),
                         }).
                         then(sendMail => {

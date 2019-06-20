@@ -15,6 +15,10 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      estado: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
+      },
       nombre: {
         type: Sequelize.STRING
       },
@@ -31,6 +35,10 @@ module.exports = {
       telefono: {
         type: Sequelize.STRING
       },
+      fechaNacimiento: {
+        type: Sequelize.DATE,
+        defaultValue: new Date('01/01/1970 00:00:00')
+      },
       codigoColaborador: {
         type: Sequelize.INTEGER,
         autoIncrement: true
@@ -44,11 +52,11 @@ module.exports = {
           key: 'idRol'
         }
       },
-      reset_password_token: {
-        type: DataTypes.STRING,
+      validate_token: {
+        type: Sequelize.STRING
       },
-      reset_password_expires: {
-        type: Sequelize.DATE,
+      validate_token_expires: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
