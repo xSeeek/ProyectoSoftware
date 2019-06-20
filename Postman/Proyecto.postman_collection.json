@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "92173b77-2d03-458e-a32b-52ba902c73b4",
+		"_postman_id": "9ab70641-6b5f-457c-bb44-c7a140b642f5",
 		"name": "Proyecto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,7 +25,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "francisco.riquelme@outlook.com",
+									"value": "jparancibialinker@gmail.com",
 									"type": "text"
 								},
 								{
@@ -35,27 +35,27 @@
 								},
 								{
 									"key": "nombre",
-									"value": "Francisco Andres",
+									"value": "Jose Pablo",
 									"type": "text"
 								},
 								{
 									"key": "a_paterno",
-									"value": "Riquelme",
+									"value": "Arancibia",
 									"type": "text"
 								},
 								{
 									"key": "a_materno",
-									"value": "Cavagnola",
+									"value": "Linker",
 									"type": "text"
 								},
 								{
 									"key": "rut",
-									"value": "196191046",
+									"value": "197284226",
 									"type": "text"
 								},
 								{
 									"key": "telefono",
-									"value": "965547219",
+									"value": "962141439",
 									"type": "text"
 								},
 								{
@@ -122,9 +122,6 @@
 				},
 				{
 					"name": "Get all users",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -135,7 +132,6 @@
 								"type": "text"
 							}
 						],
-						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/users/getAll",
 							"protocol": "http",
@@ -547,10 +543,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/api/cargos/getAll",
 							"protocol": "http",
@@ -854,10 +846,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/getAll",
 							"protocol": "http",
@@ -1030,10 +1018,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/api/areas/getAll",
 							"protocol": "http",
@@ -1209,7 +1193,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\"\n}"
+							"raw": "{\n\t\"email\" : \"jparancibialinker@gmail.com\",\n\t\"password\" : \"password\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/authenticate",
@@ -1332,6 +1316,372 @@
 							]
 						},
 						"description": "Cambia la contraseña del usuario.\n\nEnvía:\nidUsuario: id del usuario el cual va a cambiar la contraseña.\ncurrentPassword: Contraseña actual del usuario.\nnewPassword: Nueva contraseña del usuario\n\nResponde según corresponda:\n200 - OK Si el cambio de contraseña fue completado.\nCualquier otra respuesta con su respectivo mensaje."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beneficio",
+			"item": [
+				{
+					"name": "Create Benefit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titulo",
+									"value": "Beneficio1",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "Prueba de Beneficio",
+									"type": "text"
+								},
+								{
+									"key": "fechaFin",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "duracion",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"create"
+							]
+						},
+						"description": "Se crea beneficio con parametros titulo, descripcion y duracion."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Benefit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\": 21,\n\t\"titulo\" : \"Beneficio Updated\",\n\t\"descripcion\" : \"Nueva descripcion\",\n\t\"duracion\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"edit"
+							]
+						},
+						"description": "Modifica el titulo, descripcion o duracion de un beneficio. El beneficio a editar se obtiene por su id."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Benefit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"getAll"
+							]
+						},
+						"description": "Se obtienen todos los beneficios registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Benefit by idBeneficio",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/getBenefit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"getBenefit"
+							]
+						},
+						"description": "Se obtiene un beneficio segun su id"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Benefit",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\": 21\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/removeBenefit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"removeBenefit"
+							]
+						},
+						"description": "Se elimina del sistema un beneficio segun su id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Noticia",
+			"item": [
+				{
+					"name": "Create News",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titulo",
+									"value": "Noticia1",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "Descripcion noticia",
+									"type": "text"
+								},
+								{
+									"key": "duracion",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"create"
+							]
+						},
+						"description": "Se crea una noticia con parametros titulo, descripcion y duracion"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit News",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\": 1,\n\t\"titulo\" : \"Noticia Updated\",\n\t\"descripcion\" : \"Nueva descripcion\",\n\t\"duracion\" : 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
+							]
+						},
+						"description": "Modifica el titulo, descripcion o duracion de una noticia. La noticia que se desea editar se accede por la id de la misma"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all News",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getAll"
+							]
+						},
+						"description": "Se obtienen todas las noticias registradas en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Get news by idNoticias",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getNews"
+							]
+						},
+						"description": "Se obtiene una noticias a partir de su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove News",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/removeNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"removeNews"
+							]
+						},
+						"description": "Se elimina una noticia del sistema segun su id."
 					},
 					"response": []
 				}

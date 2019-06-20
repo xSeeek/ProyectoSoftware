@@ -6,8 +6,10 @@ const fnUsers = require('./FnUsers');
 const areas = require('./area');
 
 /* BENEFICIOS */
+const beneficios = require('./beneficio');
 
 /* NOTICIAS */
+const noticias = require('./noticia');
 
 /* CARGOS */
 const cargos = require('./cargo');
@@ -24,6 +26,8 @@ module.exports = {
     areas,
     cargos,
     roles,
+    beneficios,
+    noticias,
 
     // Controladores con mutiples referencias
     fnUsers,

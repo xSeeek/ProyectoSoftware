@@ -7,6 +7,8 @@ const cargosController = require('../controllers').cargos;
 const usersController = require('../controllers').users;
 const rolesController = require('../controllers').roles;
 const areasController = require('../controllers').areas;
+const beneficiosController = require('../controllers').beneficios;
+const noticiasController = require('../controllers').noticias;
 const fnUsersController = require('../controllers').fnUsers;
 
 
@@ -22,7 +24,7 @@ router.post('/authenticate', authController.authenticate);
   * Users
  */
 router.get('/users/getAll', auth,  usersController.list);
-router.post('/users/create', auth,  usersController.create);
+router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
 router.get('/users/getUser', auth, usersController.retrieve);
@@ -61,11 +63,26 @@ router.delete('/areas/removeArea', auth, areasController.destroy);
  * Roles
  */
 router.get('/roles/getAll', auth,rolesController.list);
-router.post('/roles/create', auth, rolesController.create);
+router.post('/roles/create',  rolesController.create);
 router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol', auth, rolesController.retrieve);
 router.delete('/roles/removeRol', auth, rolesController.destroy);
-
+/**
+ * Beneficios 
+ */
+router.post('/beneficios/create',  beneficiosController.create);
+router.put('/beneficios/edit', beneficiosController.edit);
+router.get('/beneficios/getAll', beneficiosController.list);
+router.get('/beneficios/getBenefit', beneficiosController.retrieve);
+router.delete('/beneficios/removeBenefit', beneficiosController.destroy);
+/**
+ * Noticias
+ */
+router.post('/noticias/create', noticiasController.create);
+router.put('/noticias/edit', noticiasController.edit);
+router.get('/noticias/getAll', noticiasController.list);
+router.get('/noticias/getNews', noticiasController.retrieve);
+router.delete('/noticias/removeNews', noticiasController.destroy);
 /**
  * Auth
  * Password
