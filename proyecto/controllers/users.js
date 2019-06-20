@@ -209,6 +209,9 @@ module.exports = {
             where: {
                 validate_token: req.body.token
                 },
+                attributes: {
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
+                },
                 plain: true
         })
         .then(user => {
