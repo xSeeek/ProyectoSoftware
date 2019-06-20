@@ -115,7 +115,7 @@ module.exports = {
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
                         telefono: req.body.telefono || user.telefono,
-                        fechaNacimiento: req.body.fechaNacimiento || user.fechaNacimiento,
+                        fechaNacimiento: new Date(req.body.fechaNacimiento) || user.fechaNacimiento,
                         estado: estado,
                         validate_token: validate_token
                     })
