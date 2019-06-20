@@ -55,7 +55,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
+							"raw": "{\n\t\"idUsuario\": 3,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
@@ -451,6 +451,39 @@
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nQuita el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\" : \"U2FsdGVkX1+USi73v/n3YRvtOJ+1kaETuet8yaVs3rL/LCusObvS6WiYUed2VuOh\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/validateEmail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"validateEmail"
+							]
+						},
+						"description": "Envia el token para validar el correo despues de haberlo cambiado"
 					},
 					"response": []
 				}
