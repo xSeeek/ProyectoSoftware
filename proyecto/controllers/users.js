@@ -61,7 +61,7 @@ module.exports = {
         return User
             .findByPk(req.body.idUsuario, {
                 attributes: {
-                    exclude: ['password', 'validate_token', 'validate_token_expires']
+                    exclude: ['password', 'validate_token_expires']
                 }
             })
             .then(user => {
@@ -115,7 +115,7 @@ module.exports = {
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
                         telefono: req.body.telefono || user.telefono,
-                        fechaNacimiento: new Date(req.body.fechaNacimiento) || user.fechaNacimiento,
+                        fechaNacimiento: (new Date(req.body.fechaNacimiento)) || user.fechaNacimiento,
                         estado: estado,
                         validate_token: validate_token
                     })
