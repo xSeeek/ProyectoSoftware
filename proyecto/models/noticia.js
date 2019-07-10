@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     duracion: {
       type: DataTypes.FLOAT,
       defaultValue: 60
+    },
+    estado: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'Noticia',

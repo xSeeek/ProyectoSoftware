@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    estado: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'Area',

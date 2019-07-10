@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: {
       type: DataTypes.STRING,
       defaultValue: 'No Especificada'
+    },
+    estado: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'Cargo',
