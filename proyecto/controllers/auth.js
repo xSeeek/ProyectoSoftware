@@ -25,8 +25,9 @@ module.exports = {
                     return res.status(200).send({
                         success: true,
                         token: services.token.createToken(usuario),
-                        user: usuario.name,
+                        user: usuario.idUsuario,
                         message: "Las contraseñas coinciden"
+
                     });
                 }
                 return res.status(400).send({message: "La contraseña no es valida"});
