@@ -85,4 +85,23 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+    changeStatus(req, res)
+    {
+        return Noticia
+            .findByPk(req.body.idNoticia)
+            .then(noticia => {
+                if(!noticia){
+                    return res.status(400).send({message:'Noticia no existe en el sistema'});
+                }
+                var newStatus = 0;
+                if(noticia.estado == 0)
+                    newStatus = 1;
+                return noticia
+                .update({
+                    estado: newStatus,
+                })
+                .then(updatedStatus => res.status(200).send('Estado actualizado'))
+                .catch(error => res.status(400).send(error));
+            })
+    }
 };

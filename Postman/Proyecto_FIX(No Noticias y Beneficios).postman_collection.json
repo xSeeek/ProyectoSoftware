@@ -486,6 +486,39 @@
 						"description": "Envia el token para validar el correo despues de haberlo cambiado"
 					},
 					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
 				}
 			]
 		},
@@ -761,6 +794,39 @@
 						"description": "A traves del Body envia:\nidCargo -> id del cargo a editar\nnombre -> Nuevo nombre del cargo\ndescripcion -> Nueva descripcion del cargo\n\nSi se edito exitosamente retorna con Status 200 y el cargo con los cambios realizados"
 					},
 					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idCargo\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
 				}
 			]
 		},
@@ -970,6 +1036,39 @@
 						"description": "A traves del Body envia:\nidArea -> id del rol a editar\ntipo -> Nuevo nombre del rol\ndescripcion -> Nueva descripcion del rol\n\nSi se edito exitosamente retorna con Status 200 y el rol con los cambios realizados"
 					},
 					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
 				}
 			]
 		},
@@ -1177,6 +1276,115 @@
 							]
 						},
 						"description": "Debe enviar un idArea.\n\nObtiene los detalles de la area además de los usuarios que pertenecen a esta."
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beneficios",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Noticias",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
 					},
 					"response": []
 				}

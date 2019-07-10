@@ -75,8 +75,23 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
-    update(req, res)
+    changeStatus(req, res)
     {
-        
+        return Area
+            .findByPk(req.body.idArea)
+            .then(area => {
+                if(!area){
+                    return res.status(400).send({message:'Area no existe en el sistema'});
+                }
+                var newStatus = 0;
+                if(area.estado == 0)
+                    newStatus = 1;
+                return area
+                .update({
+                    estado: newStatus,
+                })
+                .then(updatedStatus => res.status(200).send('Estado actualizado'))
+                .catch(error => res.status(400).send(error));
+            })
     }
 };

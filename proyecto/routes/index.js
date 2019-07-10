@@ -30,6 +30,7 @@ router.post('/users/validateData',  usersController.validate);
 router.post('/users/getUser', usersController.retrieve);
 router.delete('/users/removeUser',  usersController.destroy);
 router.post('/users/validateEmail', usersController.confirmEmail);
+router.post('/users/changeStatus', usersController.changeStatus);
 
 /**
  * Funciones relacionadas con Usuarios
@@ -50,6 +51,7 @@ router.post('/cargos/create',  cargosController.create);
 router.put('/cargos/edit', cargosController.edit);
 router.get('/cargos/getCargo', auth,  cargosController.retrieve);
 router.delete('/cargos/removeCargo', auth, cargosController.destroy);
+router.post('/cargos/changeStatus', cargosController.changeStatus);
 
 /**
  * Areas
@@ -59,6 +61,7 @@ router.post('/areas/create',  areasController.create);
 router.put('/areas/edit', areasController.edit);
 router.get('/areas/getArea', auth, areasController.retrieve);
 router.delete('/areas/removeArea', auth, areasController.destroy);
+router.post('/areas/changeStatus', areasController.changeStatus);
 
 /**
  * Roles
@@ -68,6 +71,8 @@ router.post('/roles/create',  rolesController.create);
 router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol',  rolesController.retrieve);
 router.delete('/roles/removeRol', auth, rolesController.destroy);
+router.post('/roles/changeStatus', rolesController.changeStatus);
+
 /**
  * Beneficios 
  */
@@ -76,14 +81,19 @@ router.put('/beneficios/edit', beneficiosController.edit);
 router.get('/beneficios/getAll', beneficiosController.list);
 router.get('/beneficios/getBenefit', beneficiosController.retrieve);
 router.delete('/beneficios/removeBenefit', beneficiosController.destroy);
+router.post('/beneficios/changeStatus', beneficiosController.changeStatus);
+
 /**
  * Noticias
  */
+
 router.post('/noticias/create', noticiasController.create);
 router.put('/noticias/edit', noticiasController.edit);
 router.get('/noticias/getAll', noticiasController.list);
 router.get('/noticias/getNews', noticiasController.retrieve);
 router.delete('/noticias/removeNews', noticiasController.destroy);
+router.post('/noticias/changeStatus', noticiasController.changeStatus);
+
 /**
  * Auth
  * Password

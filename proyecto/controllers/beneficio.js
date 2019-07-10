@@ -85,4 +85,23 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+    changeStatus(req, res)
+    {
+        return Beneficio
+            .findByPk(req.body.idBeneficio)
+            .then(beneficio => {
+                if(!beneficio){
+                    return res.status(400).send({message:'Beneficio no existe en el sistema'});
+                }
+                var newStatus = 0;
+                if(beneficio.estado == 0)
+                    newStatus = 1;
+                return beneficio
+                .update({
+                    estado: newStatus,
+                })
+                .then(updatedStatus => res.status(200).send('Estado actualizado'))
+                .catch(error => res.status(400).send(error));
+            })
+    }
 };

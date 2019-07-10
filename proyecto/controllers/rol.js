@@ -75,8 +75,23 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
-    update(req, res)
+    changeStatus(req, res)
     {
-        
+        return Rol
+            .findByPk(req.body.idRol)
+            .then(rol => {
+                if(!rol){
+                    return res.status(400).send({message:'Rol no existe en el sistema'});
+                }
+                var newStatus = 0;
+                if(rol.estado == 0)
+                    newStatus = 1;
+                return rol
+                .update({
+                    estado: newStatus,
+                })
+                .then(updatedStatus => res.status(200).send('Estado actualizado'))
+                .catch(error => res.status(400).send(error));
+            })
     }
 };
