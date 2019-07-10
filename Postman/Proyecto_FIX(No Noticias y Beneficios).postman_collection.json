@@ -1,0 +1,1335 @@
+{
+	"info": {
+		"_postman_id": "4b048347-fb66-432f-a8b6-1fa8a6c051bb",
+		"name": "Proyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Create Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\",\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"rut\" : \"196191046\",\n\t\"telefono\" : 965547219,\n\t\"fechaNacimiento\" : \"10/01/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						},
+						"description": "Crea un nuevo usuario, segun los datos especificados en el ERD"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\": 3,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"edit"
+							]
+						},
+						"description": "Edita los datos de un usuarios usuario, segun los datos especificados en el ERD.\n\nSe busca segun idUsuario."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk4NTExNCwiZXhwIjoxNTYxNTg5OTE0fQ.06MOqBKaoHsemz1wdvkKs9y34bzcDsDnRcBn8x6gRX34",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos los usuarios registrados en el sistema, sin detalles de sus relaciones"
+					},
+					"response": []
+				},
+				{
+					"name": "Validar datos de sesion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "francisco.riquelme@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/validateData",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"validateData"
+							]
+						},
+						"description": "Se debe enviar un email y password.\n\nResponde true cuando los datos ingresados corresponden a los de la base de datos y false cuando no."
+					},
+					"response": []
+				},
+				{
+					"name": "Get USER by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getUser"
+							]
+						},
+						"description": "Envia mediante el BodyRequest el id del usuario y retorna todos los datos asociados a el (menos la password)."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove USER",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/removeUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"removeUser"
+							]
+						},
+						"description": "Envia el idUsuario en el Body y lo borra del sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Rol a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idRol",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignRol"
+							]
+						},
+						"description": "Necesita idUsuario e idRol.\n\nAsigna el rol al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/unassignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"unassignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nQuita el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idArea",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/unassignArea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"unassignArea"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nQuita el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\" : \"U2FsdGVkX1+USi73v/n3YRvtOJ+1kaETuet8yaVs3rL/LCusObvS6WiYUed2VuOh\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/validateEmail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"validateEmail"
+							]
+						},
+						"description": "Envia el token para validar el correo despues de haberlo cambiado"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cargo",
+			"item": [
+				{
+					"name": "Create Cargo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Desarrollador",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "Desarrollador de la aplicacion web",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"create"
+							]
+						},
+						"description": "A traves del Body envia:\nnombre -> Nombre del nuevo cargo\ndescripcion -> Descripcion del nuevo cargo\n\nSi se agrego exitosamente retorna con Status 200 y el nuevo cargo"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cargos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos los cargos registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Get CARGO by idCargo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/getCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"getCargo"
+							]
+						},
+						"description": "Debe enviar un idCargo.\n\nObtiene los detalles del cargo además de los usuarios que pertenecen a este."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Cargo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idCargo",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/removeCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"removeCargo"
+							]
+						},
+						"description": "Requiere idCargo.\nBusca y elimina el cargo con el idCargo especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "UnAssignate Cargo a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/unassignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"unassignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idCargo.\n\nQuita el cargo al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Cargo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idCargo\" : 3,\n\t\"nombre\" : \"TMRE DEFINITIVO FINAL V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"edit"
+							]
+						},
+						"description": "A traves del Body envia:\nidCargo -> id del cargo a editar\nnombre -> Nuevo nombre del cargo\ndescripcion -> Nueva descripcion del cargo\n\nSi se edito exitosamente retorna con Status 200 y el cargo con los cambios realizados"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rol",
+			"item": [
+				{
+					"name": "Assignate Rol a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idRol",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignRol"
+							]
+						},
+						"description": "Necesita idUsuario e idRol.\n\nAsigna el rol al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rol",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"create"
+							]
+						},
+						"description": "A traves del Body envia:\ntipo -> Nombre del nuevo rol\ndescripcion -> Descripcion del nuevo rol\n\nSi se agrego exitosamente retorna con Status 200 y el nuevo rol"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos los roles registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Rol",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/removeRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"removeRol"
+							]
+						},
+						"description": "Requiere idRol.\nBusca y elimina el rol con el idRol especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rol by idRol",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/getRol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"getRol"
+							]
+						},
+						"description": "Debe enviar un idRol.\n\nObtiene los detalles del rol además de los usuarios que pertenecen a este."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Rol",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\" : 4,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"edit"
+							]
+						},
+						"description": "A traves del Body envia:\nidArea -> id del rol a editar\ntipo -> Nuevo nombre del rol\ndescripcion -> Nueva descripcion del rol\n\nSi se edito exitosamente retorna con Status 200 y el rol con los cambios realizados"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Area",
+			"item": [
+				{
+					"name": "Assignate Area a Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idCargo",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/assignCargo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assignCargo"
+							]
+						},
+						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"getAll"
+							]
+						},
+						"description": "Obtiene todos las areas registrados en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Area",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"create"
+							]
+						},
+						"description": "A traves del Body envia:\nnombre -> Nombre de la nueva area\ndescripcion -> Descripcion de la nueva area\n\nSi se agrego exitosamente retorna con Status 200 y la nueva area"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Area",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\" : 3,\n\t\"nombre\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"edit"
+							]
+						},
+						"description": "A traves del Body envia:\nidArea -> id del area a editar\nnombre -> Nuevo nombre del area\ndescripcion -> Nueva descripcion del area\n\nSi se edito exitosamente retorna con Status 200 y el area con los cambios realizados"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Area",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/removeArea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"removeArea"
+							]
+						},
+						"description": "Requiere idArea.\nBusca y elimina el area con el idArea especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Area by idArea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/getArea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"getArea"
+							]
+						},
+						"description": "Debe enviar un idArea.\n\nObtiene los detalles de la area además de los usuarios que pertenecen a esta."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notificaciones",
+			"item": []
+		},
+		{
+			"name": "Server",
+			"item": [
+				{
+					"name": "Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"authenticate"
+							]
+						},
+						"description": "Create JWT token"
+					},
+					"response": []
+				},
+				{
+					"name": "Require Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/forgot_password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"forgot_password"
+							]
+						},
+						"description": "Envia una solicitud para cambiar la password.\n\nResponde con un token unico para poder realizar el cambio de password."
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password via Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"U2FsdGVkX1+/ZsFcOPjRrFNBLU/9VcN1WW8WIzHIm0H9aNzCj22b+jyz3eLpY2vHPKuFfeYnaaJuxoAEW4i8G6u349Zy4jHX7izMnSdPpqxwryBgj07h7ROWn85IsVB6sidB/6S3WYRZ5j1zIj3tEg==\",\n    \"password\": \"password1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/reset_password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reset_password"
+							]
+						},
+						"description": "Cambia la password a traves de un token solicitado.\n\nSe envia a traves del Body:\ntoken: Token generado por el sistema de un unico uso, dura 1 dia\npassword: La nueva password para la cuenta del usuario\n\nRetorna mensaje con el estado de la peticion."
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password via idUsuario",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4532b847-d225-4825-9d5c-4061175f836a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"currentPassword\" : \"password\",\n\t\"newPassword\" : \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/changePassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"changePassword"
+							]
+						},
+						"description": "Cambia la contraseña del usuario.\n\nEnvía:\nidUsuario: id del usuario el cual va a cambiar la contraseña.\ncurrentPassword: Contraseña actual del usuario.\nnewPassword: Nueva contraseña del usuario\n\nResponde según corresponda:\n200 - OK Si el cambio de contraseña fue completado.\nCualquier otra respuesta con su respectivo mensaje."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
