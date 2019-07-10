@@ -23,30 +23,30 @@ router.post('/authenticate', authController.authenticate);
 /**
   * Users
  */
-router.get('/users/getAll', auth,  usersController.list);
+router.get('/users/getAll', auth, usersController.list);
 router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
-router.get('/users/getUser', usersController.retrieve);
-router.delete('/users/removeUser', auth,  usersController.destroy);
+router.post('/users/getUser', usersController.retrieve);
+router.delete('/users/removeUser',  usersController.destroy);
 router.post('/users/validateEmail', usersController.confirmEmail);
 
 /**
  * Funciones relacionadas con Usuarios
  */
-router.post('/assignCargo', auth, fnUsersController.assignateCargo);
-router.post('/unassignCargo',auth,  fnUsersController.unassignateCargo);
-router.post('/assignArea', auth,  fnUsersController.assignateArea);
-router.post('/unassignArea', auth,  fnUsersController.unassignateArea);
-router.post('/assignRol', auth, fnUsersController.assignateRol);
-router.post('/assignNotification', auth,  fnUsersController.assignateNotification);
-router.post('/unassignNotification', auth,  fnUsersController.unassignateNotification);
+router.post('/assignCargo',fnUsersController.assignateCargo);
+router.post('/unassignCargo' ,fnUsersController.unassignateCargo);
+router.post('/assignArea', fnUsersController.assignateArea);
+router.post('/unassignArea',   fnUsersController.unassignateArea);
+router.post('/assignRol', fnUsersController.assignateRol);
+router.post('/assignNotification',   fnUsersController.assignateNotification);
+router.post('/unassignNotification',  fnUsersController.unassignateNotification);
 
 /**
  * Cargos
  */
 router.get('/cargos/getAll', cargosController.list);
-router.post('/cargos/create', auth,  cargosController.create);
+router.post('/cargos/create',  cargosController.create);
 router.put('/cargos/edit', cargosController.edit);
 router.get('/cargos/getCargo', auth,  cargosController.retrieve);
 router.delete('/cargos/removeCargo', auth, cargosController.destroy);
@@ -54,8 +54,8 @@ router.delete('/cargos/removeCargo', auth, cargosController.destroy);
 /**
  * Areas
  */
-router.get('/areas/getAll', auth, areasController.list);
-router.post('/areas/create', auth, areasController.create);
+router.get('/areas/getAll',  areasController.list);
+router.post('/areas/create',  areasController.create);
 router.put('/areas/edit', areasController.edit);
 router.get('/areas/getArea', auth, areasController.retrieve);
 router.delete('/areas/removeArea', auth, areasController.destroy);
@@ -63,10 +63,10 @@ router.delete('/areas/removeArea', auth, areasController.destroy);
 /**
  * Roles
  */
-router.get('/roles/getAll', auth,rolesController.list);
+router.get('/roles/getAll', rolesController.list);
 router.post('/roles/create',  rolesController.create);
 router.put('/roles/edit', rolesController.edit);
-router.get('/roles/getRol', auth, rolesController.retrieve);
+router.get('/roles/getRol',  rolesController.retrieve);
 router.delete('/roles/removeRol', auth, rolesController.destroy);
 /**
  * Beneficios 
