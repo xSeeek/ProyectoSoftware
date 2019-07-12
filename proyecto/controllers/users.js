@@ -23,6 +23,31 @@ module.exports = {
             .then(user => res.status(200).send(user))
             .catch(error => res.status(400).send({message:'No hay usuarios en el sistema'}));
     },
+    listAllRelationships(req, res)
+    {
+        return User
+            .findAll({
+                attributes: {
+                    exclude: ['password', 'validate_token', 'validate_token_expires']
+                },
+                include: [
+                    {
+                        model: Rol,
+                        as: 'Rol',
+                    },
+                    {
+                        model: Area,
+                        as: 'Areas'
+                    },
+                    {
+                        model: Cargo,
+                        as: 'Cargos'
+                    }
+                ]
+            })
+            .then(user => res.status(200).send(user))
+            .catch(error => res.status(400).send({message:'No hay usuarios en el sistema'}));
+    },
     create(req, res)
     {
         if(validator.validate(req.body.email) == false)

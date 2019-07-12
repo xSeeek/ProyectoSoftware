@@ -5,9 +5,9 @@ module.exports = {
       return queryInterface.bulkInsert('Rol', [{
         tipo: 'Desarrollador',
         descripcion: 'Desarrollador del Sistema',
+        nivel_p: 10,
         createdAt: new Date(),
         updatedAt: new Date()
-
       }], {});
   },
 

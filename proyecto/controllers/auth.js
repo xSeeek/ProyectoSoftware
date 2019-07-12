@@ -1,4 +1,5 @@
 const User = require('../models').Usuario;
+const Rol = require('../models').Rol;
 const services = require('../services');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
@@ -21,16 +22,19 @@ module.exports = {
                 plain: true
             })
             .then(function(usuario){
-                if(bcrypt.compareSync(password, usuario.password)){
-                    return res.status(200).send({
-                        success: true,
-                        token: services.token.createToken(usuario),
-                        user: usuario.idUsuario,
-                        message: "Las contraseñas coinciden"
+                Rol.findByPk(usuario.rolUsuario)
+                .then(rol => {
+                    if(bcrypt.compareSync(password, usuario.password)){
+                        return res.status(200).send({
+                            success: true,
+                            token: services.token.createToken(usuario, rol.nivel_p),
+                            user: usuario.idUsuario,
+                            message: "Las contraseñas coinciden"
 
-                    });
-                }
-                return res.status(400).send({message: "La contraseña no es valida"});
+                        });
+                    }
+                    return res.status(400).send({message: "La contraseña no es valida"});
+                })
             })
             .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validación'}));;
     },

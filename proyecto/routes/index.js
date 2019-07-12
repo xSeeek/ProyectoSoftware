@@ -11,7 +11,6 @@ const beneficiosController = require('../controllers').beneficios;
 const noticiasController = require('../controllers').noticias;
 const fnUsersController = require('../controllers').fnUsers;
 
-
 /* GET home page. */
 router.get('/', auth);
 
@@ -23,8 +22,9 @@ router.post('/authenticate', authController.authenticate);
 /**
   * Users
  */
-router.get('/users/getAll', auth, usersController.list);
-router.post('/users/create',  usersController.create);
+router.get('/users/getAll', auth(10), usersController.list);
+router.get('/users/getAllComplete', usersController.listAllRelationships);
+router.post('/users/create',  auth(10), usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
 router.post('/users/getUser', usersController.retrieve);
@@ -49,8 +49,8 @@ router.post('/unassignNotification',  fnUsersController.unassignateNotification)
 router.get('/cargos/getAll', cargosController.list);
 router.post('/cargos/create',  cargosController.create);
 router.put('/cargos/edit', cargosController.edit);
-router.get('/cargos/getCargo', auth,  cargosController.retrieve);
-router.delete('/cargos/removeCargo', auth, cargosController.destroy);
+router.get('/cargos/getCargo', auth(0),  cargosController.retrieve);
+router.delete('/cargos/removeCargo', auth(0), cargosController.destroy);
 router.post('/cargos/changeStatus', cargosController.changeStatus);
 
 /**
@@ -59,8 +59,8 @@ router.post('/cargos/changeStatus', cargosController.changeStatus);
 router.get('/areas/getAll',  areasController.list);
 router.post('/areas/create',  areasController.create);
 router.put('/areas/edit', areasController.edit);
-router.get('/areas/getArea', auth, areasController.retrieve);
-router.delete('/areas/removeArea', auth, areasController.destroy);
+router.get('/areas/getArea', auth(0), areasController.retrieve);
+router.delete('/areas/removeArea', auth(0), areasController.destroy);
 router.post('/areas/changeStatus', areasController.changeStatus);
 
 /**
@@ -70,7 +70,7 @@ router.get('/roles/getAll', rolesController.list);
 router.post('/roles/create',  rolesController.create);
 router.put('/roles/edit', rolesController.edit);
 router.get('/roles/getRol',  rolesController.retrieve);
-router.delete('/roles/removeRol', auth, rolesController.destroy);
+router.delete('/roles/removeRol', auth(0), rolesController.destroy);
 router.post('/roles/changeStatus', rolesController.changeStatus);
 
 /**
