@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1
       },
+      nivel_p: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -16,6 +16,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     estado: {
       type: DataTypes.INTEGER
+    },
+    nivel_p: {
+      type: DataTypes.INTEGER,
+      validate: {
+        max: 10,
+        min: 0
+      }
     }
   }, {
     tableName: 'Rol',

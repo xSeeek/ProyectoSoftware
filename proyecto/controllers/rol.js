@@ -15,6 +15,7 @@ module.exports = {
             .create({
                 tipo: req.body.tipo,
                 descripcion: req.body.descripcion,
+                nivel_p: req.body.nivel_p
             })
             .then(rol => res.status(200).send(rol))
             .catch(error => res.status(400).send({message:'Error al agregar el rol', error}));
@@ -31,6 +32,7 @@ module.exports = {
                 .update({
                     tipo: req.body.tipo || rol.tipo,
                     descripcion: req.body.descripcion || rol.descripcion,
+                    nivel_p: req.body.nivel_p || rol.nivel_p
                 })
                 .then(updatedRol => res.status(200).send(updatedRol))
                 .catch(error => res.status(400).send(error));
