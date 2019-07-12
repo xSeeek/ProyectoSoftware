@@ -11,6 +11,16 @@
 				{
 					"name": "Create Usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInBlcm1pc28iOjEwLCJpYXQiOjE1NjI4ODk5MTMsImV4cCI6MTU2MzQ5NDcxM30.RAJYylzJeMKLOoP-_9nw7AkEV31xGcjO1xm_EhzkiMU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -117,6 +127,52 @@
 							]
 						},
 						"description": "Obtiene todos los usuarios registrados en el sistema, sin detalles de sus relaciones"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users with Relationships",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk4NTExNCwiZXhwIjoxNTYxNTg5OTE0fQ.06MOqBKaoHsemz1wdvkKs9y34bzcDsDnRcBn8x6gRX34",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getAllComplete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getAllComplete"
+							]
+						},
+						"description": "Obtiene todos los usuarios registrados en el sistema, con sus respectivas relaciones."
 					},
 					"response": []
 				},
@@ -890,7 +946,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\"\n}"
+							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\",\n\t\"nivel_p\" : 5\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/create",
@@ -1018,7 +1074,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idRol\" : 4,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+							"raw": "{\n\t\"idRol\" : 2,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\",\n\t\"nivel_p\" : 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/edit",
