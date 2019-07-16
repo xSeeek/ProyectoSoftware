@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const User = require('../models').Usuario;
 const Rol = require('../models').Rol;
 const Area = require('../models').Area;
@@ -20,8 +21,8 @@ module.exports = {
                     exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
-            .then(user => res.status(200).send(user))
-            .catch(error => res.status(400).send({message:'No hay usuarios en el sistema'}));
+            .then(user => res.status(process.env.USR_OK).send(user))
+            .catch(error => res.status(process.env.USR_NFD).send({message:'No hay usuarios en el sistema'}));
     },
     listAllRelationships(req, res)
     {
@@ -45,13 +46,29 @@ module.exports = {
                     }
                 ]
             })
-            .then(user => res.status(200).send(user))
-            .catch(error => res.status(400).send({message:'No hay usuarios en el sistema'}));
+            .then(user => res.status(process.env.USR_OK).send(user))
+            .catch(error => res.status(process.env.USR_NFD).send({message:'No hay usuarios en el sistema'}));
     },
     create(req, res)
     {
         if(validator.validate(req.body.email) == false)
-            return res.status(400).send({message:'El correo electrónico ingresado no es válido.'});
+            return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
+
+        User.findAll({
+            where: {
+                    [(Sequelize.Op).or]: [{email: req.body.email}, {rut: format(req.body.rut)}]
+                },
+                plain: true
+            })
+            .then(usuario => {
+                if(usuario.length != 0)
+                {
+                    if(usuario.rut == format(req.body.rut))
+                        return res.status(process.env.USR_RUT).send({message:'Ya existe un usuario con el mismo RUT ingresado en el sistema'});
+                    if(usuario.email == req.body.email)
+                        return res.status(process.env.USR_EMAIL).send({message:'Ya existe un usuario con el mismo email ingresado en el sistema'});
+                }
+            });
 
         var salt = bcrypt.genSaltSync(saltRounds);
         return User
@@ -66,20 +83,19 @@ module.exports = {
                     if(validate(rut))
                     {
                         rut = format(rut);
-                        console.log(rut);
                         return rut;
                     }
-                    return res.status(500).send({message:'RUT ingresado no es válido'});
+                    return res.status(process.env.USR_RUT).send({message:'RUT ingresado no es válido'});
                   })(),
                 telefono: req.body.telefono,
                 fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
                 rolUsuario: req.body.rolUsuario
             })
-            .then(user => res.status(200).send({
+            .then(user => res.status(process.env.USR_OK).send({
                 message: "Usuario creado correctamente"
             }))
-            .catch(error => res.status(500).send({message:'Error al agregar al usuario', error}));
+            .catch(error => res.status(process.env.USR_ERR).send({message:'Error al agregar al usuario', error}));
     },
     edit(req, res)
     {
@@ -94,9 +110,9 @@ module.exports = {
                 var validate_token = null;
 
                 if(!user)
-                    return res.status(400).send({message:'Usuario no existe en el sistema'});
+                    return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
                 if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
-                    return res.status(400).send({message:'No se puede actualizar este dato mediante esta via'});
+                    return res.status(process.env.USR_INV).send({message:'No se puede actualizar este dato mediante esta via'});
                 
                 User.findAll({
                     where:{
@@ -108,7 +124,7 @@ module.exports = {
                 })
                 .then(find => {
                     if(find.length != 0)
-                        return res.status(400).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
+                        return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
                 });
 
                 var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
@@ -116,7 +132,7 @@ module.exports = {
                 if(req.body.email != null)
                 {
                     if(validator.validate(req.body.email) == false)
-                        return res.status(400).send({message:'El correo electrónico ingresado no es válido.'});
+                        return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
 
                     var estado = 2;
                     validate_token = token.toString();
@@ -144,10 +160,10 @@ module.exports = {
                         estado: estado,
                         validate_token: validate_token
                     })
-                    .then(updatedUser => res.status(200).send(updatedUser))
-                    .catch(error => res.status(400).send(error));
+                    .then(updatedUser => res.status(process.env.USR_OK).send(updatedUser))
+                    .catch(error => res.status(process.env.USR_ERR).send(error));
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.USR_ERR).send(error));
     },
     retrieve(req, res)
     {
@@ -180,13 +196,13 @@ module.exports = {
                     }
                     return true;
                 })()){
-                    return res.status(404).send({
+                    return res.status(process.env.USR_NFD).send({
                         message: 'Usuario no encontrado'
                     })
                 };
-                return res.status(200).send(usuario);
+                return res.status(process.env.USR_OK).send(usuario);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.USR_ERR).send(error));
     },
     destroy(req, res)
     {
@@ -194,12 +210,12 @@ module.exports = {
             .findByPk(req.body.idUsuario)
             .then(usuario => {
                 if(!usuario)
-                    return res.status(404).send({message: 'Usuario no encontrado'});
+                    return res.status(process.env.USR_NFD).send({message: 'Usuario no encontrado'});
                 return usuario
                     .destroy()
-                    .then(() => res.status(200).send({message: 'Usuario eliminado del sistema'}))
+                    .then(() => res.status(process.env.USR_OK).send({message: 'Usuario eliminado del sistema'}))
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.USR_ERR).send(error));
     },
     validate(req, res)
     {
@@ -219,15 +235,15 @@ module.exports = {
             })
             .then(function(usuario){
                 if(bcrypt.compareSync(password, usuario.password))
-                    return res.status(200).send(true);
+                    return res.status(process.env.USR_OK).send(true);
                 return res.status(500).send(false);
             })
-            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validacion'}));;
+            .catch(error => res.status(process.env.USR_INS).send({message:'Datos insuficientes para realizar la validacion'}));;
     },
     confirmEmail(req, res)
     {
         if(req.body.token == null)
-            return res.status(400).send({message:'Token no es válido'});
+            return res.status(process.env.USR_TKN).send({message:'Token no es válido'});
 
         return User
         .findAll({
@@ -243,10 +259,10 @@ module.exports = {
             var estado = 1;
 
             if(user == null)
-                return res.status(400).send({message:'Token no es válido'});
+                return res.status(process.env.USR_TKN).send({message:'Token no es válido'});
 
             if(user.estado != 2)
-                return res.status(400).send({message:'No ha solicitado un cambio de email recientemente'});
+                return res.status(process.env.USR_CHK).send({message:'No ha solicitado un cambio de email recientemente'});
 
             var bytes  = crypto.AES.decrypt(req.body.token, process.env.JWT_SECRET);
             var email = bytes.toString(crypto.enc.Utf8);
@@ -257,10 +273,10 @@ module.exports = {
                     estado: estado,
                     validate_token: null
                 })
-                .then(updatedUser => res.status(200).send(updatedUser))
-                .catch(error => res.status(400).send(error));
+                .then(updatedUser => res.status(process.env.USR_OK).send(updatedUser))
+                .catch(error => res.status(process.env.USR_ERR).send(error));
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => res.status(process.env.USR_ERR).send(error));
     },
     changeStatus(req, res)
     {
@@ -268,7 +284,7 @@ module.exports = {
             .findByPk(req.body.idUsuario)
             .then(usuario => {
                 if(!usuario){
-                    return res.status(400).send({message:'Usuario no existe en el sistema'});
+                    return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(usuario.estado == 0)
@@ -277,8 +293,8 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send('Estado actualizado'))
-                .catch(error => res.status(400).send(error));
+                .then(updatedStatus => res.status(process.env.USR_OK).send('Estado actualizado'))
+                .catch(error => res.status(process.env.USR_ERR).send(error));
             })
     }
 };

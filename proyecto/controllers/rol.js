@@ -6,8 +6,8 @@ module.exports = {
     {
         return Rol
             .findAll()
-            .then(rol => res.status(200).send(rol))
-            .catch(error => res.status(400).send({message:'No hay roles registrados en el sistema'}));
+            .then(rol => res.status(process.env.ROL_OK).send(rol))
+            .catch(error => res.status(process.env.ROL_NFD).send({message:'No hay roles registrados en el sistema'}));
     },
     create(req, res)
     {
@@ -17,8 +17,8 @@ module.exports = {
                 descripcion: req.body.descripcion,
                 nivel_p: req.body.nivel_p
             })
-            .then(rol => res.status(200).send(rol))
-            .catch(error => res.status(400).send({message:'Error al agregar el rol', error}));
+            .then(rol => res.status(process.env.ROL_OK).send(rol))
+            .catch(error => res.status(process.env.ROL_ERR).send({message:'Error al agregar el rol', error}));
     },
     edit(req, res)
     {
@@ -26,7 +26,7 @@ module.exports = {
             .findByPk(req.body.idRol)
             .then(rol => {
                 if(!rol)
-                    return res.status(400).send({message:'Rol no existe en el sistema'});
+                    return res.status(process.env.ROL_NFD).send({message:'Rol no existe en el sistema'});
 
                 return rol
                 .update({
@@ -34,8 +34,8 @@ module.exports = {
                     descripcion: req.body.descripcion || rol.descripcion,
                     nivel_p: req.body.nivel_p || rol.nivel_p
                 })
-                .then(updatedRol => res.status(200).send(updatedRol))
-                .catch(error => res.status(400).send(error));
+                .then(updatedRol => res.status(process.env.ROL_OK).send(updatedRol))
+                .catch(error => res.status(process.env.ROL_ERR).send(error));
             })
     },
     retrieve(req, res)
@@ -59,10 +59,10 @@ module.exports = {
             .then(rol => {
                 console.log(rol);
                 if(!rol)
-                    return res.status(400).send({message:'Rol no encontrado o no existe'});
-                return res.status(200).send(rol);
+                    return res.status(process.env.ROL_NFD).send({message:'Rol no encontrado o no existe'});
+                return res.status(process.env.ROL_OK).send(rol);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.ROL_ERR).send(error));
     },
     destroy(req, res)
     {
@@ -70,12 +70,12 @@ module.exports = {
             .findByPk(req.body.idRol)
             .then(rol => {
                 if(!rol)
-                    return res.status(404).send({message: 'Rol no encontrado'});
+                    return res.status(process.env.ROL_NFD).send({message: 'Rol no encontrado'});
                 return rol
                     .destroy()
-                    .then(() => res.status(200).send({message: 'Rol eliminado del sistema'}))
+                    .then(() => res.status(process.env.ROL_OK).send({message: 'Rol eliminado del sistema'}))
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.ROL_ERR).send(error));
     },
     changeStatus(req, res)
     {
@@ -83,7 +83,7 @@ module.exports = {
             .findByPk(req.body.idRol)
             .then(rol => {
                 if(!rol){
-                    return res.status(400).send({message:'Rol no existe en el sistema'});
+                    return res.status(process.env.ROL_NFD).send({message:'Rol no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(rol.estado == 0)
@@ -92,8 +92,8 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send('Estado actualizado'))
-                .catch(error => res.status(400).send(error));
+                .then(updatedStatus => res.status(process.env.ROL_OK).send('Estado actualizado'))
+                .catch(error => res.status(process.env.ROL_ERR).send(error));
             })
     }
 };

@@ -6,8 +6,8 @@ module.exports = {
     {
         return Cargo
             .findAll()
-            .then(cargo => res.status(200).send(cargo))
-            .catch(error => res.status(400).send({message:'No hay cargos registrados en el sistema'}));
+            .then(cargo => res.status(process.env.CRG_OK).send(cargo))
+            .catch(error => res.status(process.env.CRG_NFD).send({message:'No hay cargos registrados en el sistema'}));
     },
     create(req, res)
     {
@@ -16,8 +16,8 @@ module.exports = {
                 nombre: req.body.nombre,
                 descripcion: req.body.descripcion,
             })
-            .then(cargo => res.status(200).send(cargo))
-            .catch(error => res.status(400).send({message:'Error al agregar el area', error}));
+            .then(cargo => res.status(process.env.CRG_OK).send(cargo))
+            .catch(error => res.status(process.env.CRG_ERR).send({message:'Error al agregar el area', error}));
     },
     edit(req, res)
     {
@@ -25,15 +25,15 @@ module.exports = {
             .findByPk(req.body.idCargo)
             .then(cargo => {
                 if(!cargo)
-                    return res.status(400).send({message:'Cargo no existe en el sistema'});
+                    return res.status(process.env.CRG_NFD).send({message:'Cargo no existe en el sistema'});
 
                 return cargo
                 .update({
                     nombre: req.body.nombre || area.nombre,
                     descripcion: req.body.descripcion || area.descripcion,
                 })
-                .then(updatedCargo => res.status(200).send(updatedCargo))
-                .catch(error => res.status(400).send(error));
+                .then(updatedCargo => res.status(process.env.CRG_OK).send(updatedCargo))
+                .catch(error => res.status(process.env.CRG_ERR).send(error));
             })
     },
     retrieve(req, res)
@@ -57,10 +57,10 @@ module.exports = {
             .then(cargo => {
                 console.log(cargo);
                 if(!cargo)
-                    return res.status(400).send({message:'Cargo no encontrado o no existe'});
-                return res.status(200).send(cargo);
+                    return res.status(process.env.CRG_NFD).send({message:'Cargo no encontrado o no existe'});
+                return res.status(process.env.CRG_OK).send(cargo);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.CRG_ERR).send(error));
     },
     destroy(req, res)
     {
@@ -68,12 +68,12 @@ module.exports = {
             .findByPk(req.body.idCargo)
             .then(cargo => {
                 if(!cargo)
-                    return res.status(404).send({message: 'Cargo no encontrado'});
+                    return res.status(process.env.CRG_NFD).send({message: 'Cargo no encontrado'});
                 return cargo
                     .destroy()
-                    .then(() => res.status(200).send({message: 'Cargo eliminado del sistema'}))
+                    .then(() => res.status(process.env.CRG_OK).send({message: 'Cargo eliminado del sistema'}))
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.CRG_ERR).send(error));
     },
     changeStatus(req, res)
     {
@@ -81,7 +81,7 @@ module.exports = {
             .findByPk(req.body.idCargo)
             .then(cargo => {
                 if(!cargo){
-                    return res.status(400).send({message:'Cargo no existe en el sistema'});
+                    return res.status(process.env.CRG_NFD).send({message:'Cargo no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(cargo.estado == 0)
@@ -90,8 +90,8 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send('Estado actualizado'))
-                .catch(error => res.status(400).send(error));
+                .then(updatedStatus => res.status(process.env.CRG_OK).send('Estado actualizado'))
+                .catch(error => res.status(process.env.CRG_ERR).send(error));
             })
     }
 };

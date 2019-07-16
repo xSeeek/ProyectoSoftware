@@ -6,8 +6,8 @@ module.exports = {
     {
         return Area
             .findAll()
-            .then(area => res.status(200).send(area))
-            .catch(error => res.status(400).send({message:'No hay areas registradas en el sistema'}));
+            .then(area => res.status(process.env.ARE_OK).send(area))
+            .catch(error => res.status(process.env.ARE_NFD).send({message:'No hay areas registradas en el sistema'}));
     },
     create(req, res)
     {
@@ -16,8 +16,8 @@ module.exports = {
                 nombre: req.body.nombre,
                 descripcion: req.body.descripcion,
             })
-            .then(area => res.status(200).send(area))
-            .catch(error => res.status(400).send({message:'Error al agregar el Area', error}));
+            .then(area => res.status(process.env.ARE_OK).send(area))
+            .catch(error => res.status(process.env.ARE_ERR).send({message:'Error al agregar el Area', error}));
     },
     edit(req, res)
     {
@@ -25,15 +25,15 @@ module.exports = {
             .findByPk(req.body.idArea)
             .then(area => {
                 if(!area)
-                    return res.status(400).send({message:'Area no existe en el sistema'});
+                    return res.status(process.env.ARE_NFD).send({message:'Area no existe en el sistema'});
 
                 return area
                 .update({
                     nombre: req.body.nombre || area.nombre,
                     descripcion: req.body.descripcion || area.descripcion,
                 })
-                .then(updatedArea => res.status(200).send(updatedArea))
-                .catch(error => res.status(400).send(error));
+                .then(updatedArea => res.status(process.env.ARE_OK).send(updatedArea))
+                .catch(error => res.status(process.env.ARE_ERR).send(error));
             })
     },
     retrieve(req, res)
@@ -57,10 +57,10 @@ module.exports = {
             .then(area => {
                 console.log(area);
                 if(!area)
-                    return res.status(400).send({message:'Area no encontrada o no existe'});
-                return res.status(200).send(area);
+                    return res.status(process.env.ARE_NFD).send({message:'Area no encontrada o no existe'});
+                return res.status(process.env.ARE_OK).send(area);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.ARE_ERR).send(error));
     },
     destroy(req, res)
     {
@@ -68,12 +68,12 @@ module.exports = {
             .findByPk(req.body.idArea)
             .then(area => {
                 if(!area)
-                    return res.status(404).send({message: 'Area no encontrada'});
+                    return res.status(process.env.ARE_NFD).send({message: 'Area no encontrada'});
                 return area
                     .destroy()
-                    .then(() => res.status(200).send({message: 'Area eliminada del sistema'}))
+                    .then(() => res.status(process.env.ARE_OK).send({message: 'Area eliminada del sistema'}))
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.ARE_ERR).send(error));
     },
     changeStatus(req, res)
     {
@@ -81,7 +81,7 @@ module.exports = {
             .findByPk(req.body.idArea)
             .then(area => {
                 if(!area){
-                    return res.status(400).send({message:'Area no existe en el sistema'});
+                    return res.status(process.env.ARE_NFD).send({message:'Area no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(area.estado == 0)
@@ -90,8 +90,8 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send('Estado actualizado'))
-                .catch(error => res.status(400).send(error));
+                .then(updatedStatus => res.status(process.env.ARE_OK).send('Estado actualizado'))
+                .catch(error => res.status(process.env.ARE_ERR).send(error));
             })
     }
 };

@@ -25,7 +25,7 @@ module.exports = {
                 Rol.findByPk(usuario.rolUsuario)
                 .then(rol => {
                     if(bcrypt.compareSync(password, usuario.password)){
-                        return res.status(200).send({
+                        return res.status(process.env.LGN_OK).send({
                             success: true,
                             token: services.token.createToken(usuario, rol.nivel_p),
                             user: usuario.idUsuario,
@@ -33,10 +33,10 @@ module.exports = {
 
                         });
                     }
-                    return res.status(400).send({message: "La contraseña no es valida"});
+                    return res.status(process.env.LGN_PWRD).send({message: "La contraseña no es valida"});
                 })
             })
-            .catch(error => res.status(400).send({message:'Datos insuficientes para realizar la validación'}));;
+            .catch(error => res.status(process.env.LGN_ERR).send({message:'Datos insuficientes para realizar la validación'}));;
     },
     forgot_password(req, res)
     {
@@ -47,10 +47,10 @@ module.exports = {
                     plain: true
             }).then(usuario => {
                 if(usuario.length == 0)
-                    return res.status(400).send({message: 'Usuario no encontrado'});
+                    return res.status(process.env.LGN_USR).send({message: 'Usuario no encontrado'});
 
                 if(usuario.validate_token != null && new Date() <= usuario.validate_token_expires)
-                    return res.status(200).send({message: 'Ya ha solicitado un cambio de contraseña recientemente'});
+                    return res.status(process.env.LGN_TKN_CTD).send({message: 'Ya ha solicitado un cambio de contraseña recientemente'});
 
                 /**
                  * token : Token a enviar al usuario para validar su sesion
@@ -86,17 +86,17 @@ module.exports = {
                 };
 
                 if(services.email.sendEmail(mailOptions) == true)
-                    return res.status(200).send({ message: 'Verifique su correo para continuar con el cambio de contraseña' });
-                return res.status(400).send({message: 'Error al enviar el correo'});
+                    return res.status(process.env.LGN_OK).send({ message: 'Verifique su correo para continuar con el cambio de contraseña' });
+                return res.status(process.env.LGN_EML).send({message: 'Error al enviar el correo'});
             })
-            .catch(error => res.status(500).send(error));
+            .catch(error => res.status(process.env.LGN_ERR).send(error));
     },
     reset_password(req, res)
     {
         if(req.body.token == null)
-            return res.status(400).send({message:'Token no es válido'});
+            return res.status(process.env.LGN_TKN_INV).send({message:'Token no es válido'});
         if(req.body.password == null)
-            return res.status(400).send({message:'La nueva contraseña no puede estar en blanco'});
+            return res.status(process.env.LGN_ETY).send({message:'La nueva contraseña no puede estar en blanco'});
 
         User.findAll({
             where: {
@@ -105,7 +105,7 @@ module.exports = {
                 plain: true
         }).then(usuario => {
             if(usuario == null)
-                return res.status(400).send({message:'Token no es válido'});
+                return res.status(process.env.LGN_TKN_INV).send({message:'Token no es válido'});
 
             if(new Date() > usuario.validate_token_expires)
             {
@@ -114,7 +114,7 @@ module.exports = {
                             validate_token: null,
                             validate_token_expires: null
                         }).
-                        then(res.status(400).send({message:'El token para realizar el cambio de contraseña expiró. Intente nuevamente.'}))
+                        then(res.status(process.env.LGN_TKN_INV).send({message:'El token para realizar el cambio de contraseña expiró. Intente nuevamente.'}))
             }
 
             var salt = bcrypt.genSaltSync(saltRounds);
@@ -140,16 +140,16 @@ module.exports = {
                             };
                         
                             if(services.email.sendEmail(mailOptions) == true)
-                                return res.status(200).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
-                            return res.status(400).send({message: 'Error al enviar el correo'});
+                                return res.status(process.env.LGN_OK).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
+                            return res.status(process.env.LGN_EML).send({message: 'Error al enviar el correo'});
                         });
         })
-        .catch(error => res.status(500).send(error));
+        .catch(error => res.status(process.env.LGN_ERR).send(error));
     },
     changePassword(req, res)
     {
         if(req.body.newPassword == null || req.body.newPassword == "" || req.body.currentPassword == "" || req.body.currentPassword == null)
-            return res.status(400).send({message:'La contraseña no puede estar en blanco.'});
+            return res.status(process.env.LGN_ETY).send({message:'La contraseña no puede estar en blanco.'});
 
         User
             .findByPk(req.body.idUsuario,
@@ -158,13 +158,13 @@ module.exports = {
                 })
             .then(user => {
                 if(!user)
-                    return res.status(400).send({message:'Usuario no existe en el sistema'});
+                    return res.status(process.env.LGN_USR).send({message:'Usuario no existe en el sistema'});
                 
                 if(!bcrypt.compareSync(req.body.currentPassword, user.password))
-                    return res.status(400).send({message:'La contraseña actual no coincide con la que está registrada en el sistema.'});
+                    return res.status(process.env.LGN_PWRD).send({message:'La contraseña actual no coincide con la que está registrada en el sistema.'});
 
                 if(bcrypt.compareSync(req.body.newPassword, user.password))
-                    return res.status(400).send({message:'La nueva contraseña no puede ser igual a la contraseña actual.'});
+                    return res.status(process.env.LGN_PWRD).send({message:'La nueva contraseña no puede ser igual a la contraseña actual.'});
 
                 var salt = bcrypt.genSaltSync(saltRounds);
                 return user
@@ -186,11 +186,11 @@ module.exports = {
                         };
                     
                         if(services.email.sendEmail(mailOptions) == true)
-                            return res.status(200).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
-                        return res.status(400).send({message: 'Error al enviar el correo'});
+                            return res.status(process.env.LGN_OK).send({ message: 'Se ha enviado un correo para confirmar los cambios' });
+                        return res.status(process.env.LGN_EML).send({message: 'Error al enviar el correo'});
                     })
-                    .catch(error => res.status(400).send(error));
+                    .catch(error => res.status(process.env.LGN_ERR).send(error));
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.LGN_ERR).send(error));
     }
 };
