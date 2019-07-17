@@ -100,7 +100,7 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send('Estado actualizado'))
+                .then(updatedStatus => res.status(200).send({message: 'Estado Actualizado'}))
                 .catch(error => res.status(400).send(error));
             })
     }

@@ -10,6 +10,8 @@ const auth = require('../middlewares/auth');
 const app = require('../app');
 const debug = require('debug')('proyecto:server');
 const http = require('http');
+const cors = require("cors");
+app.use(cors());
 
 /**
  * Create HTTP server.

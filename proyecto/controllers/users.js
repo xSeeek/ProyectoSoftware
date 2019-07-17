@@ -293,7 +293,7 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(process.env.USR_OK).send('Estado actualizado'))
+                .then(_ => res.status(process.env.USR_OK).send({message: "Usuario Actualizado"}))
                 .catch(error => res.status(process.env.USR_ERR).send(error));
             })
     }

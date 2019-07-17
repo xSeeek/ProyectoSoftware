@@ -92,7 +92,7 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(process.env.ROL_OK).send('Estado actualizado'))
+                .then(updatedStatus => res.status(process.env.ROL_OK).send({message: 'Estado actualizado'}))
                 .catch(error => res.status(process.env.ROL_ERR).send(error));
             })
     }
