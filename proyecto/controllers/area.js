@@ -90,7 +90,7 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(process.env.ARE_OK).send('Estado actualizado'))
+                .then(updatedStatus => res.status(process.env.ARE_OK).send({message: 'Estado Actualizado'}))
                 .catch(error => res.status(process.env.ARE_ERR).send(error));
             })
     }
