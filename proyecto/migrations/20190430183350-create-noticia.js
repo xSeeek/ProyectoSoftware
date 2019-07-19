@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       descripcion: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(3000),
         defaultValue: 'No especificada'
       },
       fechaInicio: {
