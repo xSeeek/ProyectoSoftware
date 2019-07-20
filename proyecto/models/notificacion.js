@@ -6,6 +6,13 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    tipo:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.INTEGER,
+    },
     titulo: {
       type: DataTypes.STRING,
       allowNull: false

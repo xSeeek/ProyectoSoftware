@@ -1,5 +1,10 @@
 const Noticia = require('../models').Noticia;
 const Area = require('../models').Area;
+const Notificacion = require('../models').Notificacion;
+
+const io = require('socket.io-client');
+const socket = io.connect('http://localhost:4200', {reconnect: true});
+
 
 
 module.exports = {
@@ -26,9 +31,22 @@ module.exports = {
                     var duracion = parseInt(req.body.duracion);
                     finalDate.setDate(finalDate.getDate() + duracion);
                     return finalDate;
-                })(),
+                })(), 
             })
             .then(noticia => res.status(200).send({message:'Noticia agregada correctamente'}))
+            .then(noticia => socket.emit('new-message', {message: "hola"}))
+            .then(noticia =>{
+                Notificacion.create({
+                    estado: 0,
+                    titulo:'¡Se ha publicado una nueva noticia!',
+                    descripcion: '¡Haz click para ver el nuevo contenido!'
+                }) 
+            })
+            .then(notification => {
+                socket.emit('new-message', {message: "hola"})
+                socket.emit('saveAndSendNotification',"wena sapo culiaos" )
+                console.log("Notificacion emitida");
+             } )
             .catch(error => res.status(400).send({message:'Error al agregar la noticia', error}));
     },
     edit(req, res)

@@ -24,7 +24,7 @@ router.post('/authenticate', authController.authenticate);
  */
 router.get('/users/getAll', auth(10), usersController.list);
 router.get('/users/getAllComplete', usersController.listAllRelationships);
-router.post('/users/create',  auth(10), usersController.create);
+router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
 router.post('/users/validateData',  usersController.validate);
 router.post('/users/getUser', usersController.retrieve);

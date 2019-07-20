@@ -27,4 +27,19 @@ server.listen(process.env.PORT);
 
 
 
+//socket IO settings
+const SocketIO = require('socket.io');
+const io = SocketIO(server);
 
+
+
+io.on('connection', (socket) => {
+    console.log('user connected');
+
+        socket.on('new-message', (message) => {
+            io.emit(message);
+          });
+
+
+  
+});
