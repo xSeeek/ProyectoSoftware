@@ -104,5 +104,35 @@ module.exports = {
     unassignateNotification(req, res)
     {
 
+    },
+    getBirthdays(req, res)
+    {
+        User
+            .findAll()
+            .then(usuarios => {
+                var birthday = new Array();
+                var index = 0;
+                var today = new Date();
+                today.setHours(0,0,0,0)
+
+                for(var i = 0; i < usuarios.length; i++)
+                {
+                    console.log(usuarios[i].fechaNacimiento + ' vs ' + today);
+                    if(+usuarios[i].fechaNacimiento == +today)
+                    {
+                        var userData = new Array();
+
+                        userData[0] = usuarios[i].idUsuario;
+                        userData[1] = usuarios[i].nombre;
+                        userData[2] = usuarios[i].a_paterno;
+                        userData[3] = usuarios[i].a_materno;
+                        userData[4] = new Date(usuarios[i].fechaNacimiento);
+
+                        birthday[index] = userData;
+                        index++;
+                    }
+                }
+                return res.status(process.env.USR_OK).send(birthday);
+            })
     }
 };

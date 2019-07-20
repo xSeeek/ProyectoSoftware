@@ -66,6 +66,7 @@ router.post('/unassignArea',   fnUsersController.unassignateArea);
 router.post('/assignRol', fnUsersController.assignateRol);
 router.post('/assignNotification',   fnUsersController.assignateNotification);
 router.post('/unassignNotification',  fnUsersController.unassignateNotification);
+router.post('/getBirthdays',  fnUsersController.getBirthdays);
 
 /**
  * Cargos

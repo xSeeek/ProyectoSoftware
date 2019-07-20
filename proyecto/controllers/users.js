@@ -317,7 +317,15 @@ module.exports = {
                                     for(var j = 0; j < usuariosArea.length; j++)
                                         if(usuariosArea[j].idUsuario != req.body.idUsuario)
                                         {
-                                            searchNoUser[indexUser] = usuariosArea[j];
+                                            var userData = new Array();
+
+                                            userData[0] = usuariosArea[j].idUsuario;
+                                            userData[1] = usuariosArea[j].nombre;
+                                            userData[2] = usuariosArea[j].a_paterno;
+                                            userData[3] = usuariosArea[j].a_materno;
+                                            userData[4] = null;
+
+                                            searchNoUser[indexUser] = userData;
                                             indexUser++;
                                         }
                                     return searchNoUser;
