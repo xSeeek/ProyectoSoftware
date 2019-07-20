@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
+const multer  = require('multer');
 const router = express.Router();
 
 const authController = require('../controllers/auth');
@@ -10,6 +11,27 @@ const areasController = require('../controllers').areas;
 const beneficiosController = require('../controllers').beneficios;
 const noticiasController = require('../controllers').noticias;
 const fnUsersController = require('../controllers').fnUsers;
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './data/images');
+    },
+    filename: (req, file, cb) => {
+      console.log(file);
+      var filetype = '';
+      if(file.mimetype === 'image/gif') {
+        filetype = 'gif';
+      }
+      if(file.mimetype === 'image/png') {
+        filetype = 'png';
+      }
+      if(file.mimetype === 'image/jpeg') {
+        filetype = 'jpg';
+      }
+      cb(null, 'profile-image-' + Date.now() + '.' + filetype);
+    }
+});
+var upload = multer({storage: storage});
 
 /* GET home page. */
 router.get('/', auth);
@@ -22,7 +44,7 @@ router.post('/authenticate', authController.authenticate);
 /**
   * Users
  */
-router.get('/users/getAll', auth(10), usersController.list);
+router.get('/users/getAll', usersController.list);
 router.get('/users/getAllComplete', usersController.listAllRelationships);
 router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
@@ -31,6 +53,8 @@ router.post('/users/getUser', usersController.retrieve);
 router.delete('/users/removeUser',  usersController.destroy);
 router.post('/users/validateEmail', usersController.confirmEmail);
 router.post('/users/changeStatus', usersController.changeStatus);
+router.post('/users/getContactos', usersController.getContactos);
+router.post('/users/uploadPhoto', upload.single('file'), usersController.uploadPhoto);
 
 /**
  * Funciones relacionadas con Usuarios
@@ -59,7 +83,7 @@ router.post('/cargos/changeStatus', cargosController.changeStatus);
 router.get('/areas/getAll',  areasController.list);
 router.post('/areas/create',  areasController.create);
 router.put('/areas/edit', areasController.edit);
-router.get('/areas/getArea', auth(0), areasController.retrieve);
+router.get('/areas/getArea', areasController.retrieve);
 router.delete('/areas/removeArea', auth(0), areasController.destroy);
 router.post('/areas/changeStatus', areasController.changeStatus);
 

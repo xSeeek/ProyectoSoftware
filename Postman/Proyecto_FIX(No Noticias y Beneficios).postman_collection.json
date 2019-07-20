@@ -575,6 +575,69 @@
 						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
 					},
 					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/uploadPhoto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"uploadPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contactos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getContactos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getContactos"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1152,14 +1215,14 @@
 									"type": "text"
 								},
 								{
-									"key": "idCargo",
-									"value": "3",
+									"key": "idArea",
+									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/assignCargo",
+							"raw": "http://localhost:3000/api/assignArea",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1167,7 +1230,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"assignCargo"
+								"assignArea"
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const multer  = require('multer');
 const User = require('../models').Usuario;
 const Rol = require('../models').Rol;
 const Area = require('../models').Area;
@@ -293,8 +294,52 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(_ => res.status(process.env.USR_OK).send({message: "Usuario Actualizado"}))
+                .then(status => res.status(process.env.USR_OK).send({message: "Usuario Actualizado"}))
                 .catch(error => res.status(process.env.USR_ERR).send(error));
             })
+    },
+    getContactos(req, res)
+    {
+        User
+            .findByPk(req.body.idUsuario)
+            .then(usuario => {
+                usuario.getAreas()
+                .then(async areasUsuario => {
+                    var contacts = new Array();
+                    var index = 0;
+
+                    for(var i = 0; i < areasUsuario.length; i++)
+                    {
+                        var newElement = new Array();
+                        var data = areasUsuario[i].getUsuarios().then(usuariosArea => {
+                                    var searchNoUser = new Array();
+                                    var indexUser = 0;
+                                    for(var j = 0; j < usuariosArea.length; j++)
+                                        if(usuariosArea[j].idUsuario != req.body.idUsuario)
+                                        {
+                                            searchNoUser[indexUser] = usuariosArea[j];
+                                            indexUser++;
+                                        }
+                                    return searchNoUser;
+                                });
+                        newElement[0] = areasUsuario[i].idArea;
+                        newElement[1] = areasUsuario[i].nombre;
+                        newElement[2] = await data;
+                        
+                        contacts[index] = newElement;
+                        index++;
+                    }
+                    return res.status(process.env.USR_OK).send(contacts);
+                })
+            })
+    },
+    uploadPhoto(req, res)
+    {
+        console.log(req.file);
+        if(!req.file) {
+            res.status(500);
+            return next(err);
+        }
+        res.json({ fileUrl: process.env.FRONT_API + 'proyecto/data/images/' + req.file.filename });
     }
 };
