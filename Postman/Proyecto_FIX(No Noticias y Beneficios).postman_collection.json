@@ -638,6 +638,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Birthdays",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getBirthdays",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getBirthdays"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
