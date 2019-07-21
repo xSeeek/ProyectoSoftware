@@ -45,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
     codigoColaborador: {
       type: DataTypes.INTEGER
     },
+    profilePhoto: {
+      type: DataTypes.STRING,
+    },
     validate_token: {
       type: DataTypes.STRING,
     },

@@ -43,6 +43,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true
       },
+      profilePhoto: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       rolUsuario: {
         allowNull: false,
         type: Sequelize.INTEGER,

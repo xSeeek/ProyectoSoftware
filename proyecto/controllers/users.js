@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
-const multer  = require('multer');
 const User = require('../models').Usuario;
 const Rol = require('../models').Rol;
 const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
+
+const fs = require('fs')
 
 const services = require('../services');
 const crypto = require('crypto-js');
@@ -22,7 +23,9 @@ module.exports = {
                     exclude: ['password', 'validate_token', 'validate_token_expires']
                 }
             })
-            .then(user => res.status(process.env.USR_OK).send(user))
+            .then(user => {
+                res.status(process.env.USR_OK).send(user)
+            })
             .catch(error => res.status(process.env.USR_NFD).send({message:'No hay usuarios en el sistema'}));
     },
     listAllRelationships(req, res)
@@ -91,7 +94,8 @@ module.exports = {
                 telefono: req.body.telefono,
                 fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
-                rolUsuario: req.body.rolUsuario
+                rolUsuario: req.body.rolUsuario,
+                profilePhoto: req.body.profilePhoto
             })
             .then(user => res.status(process.env.USR_OK).send({
                 message: "Usuario creado correctamente"
@@ -190,17 +194,8 @@ module.exports = {
                 plain : true
             })
             .then(usuario => {
-                if((function () {
-                    for(var key in usuario) {
-                        if(usuario.hasOwnProperty(key))
-                            return false;
-                    }
-                    return true;
-                })()){
-                    return res.status(process.env.USR_NFD).send({
-                        message: 'Usuario no encontrado'
-                    })
-                };
+                if(usuario == null)
+                    return res.status(process.env.USR_NFD).send({message: 'Usuario no encontrado'});
                 return res.status(process.env.USR_OK).send(usuario);
             })
             .catch(error => res.status(process.env.USR_ERR).send(error));
@@ -343,11 +338,8 @@ module.exports = {
     },
     uploadPhoto(req, res)
     {
-        console.log(req.file);
-        if(!req.file) {
-            res.status(500);
-            return next(err);
-        }
-        res.json({ fileUrl: process.env.FRONT_API + 'proyecto/data/images/' + req.file.filename });
+        if(!req.file)
+            return res.status(process.env.USR_ERR).send({message: "La imagen no puede estar en blanco"});
+            res.status(process.env.USR_OK).send(req.file.filename);
     }
 };

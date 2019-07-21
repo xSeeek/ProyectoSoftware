@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
+const services = require('../services');
 const multer  = require('multer');
 const router = express.Router();
 
@@ -11,30 +12,6 @@ const areasController = require('../controllers').areas;
 const beneficiosController = require('../controllers').beneficios;
 const noticiasController = require('../controllers').noticias;
 const fnUsersController = require('../controllers').fnUsers;
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, './data/images');
-    },
-    filename: (req, file, cb) => {
-      console.log(file);
-      var filetype = '';
-      if(file.mimetype === 'image/gif') {
-        filetype = 'gif';
-      }
-      if(file.mimetype === 'image/png') {
-        filetype = 'png';
-      }
-      if(file.mimetype === 'image/jpeg') {
-        filetype = 'jpg';
-      }
-      cb(null, 'profile-image-' + Date.now() + '.' + filetype);
-    }
-});
-var upload = multer({storage: storage});
-
-/* GET home page. */
-router.get('/', auth);
 
 /**
  * Auth
@@ -54,7 +31,7 @@ router.delete('/users/removeUser',  usersController.destroy);
 router.post('/users/validateEmail', usersController.confirmEmail);
 router.post('/users/changeStatus', usersController.changeStatus);
 router.post('/users/getContactos', usersController.getContactos);
-router.post('/users/uploadPhoto', upload.single('file'), usersController.uploadPhoto);
+router.post('/users/uploadPhoto'/*, auth(0)*/, services.image.uploadPhoto.single('profilePhoto'), usersController.uploadPhoto);
 
 /**
  * Funciones relacionadas con Usuarios
