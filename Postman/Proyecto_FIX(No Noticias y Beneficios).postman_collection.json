@@ -580,12 +580,25 @@
 					"name": "Upload Photo",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "file",
+									"key": "photoName",
+									"value": "",
+									"description": "Nombre de la foto (solo si se desea actualizar la foto), sino no ingresar",
+									"type": "text"
+								},
+								{
+									"key": "profilePhoto",
 									"type": "file",
 									"src": ""
 								}
