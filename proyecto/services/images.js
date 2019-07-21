@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
                   if (err) throw err;
               });
         });
-        if(req.body.photoName != null)
+        if(req.body.photoName != null && req.body.photoName != "")
           cb(null, req.body.photoName + '.' + fileExtension);
         else
           cb(null, Date.now() + '.' + fileExtension);
