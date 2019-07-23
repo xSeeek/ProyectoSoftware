@@ -1,7 +1,7 @@
 const multer  = require('multer');
 const fs = require('fs')
 const path = require('path');
-const filesDir = './data/profiles/';
+const filesDir = path.resolve('./data/profiles/');
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
