@@ -5,11 +5,23 @@ const filesDir = './data/profiles/';
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(file.mimetype);
     cb(null, filesDir);
   },
   filename: function (req, file, cb) {
-      var filename = file.originalname;
+      var filetype = '';
+      if(file.mimetype === 'image/gif') {
+        filetype = 'gif';
+      }
+      if(file.mimetype === 'image/png') {
+        filetype = 'png';
+      }
+      if(file.mimetype === 'image/jpeg') {
+        filetype = 'jpeg';
+      }
+      if(file.mimetype === 'image/png') {
+        filetype = 'png';
+      }
+
       if(req.body.photoName != null && req.body.photoName != "")
       {
         fs.readdir(filesDir, (err, files) => {
@@ -20,10 +32,10 @@ var storage = multer.diskStorage({
                   if (err) throw err;
               });
         });
-        cb(null, req.body.photoName + path.extname(filename));
+        cb(null, req.body.photoName + '.' + filetype);
       }
       else
-        cb(null, Date.now() + path.extname(filename));
+        cb(null, Date.now() + '.' + filetype);
   }
 });
 
