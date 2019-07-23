@@ -14,6 +14,11 @@ const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+function callbackCreateUser(res, status, msg)
+{
+    return res.status(status).send({message:msg});
+}
+
 module.exports = {
     list(req, res)
     {
@@ -67,15 +72,15 @@ module.exports = {
             .then(usuario => {
                 if(usuario.length != 0)
                 {
-                    if(usuario.rut == format(req.body.rut))
-                        return res.status(process.env.USR_RUT).send({message:'Ya existe un usuario con el mismo RUT ingresado en el sistema'});
                     if(usuario.email == req.body.email)
                         return res.status(process.env.USR_EMAIL).send({message:'Ya existe un usuario con el mismo email ingresado en el sistema'});
+                    if(usuario.rut == format(req.body.rut))
+                        return res.status(process.env.USR_RUT).send({message:'Ya existe un usuario con el mismo RUT ingresado en el sistema'});
                 }
             });
 
         var salt = bcrypt.genSaltSync(saltRounds);
-        return User
+        User
             .create({
                 email: req.body.email,
                 nombre: req.body.nombre,
@@ -97,10 +102,29 @@ module.exports = {
                 rolUsuario: req.body.rolUsuario,
                 profilePhoto: req.body.profilePhoto
             })
-            .then(user => res.status(process.env.USR_OK).send({
-                message: "Usuario creado correctamente"
-            }))
-            .catch(error => res.status(process.env.USR_ERR).send({message:'Error al agregar al usuario', error}));
+            .then(user => {
+                if(req.body.idArea != null && req.body.idArea != "")
+                {
+                    user.addAreas(req.body.idArea).then(fn=>{
+                    });
+                    user.hasAreas(req.body.idArea).then(result => {
+                        if(result == false)
+                            callbackCreateUser(res, process.env.USR_ARE_ERR, 'No se ha asignado el Area');
+                        console.log('AREA OK');
+                    });
+                }
+                if(req.body.idCargo != null && req.body.idCargo != "")
+                {
+                    user.addCargos(req.body.idCargo).then(fn=>{
+                    })
+                    user.hasCargos(req.body.idCargo).then(result => {
+                        if(result == false)
+                            callbackCreateUser(res, process.env.USR_CRG_ERR, 'No se ha asignado el Cargo');
+                        console.log('CARGO OK');
+                    });
+                }
+                callbackCreateUser(res, process.env.USR_OK, "Usuario creado correctamente");
+            })
     },
     edit(req, res)
     {
@@ -340,6 +364,6 @@ module.exports = {
     {
         if(!req.file)
             return res.status(process.env.USR_ERR).send({message: "La imagen no puede estar en blanco"});
-            res.status(process.env.USR_OK).send(req.file.filename);
+            res.status(process.env.USR_OK).send({message: req.file.filename});
     }
 };
