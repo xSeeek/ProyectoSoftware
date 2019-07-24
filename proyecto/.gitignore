@@ -87,4 +87,8 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Picture Data Folder
+data/profiles/
+!data/profiles/ProfileImage.png
+
 # End of https://www.gitignore.io/api/node

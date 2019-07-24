@@ -14,11 +14,6 @@ const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-function callbackCreateUser(res, status, msg)
-{
-    return res.status(status).send({message:msg});
-}
-
 module.exports = {
     list(req, res)
     {
@@ -70,7 +65,7 @@ module.exports = {
                 plain: true
             })
             .then(usuario => {
-                if(usuario.length != 0)
+                if(usuario != null && usuario.length != 0)
                 {
                     if(usuario.email == req.body.email)
                         return res.status(process.env.USR_EMAIL).send({message:'Ya existe un usuario con el mismo email ingresado en el sistema'});
@@ -102,29 +97,57 @@ module.exports = {
                 rolUsuario: req.body.rolUsuario,
                 profilePhoto: req.body.profilePhoto
             })
-            .then(user => {
+            .then(async user => {
+                var statusArea = 1;
+                var statusCargo = 1;
+
                 if(req.body.idArea != null && req.body.idArea != "")
                 {
-                    user.addAreas(req.body.idArea).then(fn=>{
-                    });
-                    user.hasAreas(req.body.idArea).then(result => {
-                        if(result == false)
-                            callbackCreateUser(res, process.env.USR_ARE_ERR, 'No se ha asignado el Area');
-                        console.log('AREA OK');
-                    });
+                    async function waitForAddArea(){
+                        var addAreaStatus = await user.addAreas(req.body.idArea).then(fn=>{
+                            user.hasAreas(req.body.idArea).then(async result => {
+                                console.log('AREA OK');
+                                if(result == false)
+                                    return 0;
+                                return 1;
+                            });
+                        }).catch(error => {
+                            return 0;
+                        });
+                        return addAreaStatus;
+                    };
+                    statusArea = await waitForAddArea();
+                    console.log("AddArea Final Status = " + statusArea);
                 }
                 if(req.body.idCargo != null && req.body.idCargo != "")
                 {
-                    user.addCargos(req.body.idCargo).then(fn=>{
-                    })
-                    user.hasCargos(req.body.idCargo).then(result => {
-                        if(result == false)
-                            callbackCreateUser(res, process.env.USR_CRG_ERR, 'No se ha asignado el Cargo');
-                        console.log('CARGO OK');
-                    });
+                    async function waitForAddCargo(){
+                        var addCargoStatus = user.addCargos(req.body.idCargo).then(async fn=>{
+                            user.hasCargos(req.body.idCargo).then(async result => {
+                                console.log('CARGO OK');
+                                if(result == false)
+                                    return 0;
+                                return 1;
+                            });
+                        }).catch(async error => {
+                            return 0;
+                        });
+                        return addCargoStatus;
+                    };
+                    statusCargo = await waitForAddCargo();
+                    console.log("AddCargo Final Status = " + statusCargo);
                 }
-                callbackCreateUser(res, process.env.USR_OK, "Usuario creado correctamente");
+                console.log("Status Area = " + statusArea + " | Status Cargo = " + statusCargo);
+                if(statusCargo == 0 && statusArea == 0)
+                    return res.status(process.env.USR_ERR).send({message:'No se ha asignado el Area ni el Cargo'});
+                else if(statusCargo == 0)
+                    return res.status(process.env.USR_CRG_ERR).send({message:'No se ha asignado el Cargo'});
+                else if(statusArea == 0)
+                    return res.status(process.env.USR_ARE_ERR).send({message:'No se ha asignado el Area'});
+                else
+                    return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente"});
             })
+            .catch(error => res.status(process.env.USR_ERR).send({message:'Error al agregar al usuario', error}));
     },
     edit(req, res)
     {
@@ -185,7 +208,12 @@ module.exports = {
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
                         telefono: req.body.telefono || user.telefono,
-                        fechaNacimiento: (new Date(req.body.fechaNacimiento)) || user.fechaNacimiento,
+                        fechaNacimiento: (function(){
+                            if(req.body.fechaNacimiento == null || req.body.fechaNacimiento == "")
+                                return user.fechaNacimiento
+                            return new Date(req.body.fechaNacimiento);
+                            })(),
+                        profilePhoto: req.body.profilePhoto || user.profilePhoto,
                         estado: estado,
                         validate_token: validate_token
                     })
