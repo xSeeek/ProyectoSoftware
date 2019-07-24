@@ -208,7 +208,11 @@ module.exports = {
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
                         telefono: req.body.telefono || user.telefono,
-                        fechaNacimiento: (new Date(req.body.fechaNacimiento)) || user.fechaNacimiento,
+                        fechaNacimiento: (function(){
+                            if(req.body.fechaNacimiento == null || req.body.fechaNacimiento == "")
+                                return user.fechaNacimiento
+                            return new Date(req.body.fechaNacimiento);
+                            })(),
                         profilePhoto: req.body.profilePhoto || user.profilePhoto,
                         estado: estado,
                         validate_token: validate_token
