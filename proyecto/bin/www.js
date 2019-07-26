@@ -25,14 +25,19 @@ const server = http.createServer(app);
 
 server.listen(process.env.PORT);
 
-//socket IO settings
 const SocketIO = require('socket.io');
 const io = SocketIO(server);
 
-io.on('connection', (socket) => {
-    console.log('user connected');
+console.log('Starting socket server...');
+io.on('connection', function(socket){
+    console.log('New Connection from: ' + socket.id);
 
-        socket.on('new-message', (message) => {
-            io.emit(message);
-          });
+    socket.on('newNoticia', (message) => {
+        console.log('Mensaje recibido desde ' + socket.id + '\nResponde: ' + message.message);
+    });
+
+    // Disconnect listener
+    socket.on('disconnect', function() {
+        console.log('Client disconnected.');
+    });
 });

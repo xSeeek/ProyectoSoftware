@@ -3,9 +3,6 @@ const Area = require('../models').Area;
 const Notificacion = require('../models').Notificacion;
 
 const io = require('socket.io-client');
-const socket = io.connect('http://localhost:4200', {reconnect: true});
-
-
 
 module.exports = {
     list(req, res)
@@ -33,21 +30,24 @@ module.exports = {
                     return finalDate;
                 })(), 
             })
-            .then(noticia => res.status(200).send({message:'Noticia agregada correctamente'}))
-            .then(noticia => socket.emit('new-message', {message: "hola"}))
-            .then(noticia =>{
+            .then(notification => {
                 Notificacion.create({
                     estado: 0,
                     titulo:'¡Se ha publicado una nueva noticia!',
                     descripcion: '¡Haz click para ver el nuevo contenido!'
-                }) 
-            })
-            .then(notification => {
-                socket.emit('new-message', {message: "hola"})
-                socket.emit('saveAndSendNotification',"wena sapo culiaos" )
-                console.log("Notificacion emitida");
+                });
+
+                var socket = io.connect("http://localhost:3000", {
+                    reconnection: true
+                });
+                socket.on('connect', function () {
+                    console.log('Connected to localhost:3000');
+
+                    socket.emit('newNoticia', {message: "hola"})
+                    console.log("Notificacion emitida");
+                });
              } )
-            .catch(error => res.status(400).send({message:'Error al agregar la noticia', error}));
+            .then(noticia => res.status(200).send({message:'Noticia agregada correctamente'}))
     },
     edit(req, res)
     {
