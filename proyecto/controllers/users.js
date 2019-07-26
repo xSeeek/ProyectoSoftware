@@ -7,13 +7,21 @@ const Cargo = require('../models').Cargo;
 const services = require('../services');
 const crypto = require('crypto-js');
 const validator = require("email-validator");
-const io = require('socket.io-client');
 
 const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const socket = io.connect('http://localhost:3000', {reconnect: true});
+const io = require('socket.io-client');
+var socket = io.connect("http://localhost:3000", {
+                    reconnection: true
+                });
+socket.on('connect', function () {
+    socket.on('newNoticia', function(newNoticia){
+        console.log('User Controller -> Mensaje recibido desde el servidor: ');
+        console.log("idNoticia: " + newNoticia.id + "\nTitulo: " + newNoticia.titulo + "\nDescripcion: " + newNoticia.descripcion);
+    });
+});
 
 module.exports = {
     list(req, res)

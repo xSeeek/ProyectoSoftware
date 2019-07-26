@@ -32,8 +32,9 @@ console.log('Starting socket server...');
 io.on('connection', function(socket){
     console.log('New Connection from: ' + socket.id);
 
-    socket.on('newNoticia', (message) => {
-        console.log('Mensaje recibido desde ' + socket.id + '\nResponde: ' + message.message);
+    socket.on('newNoticia', (newNoticia) => {
+        console.log('Mensaje recibido desde ClientID: ' + socket.id + ' -> Envia: ' + newNoticia);
+        socket.broadcast.emit('newNoticia', newNoticia);
     });
 
     // Disconnect listener

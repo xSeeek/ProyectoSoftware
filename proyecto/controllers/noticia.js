@@ -1,8 +1,7 @@
 const Noticia = require('../models').Noticia;
 const Area = require('../models').Area;
-const Notificacion = require('../models').Notificacion;
 
-const io = require('socket.io-client');
+const notificationController = require('./notificacion');
 
 module.exports = {
     list(req, res)
@@ -30,23 +29,9 @@ module.exports = {
                     return finalDate;
                 })(), 
             })
-            .then(notification => {
-                Notificacion.create({
-                    estado: 0,
-                    titulo:'¡Se ha publicado una nueva noticia!',
-                    descripcion: '¡Haz click para ver el nuevo contenido!'
-                });
-
-                var socket = io.connect("http://localhost:3000", {
-                    reconnection: true
-                });
-                socket.on('connect', function () {
-                    console.log('Connected to localhost:3000');
-
-                    socket.emit('newNoticia', {message: "hola"})
-                    console.log("Notificacion emitida");
-                });
-             } )
+            .then(noticia => {
+                notificationController.createNoticia(noticia);
+             })
             .then(noticia => res.status(200).send({message:'Noticia agregada correctamente'}))
     },
     edit(req, res)
