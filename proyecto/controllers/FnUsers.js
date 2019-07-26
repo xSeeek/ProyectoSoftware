@@ -113,12 +113,14 @@ module.exports = {
                 var birthday = new Array();
                 var index = 0;
                 var today = new Date();
-                today.setHours(0,0,0,0)
+                today.setHours(0,0,0,0);
+                today.setFullYear(0);
 
                 for(var i = 0; i < usuarios.length; i++)
                 {
-                    console.log(usuarios[i].fechaNacimiento + ' vs ' + today);
-                    if(+usuarios[i].fechaNacimiento == +today)
+                    userBirthday = usuarios[i].fechaNacimiento;
+                    userBirthday.setFullYear(0);
+                    if(+userBirthday == +today)
                     {
                         var userData = new Array();
 
