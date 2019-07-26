@@ -4,15 +4,16 @@ const Rol = require('../models').Rol;
 const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
 
-const fs = require('fs')
-
 const services = require('../services');
 const crypto = require('crypto-js');
 const validator = require("email-validator");
+const io = require('socket.io-client');
 
 const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+const socket = io.connect('http://localhost:3000', {reconnect: true});
 
 module.exports = {
     list(req, res)
