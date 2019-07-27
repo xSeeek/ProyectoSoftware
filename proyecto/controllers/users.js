@@ -19,7 +19,7 @@ var socket = io.connect("http://localhost:3000", {
 socket.on('connect', function () {
     socket.on('newNoticia', function(newNoticia){
         console.log('User Controller -> Mensaje recibido desde el servidor: ');
-        console.log("idNoticia: " + newNoticia.id + "\nTitulo: " + newNoticia.titulo + "\nDescripcion: " + newNoticia.descripcion);
+        console.log("idNoticia: " + newNoticia.idReferencia + "\nTitulo: " + newNoticia.titulo + "\nDescripcion: " + newNoticia.descripcion);
     });
 });
 

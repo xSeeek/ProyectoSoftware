@@ -11,6 +11,7 @@ const areasController = require('../controllers').areas;
 const beneficiosController = require('../controllers').beneficios;
 const noticiasController = require('../controllers').noticias;
 const fnUsersController = require('../controllers').fnUsers;
+const notificationsController = require('../controllers').notificaciones;
 
 /**
  * Auth
@@ -40,9 +41,11 @@ router.post('/unassignCargo' ,fnUsersController.unassignateCargo);
 router.post('/assignArea', fnUsersController.assignateArea);
 router.post('/unassignArea',   fnUsersController.unassignateArea);
 router.post('/assignRol', fnUsersController.assignateRol);
-router.post('/assignNotification',   fnUsersController.assignateNotification);
-router.post('/unassignNotification',  fnUsersController.unassignateNotification);
 router.post('/getBirthdays',  fnUsersController.getBirthdays);
+
+router.post('/getNotificaciones', notificationsController.retrieve);
+router.post('/markViewNotification',  fnUsersController.markAsViewedNotification);
+router.post('/markOpenedNotification',  fnUsersController.markAsOpenedNotification);
 
 /**
  * Cargos
