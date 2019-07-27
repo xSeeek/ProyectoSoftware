@@ -15,9 +15,9 @@ const noticias = require('./noticia');
 const cargos = require('./cargo');
 
 /* ROLES */
+const roles = require('./rol');
 
 /*NOTIFICACIONES */
-const roles = require('./rol');
 const notificaciones = require('./notificacion');
 
 module.exports = {
@@ -33,5 +33,5 @@ module.exports = {
     fnUsers,
 
     // Funcionalidades del sistema
-    notificaciones,
+    notificaciones
 };
