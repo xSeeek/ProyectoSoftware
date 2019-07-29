@@ -20,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    tipo: {
+      type: DataTypes.STRING
+    },
+    idReferencia: {
+      type: DataTypes.INTEGER
+    },
+    idArea: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'Notificacion',

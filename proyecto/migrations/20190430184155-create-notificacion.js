@@ -18,6 +18,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1
       },
+      tipo: {
+        type: Sequelize.STRING,
+        defaultValue: 'No Especificado'
+      },
+      idReferencia: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      idArea: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
