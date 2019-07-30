@@ -112,14 +112,12 @@ module.exports = {
             .then(usuario=>{
                 var arrayNotifications = JSON.parse(req.body.idNotificacion);
                 for(var index = 0; index < arrayNotifications.length; index++)
-                {
-                    usuario.getNotificaciones({idNotificacion: arrayNotifications[index]}).then(fn => {
+                    usuario.getNotificaciones({through: {where: {idNotificacion: arrayNotifications[index]}}}).then(fn => {
                         fn[0].update({
                             estado: 1
-                        })
+                        });
                     })
-                    .catch(error => res.status(process.env.USR_ROL_NFD).send({message:'Error al realizar la operacion'}));
-                }
+                    .catch(error => res.status(process.env.USR_ERR).send({message:'Error al realizar la operacion'}));
                 return res.status(process.env.USR_OK).send({message: 'Estado actualizado con exito'});
             });
     },
@@ -127,14 +125,14 @@ module.exports = {
     {
         User.findByPk(req.body.idUsuario)
         .then(usuario=>{
-            usuario.getNotificaciones({idNotificacion: req.body.idNotificacion}).then(fn => {
-                fn[0].update({
+            usuario.getNotificaciones({through: {where: {idNotificacion: req.body.idNotificacion}}}).then(fn => {
+                return fn[0].update({
                     estado: 2
                 })
                 .then(status => {
                     return res.status(process.env.USR_OK).send({message: 'Estado actualizado con exito'});
                 });
-            }).catch(error => res.status(process.env.USR_ROL_NFD).send({message:'Error al realizar la operacion'}));
+            }).catch(error => res.status(process.env.USR_ERR).send({message:'Error al realizar la operacion'}));
         });
     },
     getBirthdays(req, res)
