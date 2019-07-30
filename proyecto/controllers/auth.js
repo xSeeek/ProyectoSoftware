@@ -22,6 +22,9 @@ module.exports = {
                 plain: true
             })
             .then(function(usuario){
+                console.log(usuario.estado);
+                if(usuario.estado == 2)
+                    return res.status(process.env.LGN_TKN_INV).send({message: "Usuario no autorizado para ingresar al sistema"});
                 Rol.findByPk(usuario.rolUsuario)
                 .then(rol => {
                     if(bcrypt.compareSync(password, usuario.password)){
@@ -65,6 +68,7 @@ module.exports = {
                     .then(usuario => {
                         return usuario
                         .update({
+                            estado: 2,
                             validate_token: token.toString(),
                             validate_token_expires: (function() {
                                 var date = new Date();
@@ -120,6 +124,7 @@ module.exports = {
             var salt = bcrypt.genSaltSync(saltRounds);
             return usuario
                         .update({
+                            estado: 1,
                             validate_token: null,
                             validate_token_expires: null,
                             password: bcrypt.hashSync(req.body.password, salt),
