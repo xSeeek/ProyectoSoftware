@@ -30,15 +30,14 @@ const io = SocketIO(server);
 
 console.log('Starting socket server...');
 io.on('connection', function(socket){
-    console.log('New Connection from: ' + socket.id);
+    console.log('Client ' + socket.id + ' connected.');
 
     socket.on('newNoticia', (newNoticia) => {
-        console.log('Mensaje recibido desde ClientID: ' + socket.id + ' -> Envia: ' + newNoticia);
         socket.broadcast.emit('newNoticia', newNoticia);
     });
 
     // Disconnect listener
     socket.on('disconnect', function() {
-        console.log('Client disconnected.');
+        console.log('Client ' + socket.id + ' disconnected.');
     });
 });

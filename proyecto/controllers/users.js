@@ -12,7 +12,7 @@ const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const io = require('socket.io-client');
+/*const io = require('socket.io-client');
 var socket = io.connect("http://localhost:3000", {
                     reconnection: true
                 });
@@ -22,6 +22,7 @@ socket.on('connect', function () {
         console.log("idNoticia: " + newNoticia.idReferencia + "\nTitulo: " + newNoticia.titulo + "\nDescripcion: " + newNoticia.descripcion);
     });
 });
+*/
 
 module.exports = {
     list(req, res)
@@ -366,30 +367,29 @@ module.exports = {
 
                     for(var i = 0; i < areasUsuario.length; i++)
                     {
-                        var newElement = new Array();
                         var data = areasUsuario[i].getUsuarios().then(usuariosArea => {
                                     var searchNoUser = new Array();
                                     var indexUser = 0;
                                     for(var j = 0; j < usuariosArea.length; j++)
                                         if(usuariosArea[j].idUsuario != req.body.idUsuario)
                                         {
-                                            var userData = new Array();
-
-                                            userData[0] = usuariosArea[j].idUsuario;
-                                            userData[1] = usuariosArea[j].nombre;
-                                            userData[2] = usuariosArea[j].a_paterno;
-                                            userData[3] = usuariosArea[j].a_materno;
-                                            userData[4] = null;
-
+                                            var userData = {
+                                                "idUsuario"     : usuariosArea[j].idUsuario,
+                                                "nombre"        : usuariosArea[j].nombre,
+                                                "a_paterno"     : usuariosArea[j].a_paterno,
+                                                "a_materno"     : usuariosArea[j].a_materno,
+                                                "profilePhoto"  : usuariosArea[j].profilePhoto
+                                            };
                                             searchNoUser[indexUser] = userData;
                                             indexUser++;
                                         }
                                     return searchNoUser;
                                 });
-                        newElement[0] = areasUsuario[i].idArea;
-                        newElement[1] = areasUsuario[i].nombre;
-                        newElement[2] = await data;
-                        
+                        var newElement = {
+                            "idArea"        : areasUsuario[i].idArea,
+                            "nombreArea"    : areasUsuario[i].nombre,
+                            "datosUsuarios" : await data
+                        };
                         contacts[index] = newElement;
                         index++;
                     }
@@ -401,6 +401,6 @@ module.exports = {
     {
         if(!req.file)
             return res.status(process.env.USR_ERR).send({message: "La imagen no puede estar en blanco"});
-            res.status(process.env.USR_OK).send({message: req.file.filename});
+        res.status(process.env.USR_OK).send({message: req.file.filename});
     }
 };
