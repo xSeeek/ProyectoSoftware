@@ -25,7 +25,6 @@ module.exports = {
                     reconnection: true
                 });
                 socket.on('connect', function () {
-                    console.log('Notification Controller (ClientID: ' + socket.id + ') -> Mensaje enviado al servidor: ');
                     socket.emit('newNoticia', 
                         {
                             idReferencia: newNoticia.idNoticia,
@@ -34,7 +33,7 @@ module.exports = {
                             titulo: newNotificacion.titulo, 
                             descripcion: newNotificacion.descripcion
                         });
-                console.log("ClientID: " + socket.id + " Envia -> Notificacion emitida");
+                    socket.disconnect();
                 });
             })
         });

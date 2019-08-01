@@ -102,7 +102,6 @@ module.exports = {
         User.findByPk(idUsuario)
             .then(usuario=>{
                 usuario.addNotificaciones(idNotificacion).then(fn=>{
-                    console.log("Notificacion Asignada");
                 });
             })
     },
@@ -152,14 +151,13 @@ module.exports = {
                     userBirthday.setFullYear(0);
                     if(+userBirthday == +today)
                     {
-                        var userData = new Array();
-
-                        userData[0] = usuarios[i].idUsuario;
-                        userData[1] = usuarios[i].nombre;
-                        userData[2] = usuarios[i].a_paterno;
-                        userData[3] = usuarios[i].a_materno;
-                        userData[4] = new Date(usuarios[i].fechaNacimiento);
-
+                        var userData = {
+                            "idUsuario"         : usuarios[i].idUsuario,
+                            "nombre"            : usuarios[i].nombre,
+                            "a_paterno"         : usuarios[i].a_paterno,
+                            "a_materno"         : usuarios[i].a_materno,
+                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento)
+                        };
                         birthday[index] = userData;
                         index++;
                     }
