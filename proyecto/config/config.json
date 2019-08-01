@@ -6,7 +6,8 @@
     "host": "localhost",
     "port": 5432,
     "schema":"public",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "test": {
     "username": "admin_proyecto",
@@ -14,7 +15,8 @@
     "database": "proyecto",
     "host": "localhost",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
     "username": "admin_proyecto",
@@ -22,6 +24,7 @@
     "database": "proyecto",
     "host": "localhost",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   }
 }
