@@ -3,47 +3,65 @@ const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
 
 module.exports = {
-    assignateCargo(req, res)
+    assignateCargo(idUsuario, newCargos)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Cargo.findByPk(req.body.idCargo)
-                    .then(cargo=>{
-                        if(!cargo) {
-                            return res.status(process.env.USR_CRG_NFG).send({message: 'El cargo no existe'}); 
-                            }
-                        });
-                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
-                .then(cargos=>{
-                    if(cargos.length != 0)
-                        return res.status(process.env.USR_CRG_ARD).send({message: 'Cargo ya asignado al usuario'});
-                    usuario.addCargos(req.body.idCargo).then(fn=>{
-                        return res.status(process.env.USR_CRG_OK).send({message: 'Cargo asignado con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_CRG_ERR).send({message:'Error al realizar la operacion'}));
+        if(newCargos != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayCargos = JSON.parse(newCargos);
+                    console.log(arrayCargos);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayCargos.length; index++)
+                    {
+                        flagExists = await (Cargo.findByPk(arrayCargos[index])
+                            .then(cargo=>{
+                                    if(!cargo)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getCargos({through: {where: {idCargo: arrayCargos[index]}}})
+                            .then(cargos=>{
+                                if(cargos == null || cargos.length == 0)
+                                    usuario.addCargos(arrayCargos[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false;});
+            return true;
+        }
+        return false;
     },
-    unassignateCargo(req, res)
+    unassignateCargo(idUsuario, oldCargos)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Cargo.findByPk(req.body.idCargo)
-                    .then(cargo=>{
-                        if(!cargo) {
-                            return res.status(process.env.USR_CRG_NFG).send({message: 'El cargo no existe'}); 
-                            }
-                        });
-                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
-                .then(cargos=>{
-                    if(cargos.length == 0)
-                        return res.status(process.env.USR_CRG_ARD).send({message: 'El usuario no tiene asignado este cargo'});
-                    usuario.removeCargos(req.body.idCargo).then(fn=>{
-                        return res.status(process.env.USR_CRG_OK).send({message: 'Cargo removido con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_CRG_ERR).send({message:'Error al realizar la operacion'}));
+        if(oldCargos != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayCargos = JSON.parse(oldCargos);
+                    console.log(arrayCargos);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayCargos.length; index++)
+                    {
+                        flagExists = await (Cargo.findByPk(arrayCargos[index])
+                            .then(cargo=>{
+                                    if(!cargo)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getCargos({through: {where: {idCargo: arrayCargos[index]}}})
+                            .then(cargos=>{
+                                if(cargos != null || cargos.length != 0)
+                                    usuario.removeCargos(arrayCargos[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false});
+            return true;
+        }
+        return false;
     },
     assignateArea(req, res)
     {

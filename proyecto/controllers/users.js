@@ -8,6 +8,8 @@ const services = require('../services');
 const crypto = require('crypto-js');
 const validator = require("email-validator");
 
+const fnUsersController = require('./FnUsers');
+
 const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -175,24 +177,25 @@ module.exports = {
                     return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
                 if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
                     return res.status(process.env.USR_INV).send({message:'No se puede actualizar este dato mediante esta via'});
-                
-                User.findAll({
-                    where:{
-                        email: req.body.email
-                    },
-                    attributes: {
-                        exclude: ['password', 'validate_token', 'validate_token_expires']
-                    }
-                })
-                .then(find => {
-                    if(find.length != 0)
-                        return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
-                });
 
-                var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+                if(req.body.email != undefined)
+                    User.findAll({
+                        where:{
+                            email: req.body.email
+                        },
+                        attributes: {
+                            exclude: ['password', 'validate_token', 'validate_token_expires']
+                        }
+                    })
+                    .then(find => {
+                        if(find.length != 0)
+                            return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
+                    });
 
-                if(req.body.email != null)
+                if(req.body.email != undefined)
                 {
+                    var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+
                     if(validator.validate(req.body.email) == false)
                         return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
 
@@ -227,7 +230,11 @@ module.exports = {
                         estado: estado,
                         validate_token: validate_token
                     })
-                    .then(updatedUser => res.status(process.env.USR_OK).send(updatedUser))
+                    .then(async updatedUser => {
+                        fnUsersController.assignateCargo(updatedUser.idUsuario, req.body.newCargos);
+                        fnUsersController.unassignateCargo(updatedUser.idUsuario, req.body.oldCargos);
+                        return res.status(process.env.USR_OK).send(updatedUser);
+                    })
                     .catch(error => res.status(process.env.USR_ERR).send(error));
             })
             .catch(error => res.status(process.env.USR_ERR).send(error));
