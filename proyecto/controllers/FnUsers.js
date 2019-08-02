@@ -174,7 +174,8 @@ module.exports = {
                             "nombre"            : usuarios[i].nombre,
                             "a_paterno"         : usuarios[i].a_paterno,
                             "a_materno"         : usuarios[i].a_materno,
-                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento)
+                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento),
+                            "profilePhoto"      : usuarios[i].profilePhoto
                         };
                         birthday[index] = userData;
                         index++;
