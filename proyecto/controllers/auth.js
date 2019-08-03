@@ -95,7 +95,7 @@ module.exports = {
             })
             .catch(error => res.status(process.env.LGN_ERR).send(error));
     },
-    reset_password(req, res)
+    setPassword(req, res)
     {
         if(req.body.token == null)
             return res.status(process.env.LGN_TKN_INV).send({message:'Token no es válido'});
@@ -111,7 +111,7 @@ module.exports = {
             if(usuario == null)
                 return res.status(process.env.LGN_TKN_INV).send({message:'Token no es válido'});
 
-            if(new Date() > usuario.validate_token_expires)
+            if(usuario.validate_token_expires != null && new Date() > usuario.validate_token_expires)
             {
                 return usuario
                         .update({

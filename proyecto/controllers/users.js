@@ -14,18 +14,6 @@ const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-/*const io = require('socket.io-client');
-var socket = io.connect("http://localhost:3000", {
-                    reconnection: true
-                });
-socket.on('connect', function () {
-    socket.on('newNoticia', function(newNoticia){
-        console.log('User Controller -> Mensaje recibido desde el servidor: ');
-        console.log("idNoticia: " + newNoticia.idReferencia + "\nTitulo: " + newNoticia.titulo + "\nDescripcion: " + newNoticia.descripcion);
-    });
-});
-*/
-
 module.exports = {
     list(req, res)
     {
@@ -86,12 +74,14 @@ module.exports = {
                 }
             });
 
+        var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+        var validate_token = token.toString();
+
         var salt = bcrypt.genSaltSync(saltRounds);
         User
             .create({
                 email: req.body.email,
                 nombre: req.body.nombre,
-                password: bcrypt.hashSync(req.body.password, salt),
                 a_paterno: req.body.a_paterno,
                 a_materno: req.body.a_materno,
                 rut: (function () {
@@ -106,10 +96,24 @@ module.exports = {
                 telefono: req.body.telefono,
                 fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
+                estado: 2,
                 rolUsuario: req.body.rolUsuario,
-                profilePhoto: req.body.profilePhoto
+                profilePhoto: req.body.profilePhoto,
+                validate_token: validate_token
             })
             .then(async user => {
+                var mailOptions = {
+                    to: req.body.email,
+                    subject: 'Activar su cuenta de usuario',
+                    template: 'activate_account',
+                    context: {
+                        url: process.env.FRONT_API + 'activateAccount?token=' + token.toString(),
+                        name: user.nombre + ' ' + user.a_paterno + ' ' + user.a_materno,
+                        token: token.toString()
+                    }
+                };
+                services.email.sendEmail(mailOptions);
+
                 var statusAssignate = {
                     "assignateCargo"    :   await fnUsersController.assignateCargo(user.idUsuario, req.body.newCargos),
                     "assignateArea"     :   await fnUsersController.assignateArea(user.idUsuario, req.body.newAreas)
@@ -132,7 +136,7 @@ module.exports = {
 
                 if(!user)
                     return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
-                if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
+                if(req.body.password)
                     return res.status(process.env.USR_INV).send({message:'No se puede actualizar este dato mediante esta via'});
 
                 if(req.body.email != undefined)
@@ -156,7 +160,7 @@ module.exports = {
                     if(validator.validate(req.body.email) == false)
                         return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
 
-                    var estado = 2;
+                    estado = 2;
                     validate_token = token.toString();
 
                     var mailOptions = {
@@ -177,6 +181,9 @@ module.exports = {
                         nombre: req.body.nombre || user.nombre,
                         a_paterno: req.body.a_paterno || user.a_paterno,
                         a_materno: req.body.a_materno || user.a_materno,
+                        rut: req.body.rut || user.rut,
+                        codigoColaborador: req.body.codigoColaborador || user.codigoColaborador,
+                        rolUsuario: req.body.rolUsuario || user.rolUsuario,
                         telefono: req.body.telefono || user.telefono,
                         fechaNacimiento: (function(){
                             if(req.body.fechaNacimiento == null || req.body.fechaNacimiento == "")
@@ -200,6 +207,82 @@ module.exports = {
                     .catch(error => res.status(process.env.USR_ERR).send(error));
             })
             .catch(error => res.status(process.env.USR_ERR).send(error));
+    },
+    editUser(req, res)
+    {
+        return User
+        .findByPk(req.body.idUsuario, {
+            attributes: {
+                exclude: ['password', 'validate_token_expires']
+            }
+        })
+        .then(user => {
+            var estado = 1;
+            var validate_token = null;
+
+            if(!user)
+                return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
+            if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
+                return res.status(process.env.USR_INV).send({message:'No se puede actualizar este dato mediante esta via'});
+
+            if(req.body.email != undefined)
+                User.findAll({
+                    where:{
+                        email: req.body.email
+                    },
+                    attributes: {
+                        exclude: ['password', 'validate_token', 'validate_token_expires']
+                    }
+                })
+                .then(find => {
+                    if(find.length != 0)
+                        return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
+                });
+
+            if(req.body.email != undefined)
+            {
+                var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+
+                if(validator.validate(req.body.email) == false)
+                    return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
+
+                estado = 2;
+                validate_token = token.toString();
+
+                var mailOptions = {
+                    to: req.body.email,
+                    subject: 'Validar nuevo correo electronico',
+                    template: 'change_email',
+                    context: {
+                        url: process.env.FRONT_API + 'validateEmail?token=' + token.toString(),
+                        name: user.nombre + ' ' + user.a_paterno + ' ' + user.a_materno,
+                        token: token.toString()
+                    }
+                };
+                services.email.sendEmail(mailOptions);
+            }
+
+            return user
+                .update({
+                    nombre: req.body.nombre || user.nombre,
+                    a_paterno: req.body.a_paterno || user.a_paterno,
+                    a_materno: req.body.a_materno || user.a_materno,
+                    telefono: req.body.telefono || user.telefono,
+                    fechaNacimiento: (function(){
+                        if(req.body.fechaNacimiento == null || req.body.fechaNacimiento == "")
+                            return user.fechaNacimiento
+                        return new Date(req.body.fechaNacimiento);
+                        })(),
+                    profilePhoto: req.body.profilePhoto || user.profilePhoto,
+                    aboutMe: req.body.aboutUser || user.aboutMe,
+                    validate_token: validate_token
+                })
+                .then(async updatedUser => {
+                    return res.status(process.env.USR_OK).send({user: updatedUser});
+                })
+                .catch(error => res.status(process.env.USR_ERR).send(error));
+        })
+        .catch(error => res.status(process.env.USR_ERR).send(error));
     },
     retrieve(req, res)
     {
