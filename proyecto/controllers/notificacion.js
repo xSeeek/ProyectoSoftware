@@ -10,8 +10,8 @@ module.exports = {
     createNoticia(newNoticia)
     {
         Notificacion.create({
-            estado: 0,
             tipo: 'Noticia',
+            estado: 0,
             titulo:'¡Se ha publicado una nueva noticia!',
             descripcion: '¡Haz click para ver el nuevo contenido!',
             idReferencia: newNoticia.idNoticia
@@ -27,11 +27,13 @@ module.exports = {
                 socket.on('connect', function () {
                     socket.emit('newNoticia', 
                         {
-                            idReferencia: newNoticia.idNoticia,
+                            idNotificacion: newNotificacion.idNotificacion,
                             tipo: newNotificacion.tipo,
                             estado: newNotificacion.estado,
                             titulo: newNotificacion.titulo, 
-                            descripcion: newNotificacion.descripcion
+                            descripcion: newNotificacion.descripcion,
+                            idReferencia: newNotificacion.idReferencia,
+                            idArea: newNotificacion.idArea
                         });
                     socket.disconnect();
                 });
