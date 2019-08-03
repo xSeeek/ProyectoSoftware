@@ -36,10 +36,6 @@ router.post('/users/uploadPhoto'/*, auth(0)*/, services.image.uploadPhoto.single
 /**
  * Funciones relacionadas con Usuarios
  */
-router.post('/assignCargo',fnUsersController.assignateCargo);
-router.post('/unassignCargo' ,fnUsersController.unassignateCargo);
-router.post('/assignArea', fnUsersController.assignateArea);
-router.post('/unassignArea',   fnUsersController.unassignateArea);
 router.post('/assignRol', fnUsersController.assignateRol);
 router.post('/getBirthdays',  fnUsersController.getBirthdays);
 

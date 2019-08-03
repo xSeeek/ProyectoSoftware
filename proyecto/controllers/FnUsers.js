@@ -3,89 +3,121 @@ const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
 
 module.exports = {
-    assignateCargo(req, res)
+    assignateCargo(idUsuario, newCargos)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Cargo.findByPk(req.body.idCargo)
-                    .then(cargo=>{
-                        if(!cargo) {
-                            return res.status(process.env.USR_CRG_NFG).send({message: 'El cargo no existe'}); 
-                            }
-                        });
-                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
-                .then(cargos=>{
-                    if(cargos.length != 0)
-                        return res.status(process.env.USR_CRG_ARD).send({message: 'Cargo ya asignado al usuario'});
-                    usuario.addCargos(req.body.idCargo).then(fn=>{
-                        return res.status(process.env.USR_CRG_OK).send({message: 'Cargo asignado con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_CRG_ERR).send({message:'Error al realizar la operacion'}));
+        if(newCargos != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayCargos = JSON.parse(newCargos);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayCargos.length; index++)
+                    {
+                        flagExists = await (Cargo.findByPk(arrayCargos[index])
+                            .then(cargo=>{
+                                    if(!cargo)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getCargos({through: {where: {idCargo: arrayCargos[index]}}})
+                            .then(cargos=>{
+                                if(cargos == null || cargos.length == 0)
+                                    usuario.addCargos(arrayCargos[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false;});
+            return true;
+        }
+        return false;
     },
-    unassignateCargo(req, res)
+    unassignateCargo(idUsuario, oldCargos)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Cargo.findByPk(req.body.idCargo)
-                    .then(cargo=>{
-                        if(!cargo) {
-                            return res.status(process.env.USR_CRG_NFG).send({message: 'El cargo no existe'}); 
-                            }
-                        });
-                usuario.getCargos({through: {where: {idCargo: req.body.idCargo}}})
-                .then(cargos=>{
-                    if(cargos.length == 0)
-                        return res.status(process.env.USR_CRG_ARD).send({message: 'El usuario no tiene asignado este cargo'});
-                    usuario.removeCargos(req.body.idCargo).then(fn=>{
-                        return res.status(process.env.USR_CRG_OK).send({message: 'Cargo removido con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_CRG_ERR).send({message:'Error al realizar la operacion'}));
+        if(oldCargos != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayCargos = JSON.parse(oldCargos);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayCargos.length; index++)
+                    {
+                        flagExists = await (Cargo.findByPk(arrayCargos[index])
+                            .then(cargo=>{
+                                    if(!cargo)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getCargos({through: {where: {idCargo: arrayCargos[index]}}})
+                            .then(cargos=>{
+                                if(cargos != null || cargos.length != 0)
+                                    usuario.removeCargos(arrayCargos[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false});
+            return true;
+        }
+        return false;
     },
-    assignateArea(req, res)
+    assignateArea(idUsuario, newAreas)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Area.findByPk(req.body.idArea)
-                    .then(area=>{
-                        if(!area) {
-                            return res.status(process.env.USR_ARE_NFD).send({message: 'El area no existe'}); 
-                            }
-                        });
-                usuario.getAreas({through: {where: {idArea: req.body.idArea}}})
-                .then(areas=>{
-                    if(areas.length != 0)
-                        return res.status(process.env.USR_ARE_ARD).send({message: 'Area ya asignado al usuario'});
-                    usuario.addAreas(req.body.idArea).then(fn=>{
-                        return res.status(process.env.USR_ARE_OK).send({message: 'Area asignada con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_ARE_ERR).send({message:'Error al realizar la operacion'}));
+        if(newAreas != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayAreas = JSON.parse(newAreas);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayAreas.length; index++)
+                    {
+                        flagExists = await (Area.findByPk(arrayAreas[index])
+                            .then(area=>{
+                                    if(!area)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getAreas({through: {where: {idArea: arrayAreas[index]}}})
+                            .then(areas=>{
+                                if(areas == null || areas.length == 0)
+                                    usuario.addAreas(arrayAreas[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false;});
+            return true;
+        }
+        return false;
     },
-    unassignateArea(req, res)
+    unassignateArea(idUsuario, oldAreas)
     {
-        User.findByPk(req.body.idUsuario)
-            .then(usuario=>{
-                Area.findByPk(req.body.idArea)
-                    .then(area=>{
-                        if(!area) {
-                            return res.status(process.env.USR_ARE_NFD).send({message: 'El area no existe'}); 
-                            }
-                        });
-                usuario.getAreas({through: {where: {idArea: req.body.idArea}}})
-                .then(areas=>{
-                    if(areas.length == 0)
-                        return res.status(rocess.env.USR_ARE_ARD).send({message: 'El usuario no tiene asignada esta area'});
-                    usuario.removeAreas(req.body.idArea).then(fn=>{
-                        return res.status(process.env.USR_ARE_OK).send({message: 'Area removida con exito'});
-                    });
-                });
-            })
-            .catch(error => res.status(process.env.USR_ARE_ERR).send({message:'Error al realizar la operacion'}));
+        if(oldAreas != null)
+        {
+            User.findByPk(idUsuario)
+                .then(async usuario=>{
+                    var arrayAreas = JSON.parse(oldAreas);
+                    var flagExists = 1;
+                    for(var index = 0; index < arrayAreas.length; index++)
+                    {
+                        flagExists = await (Area.findByPk(arrayAreas[index])
+                            .then(area=>{
+                                    if(!area)
+                                        return 0; 
+                                    return 1;
+                                }));
+                        if(flagExists == 1)
+                            await (usuario.getAreas({through: {where: {idArea: arrayAreas[index]}}})
+                            .then(areas=>{
+                                if(areas != null || areas.length != 0)
+                                    usuario.removeAreas(arrayAreas[index]).then(fn=>{});
+                                }));
+                    }
+                })
+                .catch(error => {return false;});
+            return true;
+        }
+        return false;
     },
     assignateRol(req, res)
     {
@@ -156,7 +188,8 @@ module.exports = {
                             "nombre"            : usuarios[i].nombre,
                             "a_paterno"         : usuarios[i].a_paterno,
                             "a_materno"         : usuarios[i].a_materno,
-                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento)
+                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento),
+                            "profilePhoto"      : usuarios[i].profilePhoto
                         };
                         birthday[index] = userData;
                         index++;

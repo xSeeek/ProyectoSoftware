@@ -8,6 +8,8 @@ const services = require('../services');
 const crypto = require('crypto-js');
 const validator = require("email-validator");
 
+const fnUsersController = require('./FnUsers');
+
 const { validate, clean, format } = require('rut.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -108,54 +110,11 @@ module.exports = {
                 profilePhoto: req.body.profilePhoto
             })
             .then(async user => {
-                var statusArea = 1;
-                var statusCargo = 1;
-
-                if(req.body.idArea != null && req.body.idArea != "")
-                {
-                    async function waitForAddArea(){
-                        var addAreaStatus = await user.addAreas(req.body.idArea).then(fn=>{
-                            user.hasAreas(req.body.idArea).then(async result => {
-                                console.log('AREA OK');
-                                if(result == false)
-                                    return 0;
-                                return 1;
-                            });
-                        }).catch(error => {
-                            return 0;
-                        });
-                        return addAreaStatus;
-                    };
-                    statusArea = await waitForAddArea();
-                    console.log("AddArea Final Status = " + statusArea);
+                var statusAssignate = {
+                    "assignateCargo"    :   await fnUsersController.assignateCargo(user.idUsuario, req.body.newCargos),
+                    "assignateArea"     :   await fnUsersController.assignateArea(user.idUsuario, req.body.newAreas)
                 }
-                if(req.body.idCargo != null && req.body.idCargo != "")
-                {
-                    async function waitForAddCargo(){
-                        var addCargoStatus = user.addCargos(req.body.idCargo).then(async fn=>{
-                            user.hasCargos(req.body.idCargo).then(async result => {
-                                console.log('CARGO OK');
-                                if(result == false)
-                                    return 0;
-                                return 1;
-                            });
-                        }).catch(async error => {
-                            return 0;
-                        });
-                        return addCargoStatus;
-                    };
-                    statusCargo = await waitForAddCargo();
-                    console.log("AddCargo Final Status = " + statusCargo);
-                }
-                console.log("Status Area = " + statusArea + " | Status Cargo = " + statusCargo);
-                if(statusCargo == 0 && statusArea == 0)
-                    return res.status(process.env.USR_ERR).send({message:'No se ha asignado el Area ni el Cargo'});
-                else if(statusCargo == 0)
-                    return res.status(process.env.USR_CRG_ERR).send({message:'No se ha asignado el Cargo'});
-                else if(statusArea == 0)
-                    return res.status(process.env.USR_ARE_ERR).send({message:'No se ha asignado el Area'});
-                else
-                    return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente"});
+                return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente", assignateStatus: statusAssignate, idUsuario: user.idUsuario});
             })
             .catch(error => res.status(process.env.USR_ERR).send({message:'Error al agregar al usuario', error}));
     },
@@ -175,24 +134,25 @@ module.exports = {
                     return res.status(process.env.USR_NFD).send({message:'Usuario no existe en el sistema'});
                 if(req.body.password || req.body.rut || req.body.codigoColaborador || req.body.rolUsuario)
                     return res.status(process.env.USR_INV).send({message:'No se puede actualizar este dato mediante esta via'});
-                
-                User.findAll({
-                    where:{
-                        email: req.body.email
-                    },
-                    attributes: {
-                        exclude: ['password', 'validate_token', 'validate_token_expires']
-                    }
-                })
-                .then(find => {
-                    if(find.length != 0)
-                        return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
-                });
 
-                var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+                if(req.body.email != undefined)
+                    User.findAll({
+                        where:{
+                            email: req.body.email
+                        },
+                        attributes: {
+                            exclude: ['password', 'validate_token', 'validate_token_expires']
+                        }
+                    })
+                    .then(find => {
+                        if(find.length != 0)
+                            return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado ya esta registrado en el sistema'});
+                    });
 
-                if(req.body.email != null)
+                if(req.body.email != undefined)
                 {
+                    var token = crypto.AES.encrypt(req.body.email, process.env.JWT_SECRET);
+
                     if(validator.validate(req.body.email) == false)
                         return res.status(process.env.USR_EMAIL).send({message:'El correo electrónico ingresado no es válido.'});
 
@@ -224,10 +184,19 @@ module.exports = {
                             return new Date(req.body.fechaNacimiento);
                             })(),
                         profilePhoto: req.body.profilePhoto || user.profilePhoto,
+                        aboutMe: req.body.aboutUser || user.aboutMe,
                         estado: estado,
                         validate_token: validate_token
                     })
-                    .then(updatedUser => res.status(process.env.USR_OK).send(updatedUser))
+                    .then(async updatedUser => {
+                        var statusAssignate = {
+                            "assignateCargo"    :   fnUsersController.assignateCargo(updatedUser.idUsuario, req.body.newCargos),
+                            "assignateArea"     :   fnUsersController.assignateArea(updatedUser.idUsuario, req.body.newAreas),
+                            "unassignateCargo"  :   fnUsersController.unassignateCargo(updatedUser.idUsuario, req.body.oldCargos),
+                            "unassignateArea"   :   fnUsersController.unassignateArea(updatedUser.idUsuario, req.body.oldAreas)
+                        }
+                        return res.status(process.env.USR_OK).send({user: updatedUser, assignateStatus: statusAssignate});
+                    })
                     .catch(error => res.status(process.env.USR_ERR).send(error));
             })
             .catch(error => res.status(process.env.USR_ERR).send(error));
@@ -378,7 +347,8 @@ module.exports = {
                                                 "nombre"        : usuariosArea[j].nombre,
                                                 "a_paterno"     : usuariosArea[j].a_paterno,
                                                 "a_materno"     : usuariosArea[j].a_materno,
-                                                "profilePhoto"  : usuariosArea[j].profilePhoto
+                                                "profilePhoto"  : usuariosArea[j].profilePhoto,
+                                                "aboutUser"     : usuariosArea[j].aboutMe
                                             };
                                             searchNoUser[indexUser] = userData;
                                             indexUser++;
