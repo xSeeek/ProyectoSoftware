@@ -110,54 +110,11 @@ module.exports = {
                 profilePhoto: req.body.profilePhoto
             })
             .then(async user => {
-                var statusArea = 1;
-                var statusCargo = 1;
-
-                if(req.body.idArea != null && req.body.idArea != "")
-                {
-                    async function waitForAddArea(){
-                        var addAreaStatus = await user.addAreas(req.body.idArea).then(fn=>{
-                            user.hasAreas(req.body.idArea).then(async result => {
-                                console.log('AREA OK');
-                                if(result == false)
-                                    return 0;
-                                return 1;
-                            });
-                        }).catch(error => {
-                            return 0;
-                        });
-                        return addAreaStatus;
-                    };
-                    statusArea = await waitForAddArea();
-                    console.log("AddArea Final Status = " + statusArea);
+                var statusAssignate = {
+                    "assignateCargo"    :   await fnUsersController.assignateCargo(user.idUsuario, req.body.newCargos),
+                    "assignateArea"     :   await fnUsersController.assignateArea(user.idUsuario, req.body.newAreas)
                 }
-                if(req.body.idCargo != null && req.body.idCargo != "")
-                {
-                    async function waitForAddCargo(){
-                        var addCargoStatus = user.addCargos(req.body.idCargo).then(async fn=>{
-                            user.hasCargos(req.body.idCargo).then(async result => {
-                                console.log('CARGO OK');
-                                if(result == false)
-                                    return 0;
-                                return 1;
-                            });
-                        }).catch(async error => {
-                            return 0;
-                        });
-                        return addCargoStatus;
-                    };
-                    statusCargo = await waitForAddCargo();
-                    console.log("AddCargo Final Status = " + statusCargo);
-                }
-                console.log("Status Area = " + statusArea + " | Status Cargo = " + statusCargo);
-                if(statusCargo == 0 && statusArea == 0)
-                    return res.status(process.env.USR_ERR).send({message:'No se ha asignado el Area ni el Cargo'});
-                else if(statusCargo == 0)
-                    return res.status(process.env.USR_CRG_ERR).send({message:'No se ha asignado el Cargo'});
-                else if(statusArea == 0)
-                    return res.status(process.env.USR_ARE_ERR).send({message:'No se ha asignado el Area'});
-                else
-                    return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente"});
+                return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente", assignateStatus: statusAssignate, idUsuario: user.idUsuario});
             })
             .catch(error => res.status(process.env.USR_ERR).send({message:'Error al agregar al usuario', error}));
     },
