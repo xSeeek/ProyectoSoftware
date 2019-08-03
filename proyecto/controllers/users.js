@@ -184,6 +184,7 @@ module.exports = {
                             return new Date(req.body.fechaNacimiento);
                             })(),
                         profilePhoto: req.body.profilePhoto || user.profilePhoto,
+                        aboutMe: req.body.aboutUser || user.aboutMe,
                         estado: estado,
                         validate_token: validate_token
                     })
@@ -346,7 +347,8 @@ module.exports = {
                                                 "nombre"        : usuariosArea[j].nombre,
                                                 "a_paterno"     : usuariosArea[j].a_paterno,
                                                 "a_materno"     : usuariosArea[j].a_materno,
-                                                "profilePhoto"  : usuariosArea[j].profilePhoto
+                                                "profilePhoto"  : usuariosArea[j].profilePhoto,
+                                                "aboutUser"     : usuariosArea[j].aboutMe
                                             };
                                             searchNoUser[indexUser] = userData;
                                             indexUser++;
