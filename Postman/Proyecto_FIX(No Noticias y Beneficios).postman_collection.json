@@ -65,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"newCargos\" : \"[1]\",\n\t\"oldCargos\" : \"[2, 3]\",\n\t\"newAreas\" : \"[2]\",\n\t\"oldAreas\" : \"[1, 3]\"\n}"
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"aboutUser\" : \"Que wea giles qlos\",\n\t\"newCargos\" : \"[1]\",\n\t\"oldCargos\" : \"[2, 3]\",\n\t\"newAreas\" : \"[2]\",\n\t\"oldAreas\" : \"[1, 3]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
