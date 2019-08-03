@@ -231,9 +231,13 @@ module.exports = {
                         validate_token: validate_token
                     })
                     .then(async updatedUser => {
-                        fnUsersController.assignateCargo(updatedUser.idUsuario, req.body.newCargos);
-                        fnUsersController.unassignateCargo(updatedUser.idUsuario, req.body.oldCargos);
-                        return res.status(process.env.USR_OK).send(updatedUser);
+                        var statusAssignate = {
+                            "assignateCargo"    :   fnUsersController.assignateCargo(updatedUser.idUsuario, req.body.newCargos),
+                            "assignateArea"     :   fnUsersController.assignateArea(updatedUser.idUsuario, req.body.newAreas),
+                            "unassignateCargo"  :   fnUsersController.unassignateCargo(updatedUser.idUsuario, req.body.oldCargos),
+                            "unassignateArea"   :   fnUsersController.unassignateArea(updatedUser.idUsuario, req.body.oldAreas)
+                        }
+                        return res.status(process.env.USR_OK).send({user: updatedUser, assignateStatus: statusAssignate});
                     })
                     .catch(error => res.status(process.env.USR_ERR).send(error));
             })
