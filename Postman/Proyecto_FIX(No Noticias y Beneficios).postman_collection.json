@@ -593,9 +593,10 @@
 							"formdata": [
 								{
 									"key": "photoName",
-									"value": "",
+									"value": "1563849551462",
 									"description": "Nombre de la foto (solo si se desea actualizar la foto), sino no ingresar",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "profilePhoto",
@@ -615,6 +616,51 @@
 								"api",
 								"users",
 								"uploadPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Cover",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photoName",
+									"value": "",
+									"description": "Nombre de la foto (solo si se desea actualizar la foto), sino no ingresar",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "coverPhoto",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/uploadCover",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"uploadCover"
 							]
 						}
 					},
