@@ -26,6 +26,7 @@ app.use(express.json({
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/profilePicture', express.static(__dirname + '/data/profiles'));
+app.use('/profileCovers', express.static(__dirname + '/data/covers'));
 
 /**
  * Headers Accept

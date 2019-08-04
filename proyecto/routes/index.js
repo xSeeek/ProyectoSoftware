@@ -25,6 +25,7 @@ router.get('/users/getAll', usersController.list);
 router.get('/users/getAllComplete', usersController.listAllRelationships);
 router.post('/users/create',  usersController.create);
 router.put('/users/edit', usersController.edit);
+router.put('/users/editProfile', usersController.editUser);
 router.post('/users/validateData',  usersController.validate);
 router.post('/users/getUser', usersController.retrieve);
 router.delete('/users/removeUser',  usersController.destroy);
@@ -32,6 +33,7 @@ router.post('/users/validateEmail', usersController.confirmEmail);
 router.post('/users/changeStatus', usersController.changeStatus);
 router.post('/users/getContactos', usersController.getContactos);
 router.post('/users/uploadPhoto'/*, auth(0)*/, services.image.uploadPhoto.single('profilePhoto'), usersController.uploadPhoto);
+router.post('/users/uploadCover'/*, auth(0)*/, services.image.uploadCover.single('coverPhoto'), usersController.uploadPhoto);
 
 /**
  * Funciones relacionadas con Usuarios
@@ -99,7 +101,7 @@ router.post('/noticias/changeStatus', noticiasController.changeStatus);
  * Password
  */
 router.post('/forgot_password', authController.forgot_password);
-router.post('/reset_password', authController.reset_password);
+router.post('/setPassword', authController.setPassword);
 router.post('/changePassword', authController.changePassword);
 
 module.exports = router;
