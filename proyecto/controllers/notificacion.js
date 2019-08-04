@@ -33,7 +33,8 @@ module.exports = {
                             titulo: newNotificacion.titulo, 
                             descripcion: newNotificacion.descripcion,
                             idReferencia: newNotificacion.idReferencia,
-                            idArea: newNotificacion.idArea
+                            idArea: newNotificacion.idArea,
+                            createdAt: newNotificacion.createdAt
                         });
                     socket.disconnect();
                 });
@@ -61,7 +62,7 @@ module.exports = {
                         [(Sequelize.Op).not]: [{estado: 2}]
                     },
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"]
+                        exclude: ["updatedAt"]
                     }
                 }
             ]
