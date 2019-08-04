@@ -47,6 +47,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      coverPhoto: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       aboutMe: {
         type: Sequelize.STRING,
         defaultValue: 'Nada interesante por aquí.'

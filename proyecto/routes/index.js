@@ -33,6 +33,7 @@ router.post('/users/validateEmail', usersController.confirmEmail);
 router.post('/users/changeStatus', usersController.changeStatus);
 router.post('/users/getContactos', usersController.getContactos);
 router.post('/users/uploadPhoto'/*, auth(0)*/, services.image.uploadPhoto.single('profilePhoto'), usersController.uploadPhoto);
+router.post('/users/uploadCover'/*, auth(0)*/, services.image.uploadCover.single('coverPhoto'), usersController.uploadPhoto);
 
 /**
  * Funciones relacionadas con Usuarios

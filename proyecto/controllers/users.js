@@ -99,6 +99,7 @@ module.exports = {
                 estado: 2,
                 rolUsuario: req.body.rolUsuario,
                 profilePhoto: req.body.profilePhoto,
+                coverPhoto: req.body.coverPhoto,
                 validate_token: validate_token
             })
             .then(async user => {
@@ -191,6 +192,7 @@ module.exports = {
                             return new Date(req.body.fechaNacimiento);
                             })(),
                         profilePhoto: req.body.profilePhoto || user.profilePhoto,
+                        coverPhoto: req.body.coverPhoto || user.coverPhoto,
                         aboutMe: req.body.aboutUser || user.aboutMe,
                         estado: estado,
                         validate_token: validate_token
@@ -274,6 +276,7 @@ module.exports = {
                         return new Date(req.body.fechaNacimiento);
                         })(),
                     profilePhoto: req.body.profilePhoto || user.profilePhoto,
+                    coverPhoto: req.body.coverPhoto || user.coverPhoto,
                     aboutMe: req.body.aboutUser || user.aboutMe,
                     validate_token: validate_token
                 })
@@ -431,6 +434,7 @@ module.exports = {
                                                 "a_paterno"     : usuariosArea[j].a_paterno,
                                                 "a_materno"     : usuariosArea[j].a_materno,
                                                 "profilePhoto"  : usuariosArea[j].profilePhoto,
+                                                "coverPhoto"    : usuariosArea[j].coverPhoto,
                                                 "aboutUser"     : usuariosArea[j].aboutMe
                                             };
                                             searchNoUser[indexUser] = userData;

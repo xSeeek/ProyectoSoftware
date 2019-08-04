@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     profilePhoto: {
       type: DataTypes.STRING,
     },
+    coverPhoto: {
+      type: DataTypes.STRING,
+    },
     aboutMe: {
       type: DataTypes.STRING,
     },
@@ -57,7 +60,8 @@ module.exports = (sequelize, DataTypes) => {
     validate_token_expires: {
       type: Date,
     }
-  }, {
+  }, 
+  {
     tableName: 'Usuario',
     primaryKey: 'idUsuario'
   });
