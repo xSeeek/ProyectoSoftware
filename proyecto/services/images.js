@@ -3,8 +3,6 @@ const fs = require('fs')
 const path = require('path');
 const filesDir = path.resolve('./data/');
 
-console.log(filesDir);
-
 var storagePhoto = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, filesDir + '/profiles/');
