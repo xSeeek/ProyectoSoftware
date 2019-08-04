@@ -91,4 +91,8 @@ typings/
 data/profiles/
 !data/profiles/ProfileImage.png
 
+# Cover Data Folder
+data/covers/
+!data/covers/defaultCover.jpeg
+
 # End of https://www.gitignore.io/api/node
