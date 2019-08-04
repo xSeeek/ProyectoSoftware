@@ -56,8 +56,12 @@ module.exports = {
                 {
                     model: Notificacion,
                     as: 'Notificaciones',
+                    through: {attributes: []},
                     where: {
                         [(Sequelize.Op).not]: [{estado: 2}]
+                    },
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
                     }
                 }
             ]
