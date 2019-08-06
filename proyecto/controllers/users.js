@@ -81,6 +81,7 @@ module.exports = {
         User
             .create({
                 email: req.body.email,
+                password: req.body.password,
                 nombre: req.body.nombre,
                 a_paterno: req.body.a_paterno,
                 a_materno: req.body.a_materno,
