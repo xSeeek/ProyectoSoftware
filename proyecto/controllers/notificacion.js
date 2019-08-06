@@ -63,7 +63,10 @@ module.exports = {
                     },
                     attributes: {
                         exclude: ["updatedAt"]
-                    }
+                    },
+                    order: [
+                        ["createdAt", "DESC"]
+                    ]
                 }
             ]
         }).then(usuario => {
