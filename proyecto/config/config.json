@@ -8,7 +8,7 @@
     "schema":"public",
     "dialect": "postgres",
     "logging": false,
-    "timezone": 'America/Santiago'
+    "timezone": "America/Santiago"
   },
   "test": {
     "username": "admin_proyecto",
@@ -18,7 +18,7 @@
     "port": 5432,
     "dialect": "postgres",
     "logging": false,
-    "timezone": 'America/Santiago'
+    "timezone": "America/Santiago"
   },
   "production": {
     "username": "admin_proyecto",
@@ -28,6 +28,6 @@
     "port": 5432,
     "dialect": "postgres",
     "logging": false,
-    "timezone": 'America/Santiago'
+    "timezone": "America/Santiago"
   }
 }
