@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     estado: {
       type: DataTypes.INTEGER
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     tableName: 'Noticia',
@@ -32,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Noticia.associate = models => {
     Noticia.belongsToMany(models.Area, {
-      through: 'Entidad',
-      as: 'Noticias',
+      through: 'AreasNoticias',
+      as: 'Areas',
       foreignKey: 'idNoticia',
       sourceKey: 'idNoticia'
     })

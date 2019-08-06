@@ -13,7 +13,7 @@ module.exports = {
             tipo: 'Noticia',
             estado: 0,
             titulo:'¡Se ha publicado una nueva noticia!',
-            descripcion: '¡Haz click para ver el nuevo contenido!',
+            descripcion: newNoticia.titulo,
             idReferencia: newNoticia.idNoticia
         }).then(newNotificacion => {
             User.findAll()
@@ -31,7 +31,7 @@ module.exports = {
                             tipo: newNotificacion.tipo,
                             estado: newNotificacion.estado,
                             titulo: newNotificacion.titulo, 
-                            descripcion: newNotificacion.descripcion,
+                            descripcion: newNoticia.titulo,
                             idReferencia: newNotificacion.idReferencia,
                             idArea: newNotificacion.idArea,
                             createdAt: newNotificacion.createdAt

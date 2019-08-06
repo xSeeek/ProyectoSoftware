@@ -1,5 +1,6 @@
 const Noticia = require('../models').Noticia;
 const Area = require('../models').Area;
+const fnNoticiasController = require('./FnNoticias');
 
 const notificationController = require('./notificacion');
 
@@ -8,8 +9,8 @@ module.exports = {
     {   
         return Noticia
             .findAll()
-            .then(noticia => res.status(200).send(noticia))
-            .catch(error => res.status(400).send({message:'No hay Noticias registradas en el sistema'}));
+            .then(noticia => res.status(process.env.NTC_OK).send(noticia))
+            .catch(error => res.status(process.env.NTC_NFD).send({message:'No hay Noticias registradas en el sistema'}));
     },
     create(req, res)
     {
@@ -29,10 +30,17 @@ module.exports = {
                     return finalDate;
                 })(), 
             })
-            .then(noticia => {
+            .then(async noticia => {
                 notificationController.createNoticia(noticia);
-             })
-            .then(noticia => res.status(200).send({message:'Noticia agregada correctamente'}))
+
+
+                var statusAssignate = {
+                    "assignateArea"  :  await fnNoticiasController.assignateArea(noticia.idNoticia, req.body.newAreas)
+                }
+                return res.status(process.env.NTC_OK).send({message:'Noticia agregada correctamente', assignateStatus: statusAssignate, idNoticia: noticia.idNoticia});
+             });
+             
+
     },
     edit(req, res)
     {
@@ -40,7 +48,7 @@ module.exports = {
             .findByPk(req.body.idNoticia)
             .then(noticia => {
                 if(!noticia){
-                    return res.status(400).send({message:'Noticia no existe en el sistema'});
+                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
                 }
                 return noticia
                 .update({
@@ -48,8 +56,14 @@ module.exports = {
                     descripcion: req.body.descripcion || noticia.descripcion,
                     duracion: req.body.duracion || noticia.duracion
                 })
-                .then(updatedNoticia => res.status(200).send(updatedNoticia))
-                .catch(error => res.status(400).send(error));
+                .then(async updatedNoticia => {
+                    var statusAssignate = {
+                        "assignateArea"  :  fnNoticiasController.assignateArea(noticia.idNoticia, req.body.newAreas),
+                        "unassignateArea"   :  fnNoticiasController.unassignateArea(updatedNoticia.idNoticia, req.body.oldAreas)
+                    }
+                    return res.status(process.env.NTC_OK).send({noticia: updatedNoticia, assignateStatus: statusAssignate});
+                })
+                .catch(error => res.status(process.env.NTC_ERR).send(error));
             })
     },
     retrieve(req, res)
@@ -70,10 +84,10 @@ module.exports = {
             .then(noticia => {
                 console.log(noticia);
                 if(!noticia)
-                    return res.status(400).send({message:'Noticia no encontrada o no existe'});
-                return res.status(200).send(noticia);
+                    return res.status(process.env.NTC_NFD).send({message:'Noticia no encontrada o no existe'});
+                return res.status(process.env.NTC_OK).send(noticia);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.NTC_ERR).send(error));
     },
     destroy(req, res)
     {
@@ -81,12 +95,12 @@ module.exports = {
             .findByPk(req.body.idNoticia)
             .then(noticia => {
                 if(!noticia)
-                    return res.status(404).send({message: 'Noticia no encontrada'});
+                    return res.status(process.env.NTC_NFD).send({message: 'Noticia no encontrada'});
                 return noticia
                     .destroy()
-                    .then(() => res.status(200).send({message: 'Noticia eliminada del sistema'}))
+                    .then(() => res.status(process.env.NTC_OK).send({message: 'Noticia eliminada del sistema'}))
             })
-            .catch(error => res.status(400).send(error));
+            .catch(error => res.status(process.env.NTC_ERR).send(error));
     },
     changeStatus(req, res)
     {
@@ -94,7 +108,7 @@ module.exports = {
             .findByPk(req.body.idNoticia)
             .then(noticia => {
                 if(!noticia){
-                    return res.status(400).send({message:'Noticia no existe en el sistema'});
+                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(noticia.estado == 0)
@@ -103,8 +117,14 @@ module.exports = {
                 .update({
                     estado: newStatus,
                 })
-                .then(updatedStatus => res.status(200).send({message: 'Estado Actualizado'}))
-                .catch(error => res.status(400).send(error));
+                .then(updatedStatus => res.status(process.env.NTC_OK).send({message: 'Estado Actualizado'}))
+                .catch(error => res.status(process.env.NTC_ERR).send(error));
             })
+    },
+    uploadPhoto(req, res)
+    {
+        if(!req.file)
+            return res.status(process.env.NTC_ERR).send({message: "La imagen no puede estar en blanco"});
+        res.status(process.env.NTC_NFD).send({message: req.file.filename});
     }
 };
