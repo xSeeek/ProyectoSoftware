@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   });
   Area.associate = models => {
     Area.belongsToMany(models.Noticia, {
-      through: 'Entidad',
+      through: 'AreasNoticias',
       as: 'Noticias',
       foreignKey: 'idArea',
       sourceKey: 'idArea'
     }),
     Area.belongsToMany(models.Beneficio, {
-      through: 'Entidad',
+      through: 'AreasBeneficios',
       as: 'Beneficios',
       foreignKey: 'idArea',
       sourceKey: 'idArea'

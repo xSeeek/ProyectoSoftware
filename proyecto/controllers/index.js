@@ -10,6 +10,7 @@ const beneficios = require('./beneficio');
 
 /* NOTICIAS */
 const noticias = require('./noticia');
+const fnNoticias = require('./FnNoticias');
 
 /* CARGOS */
 const cargos = require('./cargo');
@@ -31,6 +32,7 @@ module.exports = {
 
     // Controladores con mutiples referencias
     fnUsers,
+    fnNoticias,
 
     // Funcionalidades del sistema
     notificaciones
