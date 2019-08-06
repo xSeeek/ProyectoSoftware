@@ -52,6 +52,30 @@ var storageCover = multer.diskStorage({
   }
 });
 
+var storagePhotoNews = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, filesDir + '/news/');
+  },
+  filename: function (req, file, cb) {
+      var filetype = getFileType(file);
+
+      if(req.body.photoName != null && req.body.photoName != "")
+      {
+        fs.readdir(filesDir, (err, files) => {
+          if (err) throw err;
+          for (const file of files)
+            if(file.split(".")[0] == req.body.photoName)
+              fs.unlink(path.join(filesDir, file), err => {
+                  if (err) throw err;
+              });
+        });
+        cb(null, req.body.photoName + '.' + filetype);
+      }
+      else
+        cb(null, Date.now() + '.' + filetype);
+  }
+});
+
 function getFileType(file)
 {
   if(file.mimetype === 'image/gif')
@@ -65,7 +89,7 @@ function getFileType(file)
   return 'undefined';
 }
 
-var uploadPhoto = multer({storage: storagePhoto});
+var uploadPhoto = multer({storage: storagePhoto, storage: storagePhotoNews});
 var uploadCover = multer({storage: storageCover});
 
 module.exports = {
