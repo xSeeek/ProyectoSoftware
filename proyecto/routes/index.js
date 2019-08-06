@@ -92,7 +92,7 @@ router.post('/beneficios/changeStatus', beneficiosController.changeStatus);
 router.post('/noticias/create', noticiasController.create);
 router.put('/noticias/edit', noticiasController.edit);
 router.get('/noticias/getAll', noticiasController.list);
-router.get('/noticias/getNews', noticiasController.retrieve);
+router.post('/noticias/getNews', noticiasController.retrieve);
 router.delete('/noticias/removeNews', noticiasController.destroy);
 router.post('/noticias/changeStatus', noticiasController.changeStatus);
 
