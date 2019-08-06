@@ -13,7 +13,8 @@ module.exports = {
         unique: true
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
       },
       estado: {
         type: Sequelize.INTEGER,
