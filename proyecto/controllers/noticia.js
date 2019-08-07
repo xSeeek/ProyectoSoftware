@@ -23,6 +23,7 @@ module.exports = {
                     return today;
                 })(),
                 duracion: req.body.duracion,
+                photo: req.body.photo,
                 fechaFin: (function () {
                     var finalDate = new Date();
                     var duracion = parseInt(req.body.duracion);
