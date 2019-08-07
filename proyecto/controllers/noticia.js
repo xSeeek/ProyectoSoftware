@@ -125,6 +125,6 @@ module.exports = {
     {
         if(!req.file)
             return res.status(process.env.NTC_ERR).send({message: "La imagen no puede estar en blanco"});
-        res.status(process.env.NTC_NFD).send({message: req.file.filename});
+        res.status(process.env.NTC_OK).send({message: req.file.filename});
     }
 };
