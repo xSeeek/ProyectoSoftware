@@ -53,7 +53,7 @@ var storageCover = multer.diskStorage({
   }
 });
 
-var storagePhotoNews = multer.diskStorage({
+/*var storagePhotoNews = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, filesDir + '/news/');
   },
@@ -76,6 +76,7 @@ var storagePhotoNews = multer.diskStorage({
         cb(null, Date.now() + '.' + filetype);
   }
 });
+*/
 
 function getFileType(file)
 {
@@ -92,10 +93,10 @@ function getFileType(file)
 
 var uploadPhoto = multer({storage: storagePhoto});
 var uploadCover = multer({storage: storageCover});
-var uploadBanner = multer({storage: storagePhotoNews});
+//var uploadBanner = multer({storage: storagePhotoNews});
 
 module.exports = {
     uploadPhoto,
-    uploadCover,
-    uploadBanner
+    uploadCover
+    /*uploadBanner*/
 }
