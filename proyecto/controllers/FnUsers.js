@@ -5,7 +5,7 @@ const Cargo = require('../models').Cargo;
 module.exports = {
     assignateCargo(idUsuario, newCargos)
     {
-        if(newCargos != null)
+        if(newCargos != null && newCargos != "")
         {
             User.findByPk(idUsuario)
                 .then(async usuario=>{
@@ -34,7 +34,7 @@ module.exports = {
     },
     unassignateCargo(idUsuario, oldCargos)
     {
-        if(oldCargos != null)
+        if(oldCargos != null && oldCargos != "")
         {
             User.findByPk(idUsuario)
                 .then(async usuario=>{
@@ -63,7 +63,7 @@ module.exports = {
     },
     assignateArea(idUsuario, newAreas)
     {
-        if(newAreas != null)
+        if(newAreas != null && newAreas != "")
         {
             User.findByPk(idUsuario)
                 .then(async usuario=>{
@@ -92,7 +92,7 @@ module.exports = {
     },
     unassignateArea(idUsuario, oldAreas)
     {
-        if(oldAreas != null)
+        if(oldAreas != null && oldAreas != "")
         {
             User.findByPk(idUsuario)
                 .then(async usuario=>{
