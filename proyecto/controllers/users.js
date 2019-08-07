@@ -97,7 +97,7 @@ module.exports = {
                 telefono: req.body.telefono,
                 fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
-                estado: 1,
+                estado: 2,
                 rolUsuario: req.body.rolUsuario,
                 profilePhoto: req.body.profilePhoto,
                 coverPhoto: req.body.coverPhoto,
@@ -106,6 +106,7 @@ module.exports = {
             .then(async user => {
                 var mailOptions = {
                     to: req.body.email,
+                    from: process.env.MAILER_EMAIL_ID,
                     subject: 'Activar su cuenta de usuario',
                     template: 'activate_account',
                     context: {
@@ -167,6 +168,7 @@ module.exports = {
 
                     var mailOptions = {
                         to: req.body.email,
+                        from: process.env.MAILER_EMAIL_ID,
                         subject: 'Validar nuevo correo electronico',
                         template: 'change_email',
                         context: {
@@ -254,6 +256,7 @@ module.exports = {
 
                 var mailOptions = {
                     to: req.body.email,
+                    from: process.env.MAILER_EMAIL_ID,
                     subject: 'Validar nuevo correo electronico',
                     template: 'change_email',
                     context: {

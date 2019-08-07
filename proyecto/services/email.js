@@ -14,7 +14,7 @@ var smtpTransport = nodemailer.createTransport({
         user: email,
         pass: pass
     },
-    from: email
+    debug: true
 });
 
 var options = {

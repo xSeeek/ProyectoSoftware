@@ -22,9 +22,11 @@ module.exports = {
                 plain: true
             })
             .then(function(usuario){
+                /*
                 console.log(usuario.estado);
                 if(usuario.estado == 2)
                     return res.status(process.env.LGN_TKN_INV).send({message: "Usuario no autorizado para ingresar al sistema"});
+                    */
                 Rol.findByPk(usuario.rolUsuario)
                 .then(rol => {
                     if(bcrypt.compareSync(password, usuario.password)){
@@ -80,6 +82,7 @@ module.exports = {
 
                 var mailOptions = {
                     to: usuario.email,
+                    from: process.env.MAILER_EMAIL_ID,
                     subject: 'Solicitud de cambio de contraseña',
                     template: 'forgot_password',
                     context: {
@@ -133,6 +136,7 @@ module.exports = {
                             
                             var mailOptions = {
                                 to: usuario.email,
+                                from: process.env.MAILER_EMAIL_ID,
                                 subject: 'Confirmación cambio de contraseña',
                                 template: 'change_password',
                                 context: {
@@ -179,6 +183,7 @@ module.exports = {
                     .then(sendMail => {
                         var mailOptions = {
                             to: user.email,
+                            from: process.env.MAILER_EMAIL_ID,
                             subject: 'Confirmación cambio de contraseña',
                             template: 'change_password',
                             context: {
