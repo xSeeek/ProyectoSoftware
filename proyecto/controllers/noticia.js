@@ -76,7 +76,7 @@ module.exports = {
                 include: [
                     {
                         model: Area,
-                        as: 'Noticias',
+                        as: 'Areas',
                     }
                 ],
                 plain : true
