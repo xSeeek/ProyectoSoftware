@@ -23,6 +23,7 @@ app.use(logger('dev'));
 app.use(express.json({
   type:"application/json"
 }));
+app.use(bodyParser.json({limit:'50mb'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/profilePicture', express.static(__dirname + '/data/profiles'));
