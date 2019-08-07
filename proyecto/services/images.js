@@ -5,10 +5,12 @@ const filesDir = path.resolve('./data/');
 
 var storagePhoto = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log('a');
     cb(null, filesDir + '/profiles/');
   },
   filename: function (req, file, cb) {
       var filetype = getFileType(file);
+      console.log(filetype);
 
       if(req.body.photoName != null && req.body.photoName != "")
       {
@@ -29,7 +31,6 @@ var storagePhoto = multer.diskStorage({
 
 var storageCover = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(filesDir + '/covers/');
     cb(null, filesDir + '/covers/');
   },
   filename: function (req, file, cb) {
