@@ -89,10 +89,12 @@ function getFileType(file)
   return 'undefined';
 }
 
-var uploadPhoto = multer({storage: storagePhoto, storage: storagePhotoNews});
+var uploadPhoto = multer({storage: storagePhoto});
 var uploadCover = multer({storage: storageCover});
+var uploadBanner = multer({storage: storagePhotoNews});
 
 module.exports = {
     uploadPhoto,
-    uploadCover
+    uploadCover,
+    uploadBanner
 }
