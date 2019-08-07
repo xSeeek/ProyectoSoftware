@@ -21,10 +21,10 @@ app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
 app.use(express.json({
-  type:"application/json"
+  type:"application/json",
+  limit: '50mb'
 }));
-app.use(bodyParser.json({limit:'50mb'}));
-app.use(bodyParser.urlencoded({extended:false, limit:'50mb'}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/profilePicture', express.static(__dirname + '/data/profiles'));
 app.use('/profileCovers', express.static(__dirname + '/data/covers'));
