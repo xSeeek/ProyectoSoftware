@@ -11,7 +11,7 @@ const validator = require("email-validator");
 const fnUsersController = require('./FnUsers');
 
 const { validate, clean, format } = require('rut.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 module.exports = {
