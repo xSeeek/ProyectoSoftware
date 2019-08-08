@@ -7,7 +7,7 @@ var salt = bcrypt.genSaltSync(saltRounds);
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Usuario', [{
-      email: 'djsjkdsa@yopmail.com',
+      email: 'admin_prosoft2019@yopmail.com',
       password: bcrypt.hashSync('admin20', salt),
       estado: 1,
       nombre: 'Marco',
@@ -22,7 +22,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      email: 'urhyweuir@yopmail.com',
+      email: 'usuario_prosoft2019@yopmail.com',
       password: bcrypt.hashSync('usuario20', salt),
       estado: 1,
       nombre: 'Silvia',
