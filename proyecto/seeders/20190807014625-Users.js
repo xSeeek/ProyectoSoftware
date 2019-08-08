@@ -13,6 +13,7 @@ module.exports = {
       nombre: 'Marco',
       a_paterno: 'Cortes',
       a_materno: 'Nieto',
+      fechaNacimiento: '01-01-1970',
       rut: '1-9',
       telefono:'98765432',
       codigoColaborador: 1,
@@ -27,9 +28,27 @@ module.exports = {
       nombre: 'Silvia',
       a_paterno: 'Segura',
       a_materno: 'Moreno',
+      fechaNacimiento: '01-01-1970',
       rut: '2-7',
       telefono:'98765432',
       codigoColaborador: 2,
+      rolUsuario: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      email: 'iowueowe@yopmail.com',
+      password: bcrypt.hashSync('usuario20', salt),
+      estado: 1,
+      nombre: 'Joel',
+      a_paterno: 'Lozano',
+      a_materno: 'Sanz',
+      fechaNacimiento: (newDate => {
+        return new Date().toLocaleString("es-CL", {timeZone: "America/Santiago"});
+      })(),
+      rut: '3-5',
+      telefono:'98765432',
+      codigoColaborador: 3,
       rolUsuario: 2,
       createdAt: new Date(),
       updatedAt: new Date()

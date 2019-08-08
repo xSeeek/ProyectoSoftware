@@ -179,20 +179,24 @@ module.exports = {
 
                 for(var i = 0; i < usuarios.length; i++)
                 {
-                    userBirthday = usuarios[i].fechaNacimiento;
-                    userBirthday.setFullYear(0);
-                    if(+userBirthday == +today)
+                    if(usuarios[i].fechaNacimiento != null)
                     {
-                        var userData = {
-                            "idUsuario"         : usuarios[i].idUsuario,
-                            "nombre"            : usuarios[i].nombre,
-                            "a_paterno"         : usuarios[i].a_paterno,
-                            "a_materno"         : usuarios[i].a_materno,
-                            "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento),
-                            "profilePhoto"      : usuarios[i].profilePhoto
-                        };
-                        birthday[index] = userData;
-                        index++;
+                        userBirthday = usuarios[i].fechaNacimiento;
+                        userBirthday.setFullYear(0);
+                        userBirthday.setHours(0,0,0,0);
+                        if(+userBirthday == +today)
+                        {
+                            var userData = {
+                                "idUsuario"         : usuarios[i].idUsuario,
+                                "nombre"            : usuarios[i].nombre,
+                                "a_paterno"         : usuarios[i].a_paterno,
+                                "a_materno"         : usuarios[i].a_materno,
+                                "fechaNacimiento"   : new Date(usuarios[i].fechaNacimiento),
+                                "profilePhoto"      : usuarios[i].profilePhoto
+                            };
+                            birthday[index] = userData;
+                            index++;
+                        }
                     }
                 }
                 return res.status(process.env.USR_OK).send(birthday);
