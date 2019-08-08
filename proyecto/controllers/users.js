@@ -97,7 +97,7 @@ module.exports = {
                 telefono: req.body.telefono,
                 fechaNacimiento: new Date(req.body.fechaNacimiento),
                 codigoColaborador: req.body.codigoColaborador,
-                estado: 2,
+                estado: 1,
                 rolUsuario: req.body.rolUsuario,
                 profilePhoto: req.body.profilePhoto,
                 coverPhoto: req.body.coverPhoto,
