@@ -81,7 +81,8 @@ module.exports = {
         User
             .create({
                 email: req.body.email,
-                password: bcrypt.hashSync(Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5), salt),
+                //password: bcrypt.hashSync(Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5), salt),
+                password: bcrypt.hashSync(req.body.password),
                 nombre: req.body.nombre,
                 a_paterno: req.body.a_paterno,
                 a_materno: req.body.a_materno,
