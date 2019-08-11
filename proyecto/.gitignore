@@ -103,5 +103,6 @@ data/covers/
 
 # News Data Folder
 data/news/
+!data/news/defaultNews.jpg
 
 # End of https://www.gitignore.io/api/node
