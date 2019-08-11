@@ -88,12 +88,14 @@ typings/
 .dynamodb/
 
 # Picture Data Folder
+data/profiles/
 !data/profiles/ProfileImage.png
 !data/profiles/0.jpg
 !data/profiles/1.jpg
 !data/profiles/2.jpg
 
 # Cover Data Folder
+data/covers/
 !data/covers/defaultCover.jpeg
 !data/covers/0.jpg
 !data/covers/1.jpg
