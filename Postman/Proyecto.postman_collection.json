@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9ab70641-6b5f-457c-bb44-c7a140b642f5",
+		"_postman_id": "bf657074-90a8-44fd-be15-76cada75f3e8",
 		"name": "Proyecto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,6 +11,16 @@
 				{
 					"name": "Create Usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInBlcm1pc28iOjEwLCJpYXQiOjE1NjI4ODk5MTMsImV4cCI6MTU2MzQ5NDcxM30.RAJYylzJeMKLOoP-_9nw7AkEV31xGcjO1xm_EhzkiMU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -21,59 +31,8 @@
 							}
 						],
 						"body": {
-<<<<<<< HEAD
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "jparancibialinker@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
-								},
-								{
-									"key": "nombre",
-									"value": "Jose Pablo",
-									"type": "text"
-								},
-								{
-									"key": "a_paterno",
-									"value": "Arancibia",
-									"type": "text"
-								},
-								{
-									"key": "a_materno",
-									"value": "Linker",
-									"type": "text"
-								},
-								{
-									"key": "rut",
-									"value": "197284226",
-									"type": "text"
-								},
-								{
-									"key": "telefono",
-									"value": "962141439",
-									"type": "text"
-								},
-								{
-									"key": "codigoColaborador",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "rolUsuario",
-									"value": "1",
-									"type": "text"
-								}
-							]
-=======
 							"mode": "raw",
-							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\",\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"rut\" : \"196191046\",\n\t\"telefono\" : 965547219,\n\t\"fechaNacimiento\" : \"10/01/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1\n}"
->>>>>>> 6f16cb7fcdda6a236e21bfcb2895c56a024e4c1f
+							"raw": "{\n\t\"email\" : \"jparancibialinker@gmail.com\",\n\t\"password\" : \"lala\",\n\t\"nombre\" : \"Francisco kk\",\n\t\"a_paterno\" : \"kk\",\n\t\"a_materno\" : \"kk\",\n\t\"rut\" : \"19728422-6\",\n\t\"telefono\" : 56465456,\n\t\"fechaNacimiento\" : \"07/31/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1,\n\t\"newCargos\" : \"[1, 2, 3]\",\n \t\"newAreas\" : \"[1, 2, 3]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/create",
@@ -106,7 +65,40 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 3,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"20/01/1998\"\n}"
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"aboutUser\" : \"Que wea giles qlos\",\n\t\"rolUsuario\" : 1,\n\t\"rut\" : \"19.619.104-6\",\n\t\"codigoColaborador\" : 10000,\n\t\"newCargos\" : \"[1]\",\n\t\"oldCargos\" : \"[2, 3]\",\n\t\"newAreas\" : \"[2]\",\n\t\"oldAreas\" : \"[1, 3]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"edit"
+							]
+						},
+						"description": "Edita los datos de un usuarios usuario, segun los datos especificados en el ERD.\n\nSe busca segun idUsuario."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Usuario (User Profile)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"aboutUser\" : \"Que wea giles qlos\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
@@ -127,6 +119,9 @@
 				},
 				{
 					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -147,13 +142,10 @@
 								"type": "text"
 							}
 						],
-<<<<<<< HEAD
-=======
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
->>>>>>> 6f16cb7fcdda6a236e21bfcb2895c56a024e4c1f
 						"url": {
 							"raw": "http://localhost:3000/api/users/getAll",
 							"protocol": "http",
@@ -168,6 +160,52 @@
 							]
 						},
 						"description": "Obtiene todos los usuarios registrados en el sistema, sin detalles de sus relaciones"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users with Relationships",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlhdCI6MTU2MDk4NTExNCwiZXhwIjoxNTYxNTg5OTE0fQ.06MOqBKaoHsemz1wdvkKs9y34bzcDsDnRcBn8x6gRX34",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getAllComplete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getAllComplete"
+							]
+						},
+						"description": "Obtiene todos los usuarios registrados en el sistema, con sus respectivas relaciones."
 					},
 					"response": []
 				},
@@ -293,32 +331,21 @@
 				{
 					"name": "Assignate Cargo a Usuario",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "idUsuario",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "idCargo",
-									"value": "3",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"newCargos\" : \"[2, 3, 4]\",\n\t\"oldCargos\" : \"[1 , 2, 3, 4]\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/assignCargo",
+							"raw": "http://localhost:3000/api/users/edit",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -326,7 +353,8 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"assignCargo"
+								"users",
+								"edit"
 							]
 						},
 						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
@@ -341,27 +369,16 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "idUsuario",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "idCargo",
-									"value": "3",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"newAreas\" : [1 , 2, 3, 4],\n\t\"oldAreas\" : [1 , 2, 3, 4]\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/assignCargo",
+							"raw": "http://localhost:3000/api/assignArea",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -369,7 +386,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"assignCargo"
+								"assignArea"
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
@@ -427,24 +444,13 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "idUsuario",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "idCargo",
-									"value": "3",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"oldCargos\" : \"[1 , 2, 3, 4]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/unassignCargo",
@@ -535,6 +541,185 @@
 							]
 						},
 						"description": "Envia el token para validar el correo despues de haberlo cambiado"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photoName",
+									"value": "1563849551462",
+									"description": "Nombre de la foto (solo si se desea actualizar la foto), sino no ingresar",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "profilePhoto",
+									"type": "file",
+									"src": "/home/daser/Imágenes/asdasd.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/uploadPhoto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"uploadPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Cover",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photoName",
+									"value": "",
+									"description": "Nombre de la foto (solo si se desea actualizar la foto), sino no ingresar",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "coverPhoto",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/uploadCover",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"uploadCover"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contactos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/getContactos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"getContactos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Birthdays",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getBirthdays",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getBirthdays"
+							]
+						}
 					},
 					"response": []
 				}
@@ -808,6 +993,39 @@
 						"description": "A traves del Body envia:\nidCargo -> id del cargo a editar\nnombre -> Nuevo nombre del cargo\ndescripcion -> Nueva descripcion del cargo\n\nSi se edito exitosamente retorna con Status 200 y el cargo con los cambios realizados"
 					},
 					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idCargo\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cargos/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cargos",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
 				}
 			]
 		},
@@ -871,7 +1089,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\"\n}"
+							"raw": "{\n\t\"tipo\" : \"TMRE\",\n\t\"descripcion\" : \"Tamare webon, la webonada estos chilindios\",\n\t\"nivel_p\" : 5\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/create",
@@ -995,7 +1213,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idRol\" : 4,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\"\n}"
+							"raw": "{\n\t\"idRol\" : 2,\n\t\"tipo\" : \"TMRE DEFINITIVO FINAL\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds para siempre\",\n\t\"nivel_p\" : 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/edit",
@@ -1011,6 +1229,39 @@
 							]
 						},
 						"description": "A traves del Body envia:\nidArea -> id del rol a editar\ntipo -> Nuevo nombre del rol\ndescripcion -> Nueva descripcion del rol\n\nSi se edito exitosamente retorna con Status 200 y el rol con los cambios realizados"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idRol\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/roles/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"roles",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
 					},
 					"response": []
 				}
@@ -1040,14 +1291,14 @@
 									"type": "text"
 								},
 								{
-									"key": "idCargo",
-									"value": "3",
+									"key": "idArea",
+									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/assignCargo",
+							"raw": "http://localhost:3000/api/assignArea",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1055,7 +1306,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"assignCargo"
+								"assignArea"
 							]
 						},
 						"description": "Necesita idUsuario e idArea.\n\nAsigna el area al usuario y viceversa"
@@ -1098,7 +1349,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
+							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V4\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/areas/create",
@@ -1218,12 +1469,451 @@
 						"description": "Debe enviar un idArea.\n\nObtiene los detalles de la area además de los usuarios que pertenecen a esta."
 					},
 					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArea\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/areas/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"areas",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beneficios",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Noticias",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				},
+				{
+					"name": "Create News",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : \"\",\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Area a Noticia",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 1,\n\t\"newAreas\" : [1,2,3,4]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/daser/Imágenes/prueba.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/uploadPhoto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"uploadPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get news by id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit News",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 6,\n\t\"titulo\" : \"NoticiaUpdated\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : \"1565118460303.png\",\n\t\"newAreas\" : \"[1,2]\",\n\t\"oldAreas\" : \"[1,2,3,4]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All News",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Last News",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getLastNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getLastNews"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Notificaciones",
-			"item": []
+			"item": [
+				{
+					"name": "Mark as Viewed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"idNotificacion\" : \"[37, 38]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/markViewNotification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"markViewNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Opened",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"idNotificacion\" : 37\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/markOpenedNotification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"markOpenedNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notifications by idUsuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idUsuario\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getNotificaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getNotificaciones"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Server",
@@ -1242,7 +1932,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\" : \"jparancibialinker@gmail.com\",\n\t\"password\" : \"password\"\n}"
+							"raw": "{\n\t\"email\" : \"francisco.riquelme@outlook.com\",\n\t\"password\" : \"password\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/authenticate",
@@ -1306,10 +1996,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"token\": \"U2FsdGVkX1+/ZsFcOPjRrFNBLU/9VcN1WW8WIzHIm0H9aNzCj22b+jyz3eLpY2vHPKuFfeYnaaJuxoAEW4i8G6u349Zy4jHX7izMnSdPpqxwryBgj07h7ROWn85IsVB6sidB/6S3WYRZ5j1zIj3tEg==\",\n    \"password\": \"password1\"\n}"
+							"raw": "{\n    \"token\": \"U2FsdGVkX19lUuVjyD6rS7eJXBqOQxSnDqGIg7wkWrrZlQNmicIgKJFWtyjjk6+4\",\n    \"password\": \"gaguito2564\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/reset_password",
+							"raw": "http://localhost:3000/api/setPassword",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1317,7 +2007,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"reset_password"
+								"setPassword"
 							]
 						},
 						"description": "Cambia la password a traves de un token solicitado.\n\nSe envia a traves del Body:\ntoken: Token generado por el sistema de un unico uso, dura 1 dia\npassword: La nueva password para la cuenta del usuario\n\nRetorna mensaje con el estado de la peticion."
@@ -1365,372 +2055,6 @@
 							]
 						},
 						"description": "Cambia la contraseña del usuario.\n\nEnvía:\nidUsuario: id del usuario el cual va a cambiar la contraseña.\ncurrentPassword: Contraseña actual del usuario.\nnewPassword: Nueva contraseña del usuario\n\nResponde según corresponda:\n200 - OK Si el cambio de contraseña fue completado.\nCualquier otra respuesta con su respectivo mensaje."
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Beneficio",
-			"item": [
-				{
-					"name": "Create Benefit",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "titulo",
-									"value": "Beneficio1",
-									"type": "text"
-								},
-								{
-									"key": "descripcion",
-									"value": "Prueba de Beneficio",
-									"type": "text"
-								},
-								{
-									"key": "fechaFin",
-									"value": "",
-									"type": "text"
-								},
-								{
-									"key": "fechaInicio",
-									"value": "",
-									"type": "text"
-								},
-								{
-									"key": "duracion",
-									"value": "2",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/beneficios/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"beneficios",
-								"create"
-							]
-						},
-						"description": "Se crea beneficio con parametros titulo, descripcion y duracion."
-					},
-					"response": []
-				},
-				{
-					"name": "Edit Benefit",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idBeneficio\": 21,\n\t\"titulo\" : \"Beneficio Updated\",\n\t\"descripcion\" : \"Nueva descripcion\",\n\t\"duracion\" : 1\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/beneficios/edit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"beneficios",
-								"edit"
-							]
-						},
-						"description": "Modifica el titulo, descripcion o duracion de un beneficio. El beneficio a editar se obtiene por su id."
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Benefit",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/beneficios/getAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"beneficios",
-								"getAll"
-							]
-						},
-						"description": "Se obtienen todos los beneficios registrados en el sistema"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Benefit by idBeneficio",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idBeneficio\": 2\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/beneficios/getBenefit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"beneficios",
-								"getBenefit"
-							]
-						},
-						"description": "Se obtiene un beneficio segun su id"
-					},
-					"response": []
-				},
-				{
-					"name": "Remove Benefit",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idBeneficio\": 21\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/beneficios/removeBenefit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"beneficios",
-								"removeBenefit"
-							]
-						},
-						"description": "Se elimina del sistema un beneficio segun su id"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Noticia",
-			"item": [
-				{
-					"name": "Create News",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "titulo",
-									"value": "Noticia1",
-									"type": "text"
-								},
-								{
-									"key": "descripcion",
-									"value": "Descripcion noticia",
-									"type": "text"
-								},
-								{
-									"key": "duracion",
-									"value": "3",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"create"
-							]
-						},
-						"description": "Se crea una noticia con parametros titulo, descripcion y duracion"
-					},
-					"response": []
-				},
-				{
-					"name": "Edit News",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\": 1,\n\t\"titulo\" : \"Noticia Updated\",\n\t\"descripcion\" : \"Nueva descripcion\",\n\t\"duracion\" : 2\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/edit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"edit"
-							]
-						},
-						"description": "Modifica el titulo, descripcion o duracion de una noticia. La noticia que se desea editar se accede por la id de la misma"
-					},
-					"response": []
-				},
-				{
-					"name": "Get all News",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getAll"
-							]
-						},
-						"description": "Se obtienen todas las noticias registradas en el sistema"
-					},
-					"response": []
-				},
-				{
-					"name": "Get news by idNoticias",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\": 1\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getNews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getNews"
-							]
-						},
-						"description": "Se obtiene una noticias a partir de su ID"
-					},
-					"response": []
-				},
-				{
-					"name": "Remove News",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\": 1\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/removeNews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"removeNews"
-							]
-						},
-						"description": "Se elimina una noticia del sistema segun su id."
 					},
 					"response": []
 				}

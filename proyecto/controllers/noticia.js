@@ -127,5 +127,16 @@ module.exports = {
         if(!req.file)
             return res.status(process.env.NTC_ERR).send({message: "La imagen no puede estar en blanco"});
         res.status(process.env.NTC_OK).send({message: req.file.filename});
+    },
+    lastNews(req, res)
+    {
+        return Noticia
+            .findAll({
+                limit : 5,
+                order: [['createdAt', 'DESC']],
+            })
+            .then(noticia => {
+                return res.status(process.env.NTC_OK).send(noticia);
+            })
     }
 };

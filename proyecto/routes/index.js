@@ -96,6 +96,7 @@ router.post('/noticias/getNews', noticiasController.retrieve);
 router.delete('/noticias/removeNews', noticiasController.destroy);
 router.post('/noticias/changeStatus', noticiasController.changeStatus);
 router.post('/noticias/uploadPhoto'/*, auth(0)*/, services.image.uploadBanner.single('photo'), noticiasController.uploadPhoto);
+router.get('/noticias/getLastNews', noticiasController.lastNews);
 
 /**
  * Auth
