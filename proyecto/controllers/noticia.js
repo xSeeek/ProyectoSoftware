@@ -23,7 +23,7 @@ module.exports = {
                     return today;
                 })(),
                 duracion: req.body.duracion,
-                photo: req.body.photo,
+                photo: JSON.stringify(req.body.photo),
                 fechaFin: (function () {
                     var finalDate = new Date();
                     var duracion = parseInt(req.body.duracion);
@@ -124,9 +124,15 @@ module.exports = {
     },
     uploadPhoto(req, res)
     {
-        if(!req.file)
+        if(!req.files)
             return res.status(process.env.NTC_ERR).send({message: "La imagen no puede estar en blanco"});
-        res.status(process.env.NTC_OK).send({message: req.file.filename});
+        console.log(req.files);
+        var filesNames = req.files.map(function(file){
+            return file.filename;
+        });
+        
+        var arrayImage = JSON.stringify(filesNames);
+        res.status(process.env.NTC_OK).send({message: arrayImage});
     },
     lastNews(req, res)
     {
@@ -136,6 +142,21 @@ module.exports = {
                 order: [['createdAt', 'DESC']],
             })
             .then(noticia => {
+                return res.status(process.env.NTC_OK).send(noticia);
+            })
+    },
+    getImagesByIdNews(req,res)
+    {
+        return Noticia
+            .findAll({
+                where: {
+                    idNoticia : req.body.idNoticia
+                },
+                attributes: ['photo']
+            })
+            .then(noticia => {
+                if(!noticia)
+                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
                 return res.status(process.env.NTC_OK).send(noticia);
             })
     }

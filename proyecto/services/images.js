@@ -55,8 +55,8 @@ var storagePhotoNews = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, filesDir + '/news/');
   },
-  filename: function (req, file, cb) {
-      var filetype = getFileType(file);
+  filename: function (req, files, cb) {
+      var filetype = getFileType(files);
 
       if(req.body.photoName != null && req.body.photoName != "")
       {

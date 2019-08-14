@@ -1593,7 +1593,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : \"\",\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
+							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : [\"1565794447518.png\",\"1565794447523.png\"],\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/noticias/create",
@@ -1659,9 +1659,12 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "photo",
+									"key": "photo[]",
 									"type": "file",
-									"src": "/home/daser/Imágenes/prueba.png"
+									"src": [
+										"/home/daser/Imágenes/Screenshot_20190806_174141.png",
+										"/home/daser/Imágenes/prueba.png"
+									]
 								}
 							]
 						},
@@ -1810,6 +1813,41 @@
 								"api",
 								"noticias",
 								"getLastNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 14\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getImagesByIdNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getImagesByIdNews"
 							]
 						}
 					},
