@@ -23,7 +23,7 @@ module.exports = {
                     return today;
                 })(),
                 duracion: req.body.duracion,
-                photo: JSON.stringify(req.body.photo),
+                photo: req.body.photo,
                 fechaFin: (function () {
                     var finalDate = new Date();
                     var duracion = parseInt(req.body.duracion);
@@ -131,7 +131,7 @@ module.exports = {
             return file.filename;
         });
         
-        var arrayImage = JSON.stringify(filesNames);
+        var arrayImage = filesNames;
         res.status(process.env.NTC_OK).send({message: arrayImage});
     },
     lastNews(req, res)
