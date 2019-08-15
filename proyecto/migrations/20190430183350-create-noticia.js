@@ -30,7 +30,7 @@ module.exports = {
       },
       tipo: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       banner: {
         type: Sequelize.STRING,

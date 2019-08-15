@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     tipo: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     banner: {
       type: DataTypes.STRING,
