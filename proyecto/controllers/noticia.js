@@ -23,13 +23,15 @@ module.exports = {
                     return today;
                 })(),
                 duracion: req.body.duracion,
+                estado : 1,
                 photo: JSON.stringify(req.body.photo),
                 fechaFin: (function () {
                     var finalDate = new Date();
                     var duracion = parseInt(req.body.duracion);
                     finalDate.setDate(finalDate.getDate() + duracion);
                     return finalDate;
-                })(), 
+                })(),
+                tipo: req.body.tipo, 
             })
             .then(async noticia => {
                 notificationController.createNoticia(noticia);
@@ -38,7 +40,10 @@ module.exports = {
                 var statusAssignate = {
                     "assignateArea"  :  await fnNoticiasController.assignateArea(noticia.idNoticia, req.body.newAreas)
                 }
-                return res.status(process.env.NTC_OK).send({message:'Noticia agregada correctamente', assignateStatus: statusAssignate, idNoticia: noticia.idNoticia});
+                if(req.body.tipo == 1)
+                    return res.status(process.env.NTC_OK).send({message:'Noticia agregada correctamente', assignateStatus: statusAssignate, idNoticia: noticia.idNoticia});
+                if(req.body.tipo == 2)
+                    return res.status(process.env.NTC_OK).send({message:'Benefecio agregado correctamente', assignateStatus: statusAssignate, idNoticia: noticia.idNoticia});
              });
              
 
@@ -49,7 +54,10 @@ module.exports = {
             .findByPk(req.body.idNoticia)
             .then(noticia => {
                 if(!noticia){
-                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
+                    if(noticia.tipo == 1)
+                        return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
+                    if(noticia.tipo == 2)
+                        return res.status(process.env.NTC_NFD).send({message:'Beneficio no existe en el sistema'});
                 }
                 return noticia
                 .update({
@@ -109,7 +117,10 @@ module.exports = {
             .findByPk(req.body.idNoticia)
             .then(noticia => {
                 if(!noticia){
-                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
+                    if(noticia.tipo == 1)
+                        return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
+                    if(noticia.tipo == 2)
+                        return res.status(process.env.NTC_NFD).send({message:'Beneficio no existe en el sistema'});
                 }
                 var newStatus = 0;
                 if(noticia.estado == 0)
@@ -134,6 +145,14 @@ module.exports = {
         var arrayImage = filesNames;
         res.status(process.env.NTC_OK).send({message: arrayImage});
     },
+    uploadPhotoBanner(req, res)
+    {
+        if(!req.file)
+            return res.status(process.env.NTC_ERR).send({message: "La imagen no puede estar en blanco"});
+        console.log(req.file);
+        res.status(process.env.NTC_OK).send({message: req.file.filename});
+    },
+
     lastNews(req, res)
     {
         return Noticia
@@ -145,19 +164,4 @@ module.exports = {
                 return res.status(process.env.NTC_OK).send(noticia);
             })
     },
-    getImagesByIdNews(req,res)
-    {
-        return Noticia
-            .findAll({
-                where: {
-                    idNoticia : req.body.idNoticia
-                },
-                attributes: ['photo']
-            })
-            .then(noticia => {
-                if(!noticia)
-                    return res.status(process.env.NTC_NFD).send({message:'Noticia no existe en el sistema'});
-                return res.status(process.env.NTC_OK).send(noticia);
-            })
-    }
 };

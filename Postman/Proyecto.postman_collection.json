@@ -1593,7 +1593,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : [\"1565794447518.png\",\"1565794447523.png\"],\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
+							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"tipo\": 2,\n\t\"photo\" : \"\",\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/noticias/create",
@@ -1606,38 +1606,6 @@
 								"api",
 								"noticias",
 								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Assignate Area a Noticia",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : 1,\n\t\"newAreas\" : [1,2,3,4]\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/edit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"edit"
 							]
 						}
 					},
@@ -1685,6 +1653,44 @@
 					"response": []
 				},
 				{
+					"name": "Upload Banner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "banner",
+									"type": "file",
+									"src": "/home/daser/Imágenes/Screenshot_20190814_115001.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/uploadPhotoBanner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"uploadPhotoBanner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get news by id",
 					"request": {
 						"method": "POST",
@@ -1711,6 +1717,38 @@
 								"api",
 								"noticias",
 								"getNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Area a Noticia",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 1,\n\t\"newAreas\" : [1,2,3,4]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
 							]
 						}
 					},

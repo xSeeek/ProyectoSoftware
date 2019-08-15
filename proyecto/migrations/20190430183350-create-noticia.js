@@ -28,6 +28,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1
       },
+      tipo: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      banner: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       photo: {
         type: Sequelize.STRING,
         allowNull: true

@@ -95,9 +95,9 @@ router.get('/noticias/getAll', noticiasController.list);
 router.post('/noticias/getNews', noticiasController.retrieve);
 router.delete('/noticias/removeNews', noticiasController.destroy);
 router.post('/noticias/changeStatus', noticiasController.changeStatus);
-router.post('/noticias/uploadPhoto'/*, auth(0)*/, services.image.uploadBanner.any('photo'), noticiasController.uploadPhoto);
+router.post('/noticias/uploadPhoto'/*, auth(0)*/, services.image.uploadPhotoNews.any('photo'), noticiasController.uploadPhoto);
+router.post('/noticias/uploadPhotoBanner',services.image.uploadBannerNews.single('banner'), noticiasController.uploadPhotoBanner);
 router.get('/noticias/getLastNews', noticiasController.lastNews);
-router.get('/noticias/getImagesByIdNews',noticiasController.getImagesByIdNews);
 
 /**
  * Auth

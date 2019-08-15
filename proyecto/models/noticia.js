@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
     estado: {
       type: DataTypes.INTEGER
     },
+    tipo: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    banner: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     photo: {
       type: DataTypes.STRING,
       allowNull: true
