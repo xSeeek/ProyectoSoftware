@@ -31,7 +31,8 @@ module.exports = {
                     finalDate.setDate(finalDate.getDate() + duracion);
                     return finalDate;
                 })(),
-                tipo: req.body.tipo, 
+                tipo: req.body.tipo,
+                banner: req.body.banner
             })
             .then(async noticia => {
                 notificationController.createNoticia(noticia);
@@ -157,6 +158,9 @@ module.exports = {
     {
         return Noticia
             .findAll({
+                where: {
+                    tipo: 1,
+                },
                 limit : 5,
                 order: [['createdAt', 'DESC']],
             })
