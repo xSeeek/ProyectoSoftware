@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const PreferenciasUsuario = sequelize.define('PreferenciasUsuario', {
-    idPreferencia: {
+    idPrefereciasUsuario: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
@@ -35,9 +35,16 @@ module.exports = (sequelize, DataTypes) => {
     games: {
       type: DataTypes.STRING
     }
-  }, {});
+  }, {
+    tableName: 'PreferenciasUsuario',
+    primaryKey: 'idPrefereciasUsuario'
+  });
   PreferenciasUsuario.associate = function(models) {
-    // associations can be defined here
+    PreferenciasUsuario.belongsTo(models.Usuario, {
+      foreignKey: 'idUsuario',
+      as: 'Usuario',
+      onDelete: 'CASCADE'
+    })
   };
   return PreferenciasUsuario;
 };

@@ -1,6 +1,7 @@
 const User = require('../models').Usuario;
 const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
+const PreferenciasUsuario = require('../models').PreferenciasUsuario;
 
 module.exports = {
     assignateCargo(idUsuario, newCargos)
@@ -201,5 +202,50 @@ module.exports = {
                 }
                 return res.status(process.env.USR_OK).send(birthday);
             })
+    },
+    async setPreferencias(idUsuario, data)
+    {
+        var status = false;
+        status = await PreferenciasUsuario.findAll({
+            where:{
+                idUsuario : idUsuario
+            }
+        }).then(preferencias => {
+            if(preferencias != null && preferencias.length != 0)
+            {
+                preferencias[0].update({
+                    hobbies: data.hobbies || preferencias.hobbies,
+                    music: data.music || preferencias.music,
+                    otros: data.otros || preferencias.otros,
+                    libros: data.libros || preferencias.libros,
+                    escritores: data.escritores || preferencias.escritores,
+                    tvshows: data.tvshows || preferencias.tvshows,
+                    movies: data.movies || preferencias.movies,
+                    games: data.games || preferencias.games
+                });
+                return true;
+            }
+            return false;
+        });
+
+        if(status == false)
+            return await this.createPreferencias(idUsuario, data);
+        return status
+    },
+    async createPreferencias(idUsuario, data)
+    {
+        PreferenciasUsuario
+            .create({
+                idUsuario: idUsuario,
+                hobbies: data.hobbies,
+                music: data.music,
+                otros: data.otros,
+                libros: data.libros,
+                escritores: data.escritores,
+                tvshows: data.tvshows,
+                movies: data.movies,
+                games: data.games
+            });
+        return true;
     }
 };

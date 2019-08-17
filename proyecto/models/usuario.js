@@ -93,6 +93,12 @@ module.exports = (sequelize, DataTypes) => {
       as: 'Notificaciones',
       foreignKey: 'idUsuario',
       sourceKey: 'idUsuario'
+    }),
+    Usuario.hasOne(models.PreferenciasUsuario, {
+      sourceKey: 'idUsuario',
+      foreignKey: 'idUsuario',
+      as: 'PreferenciasUsuario',
+      onDelete: 'CASCADE'
     })
   };
   return Usuario;

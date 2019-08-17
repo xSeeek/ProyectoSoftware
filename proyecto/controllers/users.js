@@ -3,6 +3,7 @@ const User = require('../models').Usuario;
 const Rol = require('../models').Rol;
 const Area = require('../models').Area;
 const Cargo = require('../models').Cargo;
+const PreferenciasUsuario = require('../models').PreferenciasUsuario;
 
 const services = require('../services');
 const crypto = require('crypto-js');
@@ -118,9 +119,21 @@ module.exports = {
                 };
                 services.email.sendEmail(mailOptions);
 
+                var preferencias = {
+                    "hobbies"       :   "",
+                    "music"         :   "",
+                    "otros"         :   "",
+                    "libros"        :   "",
+                    "escritores"    :   "",
+                    "tvshows"       :   "",
+                    "movies"        :   "",
+                    "games"         :   ""
+                }
+
                 var statusAssignate = {
-                    "assignateCargo"    :   await fnUsersController.assignateCargo(user.idUsuario, req.body.newCargos),
-                    "assignateArea"     :   await fnUsersController.assignateArea(user.idUsuario, req.body.newAreas)
+                    "assignateCargo"        :   await fnUsersController.assignateCargo(user.idUsuario, req.body.newCargos),
+                    "assignateArea"         :   await fnUsersController.assignateArea(user.idUsuario, req.body.newAreas),
+                    "createPreferencias"    :   await fnUsersController.setPreferencias(user.idUsuario, preferencias)
                 }
                 return res.status(process.env.USR_OK).send({message:"Usuario creado correctamente", assignateStatus: statusAssignate, idUsuario: user.idUsuario});
             })
@@ -202,12 +215,25 @@ module.exports = {
                         validate_token: validate_token
                     })
                     .then(async updatedUser => {
+                        var preferencias = {
+                            "hobbies"       :   req.body.hobbies,
+                            "music"         :   req.body.music,
+                            "otros"         :   req.body.otros,
+                            "libros"        :   req.body.libros,
+                            "escritores"    :   req.body.escritores,
+                            "tvshows"       :   req.body.tvshows,
+                            "movies"        :   req.body.movies,
+                            "games"         :   req.body.games
+                        }
+
                         var statusAssignate = {
                             "assignateCargo"    :   fnUsersController.assignateCargo(updatedUser.idUsuario, req.body.newCargos),
                             "assignateArea"     :   fnUsersController.assignateArea(updatedUser.idUsuario, req.body.newAreas),
                             "unassignateCargo"  :   fnUsersController.unassignateCargo(updatedUser.idUsuario, req.body.oldCargos),
-                            "unassignateArea"   :   fnUsersController.unassignateArea(updatedUser.idUsuario, req.body.oldAreas)
+                            "unassignateArea"   :   fnUsersController.unassignateArea(updatedUser.idUsuario, req.body.oldAreas),
+                            "setPreferencias"   :   await fnUsersController.setPreferencias(updatedUser.idUsuario, preferencias)
                         }
+
                         return res.status(process.env.USR_OK).send({user: updatedUser, assignateStatus: statusAssignate});
                     })
                     .catch(error => res.status(process.env.USR_ERR).send(error));
@@ -286,6 +312,18 @@ module.exports = {
                     validate_token: validate_token
                 })
                 .then(async updatedUser => {
+                    var preferencias = {
+                        "hobbies"       :   req.body.hobbies,
+                        "music"         :   req.body.music,
+                        "otros"         :   req.body.otros,
+                        "libros"        :   req.body.libros,
+                        "escritores"    :   req.body.escritores,
+                        "tvshows"       :   req.body.tvshows,
+                        "movies"        :   req.body.movies,
+                        "games"         :   req.body.games
+                    }
+
+                    await fnUsersController.setPreferencias(updatedUser.idUsuario, preferencias);
                     return res.status(process.env.USR_OK).send({user: updatedUser});
                 })
                 .catch(error => res.status(process.env.USR_ERR).send(error));
@@ -311,6 +349,11 @@ module.exports = {
                     {
                         model: Cargo,
                         as: 'Cargos'
+                    },
+                    {
+                        model: PreferenciasUsuario,
+                        as: 'PreferenciasUsuario',
+                        required: false
                     }
                 ],
                 plain : true
