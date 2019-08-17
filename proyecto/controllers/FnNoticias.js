@@ -1,8 +1,6 @@
 const Noticia = require('../models').Noticia;
 const Area = require('../models').Area;
 
-
-
 module.exports = {
     assignateArea(idNoticia, newAreas)
     {
@@ -62,5 +60,5 @@ module.exports = {
             return true;
         }
         return false;
-    },
+    }
 };

@@ -59,6 +59,9 @@ function generateVerificator(newRut)
 module.exports = {
   up: async (queryInterface, Sequelize) => {
       var newUsers = [];
+      var newPreferencias = [];
+
+      var cantUsuarios = 100;
       faker.locale = "es_MX";
 
       var predefinedData = {
@@ -112,7 +115,7 @@ module.exports = {
       }
       newUsers.push(predefinedData);
 
-      for (var i = 0; i < 100; i++) {
+      for (var i = 0; i < cantUsuarios; i++) {
           const seedData = {
             email: faker.internet.email(),
             password: bcrypt.hashSync('password', salt),
@@ -133,6 +136,26 @@ module.exports = {
           newUsers.push(seedData);
       }
       await queryInterface.bulkInsert('Usuario', newUsers);
+
+      for(var i = 0; i < (cantUsuarios + 3); i++)
+      {
+        const seedData = {
+          idUsuario: (i + 1),
+          hobbies: faker.lorem.words(),
+          music: faker.lorem.words(),
+          otros: faker.lorem.words(),
+          libros: faker.lorem.words(),
+          escritores: faker.lorem.words(),
+          tvshows: faker.lorem.words(),
+          movies: faker.lorem.words(),
+          games: faker.lorem.words(),
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+        newPreferencias.push(seedData);
+      }
+
+      await queryInterface.bulkInsert('PreferenciasUsuario', newPreferencias);
 
       var idAreas = await Area.findAll({});
       var idCargos = await Cargo.findAll({});
