@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bf657074-90a8-44fd-be15-76cada75f3e8",
+		"_postman_id": "4b048347-fb66-432f-a8b6-1fa8a6c051bb",
 		"name": "Proyecto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -32,7 +32,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\" : \"jparancibialinker@gmail.com\",\n\t\"password\" : \"lala\",\n\t\"nombre\" : \"Francisco kk\",\n\t\"a_paterno\" : \"kk\",\n\t\"a_materno\" : \"kk\",\n\t\"rut\" : \"19728422-6\",\n\t\"telefono\" : 56465456,\n\t\"fechaNacimiento\" : \"07/31/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1,\n\t\"newCargos\" : \"[1, 2, 3]\",\n \t\"newAreas\" : \"[1, 2, 3]\"\n}"
+							"raw": "{\n\t\"email\" : \"sdkjhskjdsfhaiudhas@48486.com\",\n\t\"password\" : \"a\",\n\t\"nombre\" : \"kk\",\n\t\"a_paterno\" : \"kk\",\n\t\"a_materno\" : \"kk\",\n\t\"rut\" : \"23252058-2\",\n\t\"telefono\" : 56465456,\n\t\"fechaNacimiento\" : \"08/07/1998\",\n\t\"codigoColaborador\" : 1,\n\t\"rolUsuario\" : 1,\n\t\"newCargos\" : \"[1, 2, 3]\",\n \t\"newAreas\" : \"[1, 2, 3]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/create",
@@ -65,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"aboutUser\" : \"Que wea giles qlos\",\n\t\"rolUsuario\" : 1,\n\t\"rut\" : \"19.619.104-6\",\n\t\"codigoColaborador\" : 10000,\n\t\"newCargos\" : \"[1]\",\n\t\"oldCargos\" : \"[2, 3]\",\n\t\"newAreas\" : \"[2]\",\n\t\"oldAreas\" : \"[1, 3]\"\n}"
+							"raw": "{\n\t\"idUsuario\": 1,\n\t\"nombre\" : \"Francisco Andres\",\n\t\"a_paterno\" : \"Riquelme\",\n\t\"a_materno\" : \"Cavagnola\",\n\t\"telefono\": 965547219,\n\t\"fechaNacimiento\" : \"01/10/1998\",\n\t\"aboutUser\" : \"Que wea giles qlos\",\n\t\"rolUsuario\" : 2,\n\t\"rut\" : \"19.619.104-6\",\n\t\"codigoColaborador\" : 10000,\n\t\"newCargos\" : \"[1]\",\n\t\"oldCargos\" : \"[2, 3]\",\n\t\"newAreas\" : \"[2]\",\n\t\"oldAreas\" : \"[1, 3]\",\n\t\"hobbies\" : \"Ninguno\",\n    \"music\" : \"La Flame, Ye, K.Dot\",\n    \"otros\" : \"Ninguno\",\n    \"libros\" : \"Ninguno\",\n    \"escritores\" : \"Ninguno\",\n    \"tvshows\" : \"Ninguno\",\n    \"movies\" : \"Star Wars\",\n    \"games\" : \"Dead by Daylight, CS:GO\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/users/edit",
@@ -331,7 +331,7 @@
 				{
 					"name": "Assignate Cargo a Usuario",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -345,7 +345,7 @@
 							"raw": "{\n\t\"idUsuario\" : 1,\n\t\"newCargos\" : \"[2, 3, 4]\",\n\t\"oldCargos\" : \"[1 , 2, 3, 4]\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/edit",
+							"raw": "http://localhost:3000/api/assignCargo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -353,8 +353,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"users",
-								"edit"
+								"assignCargo"
 							]
 						},
 						"description": "Necesita idUsuario e idCargo.\n\nAsigna el cargo al usuario y viceversa"
@@ -602,7 +601,7 @@
 								{
 									"key": "profilePhoto",
 									"type": "file",
-									"src": "/home/daser/Imágenes/asdasd.png"
+									"src": ""
 								}
 							]
 						},
@@ -647,7 +646,7 @@
 								{
 									"key": "coverPhoto",
 									"type": "file",
-									"src": []
+									"src": ""
 								}
 							]
 						},
@@ -777,6 +776,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3000/api/cargos/getAll",
 							"protocol": "http",
@@ -1113,6 +1116,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3000/api/roles/getAll",
 							"protocol": "http",
@@ -1318,6 +1325,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3000/api/areas/getAll",
 							"protocol": "http",
@@ -1349,7 +1360,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V4\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
+							"raw": "{\n\t\"nombre\" : \"TMRE DEFINITIVO V2\",\n\t\"descripcion\" : \"Tmare webon, estos chilindios no se aburren de kilombiar las rankeds\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/areas/create",
@@ -1538,356 +1549,6 @@
 							]
 						},
 						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Noticias",
-			"item": [
-				{
-					"name": "Change Status",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : \"1\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/changeStatus",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"changeStatus"
-							]
-						},
-						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
-					},
-					"response": []
-				},
-				{
-					"name": "Create News",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"tipo\": 2,\n\t\"photo\" : \"\",\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Upload Photo",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "photo[]",
-									"type": "file",
-									"src": [
-										"/home/daser/Imágenes/Screenshot_20190806_174141.png",
-										"/home/daser/Imágenes/prueba.png"
-									]
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/uploadPhoto",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"uploadPhoto"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Upload Banner",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "banner",
-									"type": "file",
-									"src": "/home/daser/Imágenes/Screenshot_20190814_115001.png"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/uploadPhotoBanner",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"uploadPhotoBanner"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get news by id",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : 2\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getNews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getNews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Assignate Area a Noticia",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : 1,\n\t\"newAreas\" : [1,2,3,4]\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/edit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"edit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Edit News",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : 6,\n\t\"titulo\" : \"NoticiaUpdated\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : \"1565118460303.png\",\n\t\"newAreas\" : \"[1,2]\",\n\t\"oldAreas\" : \"[1,2,3,4]\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/edit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"edit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All News",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getAll",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getAll"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Last News",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getLastNews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getLastNews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Images By ID",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"idNoticia\" : 14\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/noticias/getImagesByIdNews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"noticias",
-								"getImagesByIdNews"
-							]
-						}
 					},
 					"response": []
 				}
@@ -2131,6 +1792,424 @@
 							]
 						},
 						"description": "Cambia la contraseña del usuario.\n\nEnvía:\nidUsuario: id del usuario el cual va a cambiar la contraseña.\ncurrentPassword: Contraseña actual del usuario.\nnewPassword: Nueva contraseña del usuario\n\nResponde según corresponda:\n200 - OK Si el cambio de contraseña fue completado.\nCualquier otra respuesta con su respectivo mensaje."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Noticias",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				},
+				{
+					"name": "Create News",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\" : \"Noticia9\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"tipo\": 2,\n\t\"photo\" : \"\",\n\t\"newAreas\" : \"[1,2,3,4]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo[]",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/uploadPhoto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"uploadPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Banner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "banner",
+									"type": "file",
+									"src": null
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/uploadPhotoBanner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"uploadPhotoBanner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get news by id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assignate Area a Noticia",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 1,\n\t\"newAreas\" : [1,2,3,4]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit News",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 6,\n\t\"titulo\" : \"NoticiaUpdated\",\n\t\"descripcion\" : \"asdasd\",\n\t\"duracion\" : 3,\n\t\"estado\" : 0,\n\t\"photo\" : \"1565118460303.png\",\n\t\"newAreas\" : \"[1,2]\",\n\t\"oldAreas\" : \"[1,2,3,4]\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All News",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Last News",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getLastNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getLastNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Images By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : 14\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/getImagesByIdNews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"getImagesByIdNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNoticia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/noticias/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"noticias",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beneficios",
+			"item": [
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idBeneficio\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/beneficios/changeStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"beneficios",
+								"changeStatus"
+							]
+						},
+						"description": "Cambia el estado para activar/desactivar del sistema.\nEnvia el id y retorna mensaje confirmando cambio de estado."
 					},
 					"response": []
 				}
